@@ -1,0 +1,15 @@
+apply plugin: 'java'
+apply from: "$rootDir/common.gradle"
+
+repositories {
+    jcenter()
+}
+
+sourceSets {
+    test {
+        java {
+            srcDirs = ['tests/MessageHubTests/src/test/java']
+        }
+        output.classesDir = 'tests/MessageHubTests/bin'
+    }   
+}
