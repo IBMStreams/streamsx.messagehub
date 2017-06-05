@@ -1,5 +1,6 @@
 ext.splMakeToolkit = { 
     exec() {
+        environment 'CLASSPATH', 'com.ibm.streamsx.messagehub/lib/*'
         commandLine System.getenv("STREAMS_INSTALL") + '/bin/spl-make-toolkit', '-i', '.' 
     }   
 }

@@ -1,25 +1,26 @@
 package com.ibm.streamsx.messagehub.operators;
 
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.log4j.Logger;
 
 import com.ibm.streams.operator.model.Icons;
+import com.ibm.streams.operator.model.InputPortSet;
+import com.ibm.streams.operator.model.InputPorts;
+import com.ibm.streams.operator.model.Libraries;
 import com.ibm.streams.operator.model.Parameter;
 import com.ibm.streams.operator.model.PrimitiveOperator;
-import com.ibm.streamsx.kafka.operators.KafkaProducerOperator;
-import com.ibm.streamsx.kafka.properties.KafkaOperatorProperties;
+import com.ibm.streamsx.kafka.operators.AbstractKafkaProducerOperator;
 import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
 
-@PrimitiveOperator(name = "MessageHubProducer", namespace = "com.ibm.streamsx.kafka.messagehub")
+@PrimitiveOperator(name = "MessageHubProducer", namespace = "com.ibm.streamsx.messagehub")
 @Icons(location16 = "icons/MessageHubProducer_16.png", location32 = "icons/MessageHubProducer_32.png")
-public class MessageHubProducerOperator extends KafkaProducerOperator {
+@Libraries({"opt/downloaded/*"})
+@InputPorts({ @InputPortSet(description = "Port that consumes tuples", cardinality = 1, optional = false) })
+public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
 
     @SuppressWarnings("unused")
     private static final Logger logger = Logger.getLogger(MessageHubProducerOperator.class);
 
-    private String messageHubCredsFile = "etc/" + MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_CREDS_FILE_PATH; //$NON-NLS-1$
+    private String messageHubCredsFile = MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_CREDS_FILE_PATH; //$NON-NLS-1$
 
     @Parameter(optional = true)
     public void setMessageHubCredsFile(String messageHubCredsFile) {
@@ -28,26 +29,15 @@ public class MessageHubProducerOperator extends KafkaProducerOperator {
 
     @Override
     protected void loadProperties() throws Exception {
-        KafkaOperatorProperties messageHubProperties = MessageHubOperatorUtil
-                .loadMessageHubCredsFromFile(getOperatorContext(), convertToAbsolutePath(messageHubCredsFile));
-        loadFromProperties(messageHubProperties);
-
+        getKafkaProperties().putAllIfNotPresent(MessageHubOperatorUtil.loadMessageHubCredsFromFile(getOperatorContext(),
+                convertToAbsolutePath(messageHubCredsFile)));
         super.loadProperties();
     }
 
     @Override
     protected void loadFromAppConfig() throws Exception {
-        KafkaOperatorProperties messageHubProperties = MessageHubOperatorUtil
-                .loadMessageHubCredsFromAppConfig(getOperatorContext(), appConfigName);
-        Properties properties = new Properties(messageHubProperties);
-
-        // add app config properties EXCEPT the default message hub creds
-        // property name
-        Map<String, String> appConfigProps = getOperatorContext().getPE().getApplicationConfiguration(appConfigName);
-        appConfigProps.forEach((key, value) -> {
-            if (!key.equals(MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME))
-                properties.put(key, value);
-        });
-        loadFromProperties(properties);
+        getKafkaProperties().putAllIfNotPresent(
+                MessageHubOperatorUtil.loadMessageHubCredsFromAppConfig(getOperatorContext(), appConfigName));
+        super.loadFromAppConfig();
     }
 }

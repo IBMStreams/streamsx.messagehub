@@ -15,7 +15,7 @@ import com.ibm.streams.operator.OperatorContext;
 import com.ibm.streamsx.kafka.i18n.Messages;
 import com.ibm.streamsx.kafka.properties.JaasUtil;
 import com.ibm.streamsx.kafka.properties.KafkaOperatorProperties;
-import com.ibm.streamsx.messagehub.properties.MessageHubCredentials;
+import com.ibm.streamsx.messagehub.credentials.MessageHubCredentials;
 
 public class MessageHubOperatorUtil {
 
@@ -45,6 +45,7 @@ public class MessageHubOperatorUtil {
 
     public static KafkaOperatorProperties loadMessageHubCredsFromFile(OperatorContext context, File messageHubCredsFile)
             throws Exception {
+    	logger.debug("Attempting to load properties file from: " + messageHubCredsFile);
         if (!messageHubCredsFile.exists()) {
             logger.debug("MessageHub credentials file does not exist: " + messageHubCredsFile.getAbsolutePath()); //$NON-NLS-1$
             return null;
@@ -57,6 +58,8 @@ public class MessageHubOperatorUtil {
         if (credentials == null)
             return null;
 
+        logger.debug("Parsing MessageHub creds: " + credentials);
+        
         KafkaOperatorProperties properties = new KafkaOperatorProperties();
         Gson gson = new Gson();
         MessageHubCredentials messageHubCreds;

@@ -41,7 +41,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
     compile group: 'com.google.code.gson', name: 'gson', version: '2.8.0'
     compile group: 'com.google.guava', name: 'guava', version: '21.0'
-    compile fileTree(dir: 'lib', include: ['*.jar'])
+    compile fileTree(dir: 'opt/downloaded', include: ['com.ibm.streamsx.kafka*.jar'])
     testCompile 'junit:junit:4.12'
 }
 

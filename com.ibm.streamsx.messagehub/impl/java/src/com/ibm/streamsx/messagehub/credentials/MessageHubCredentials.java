@@ -1,4 +1,4 @@
-package com.ibm.streamsx.messagehub.properties;
+package com.ibm.streamsx.messagehub.credentials;
 
 import java.io.Serializable;
 
