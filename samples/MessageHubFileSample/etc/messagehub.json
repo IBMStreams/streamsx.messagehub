@@ -1,17 +1,1 @@
 // replace the contents of this file with your MessageHub credentials JSON
-{
-  "instance_id": "dceb8095-401d-4582-aece-ed98d1d2fdba",
-  "mqlight_lookup_url": "https://mqlight-lookup-prod01.messagehub.services.us-south.bluemix.net/Lookup?serviceId=dceb8095-401d-4582-aece-ed98d1d2fdba",
-  "api_key": "G0qpMYiKrGnk6uSEOuQ17n9lwcpUv9FrkA1j3cGQqR7d28CX",
-  "kafka_admin_url": "https://kafka-admin-prod01.messagehub.services.us-south.bluemix.net:443",
-  "kafka_rest_url": "https://kafka-rest-prod01.messagehub.services.us-south.bluemix.net:443",
-  "kafka_brokers_sasl": [
-    "kafka05-prod01.messagehub.services.us-south.bluemix.net:9093",
-    "kafka03-prod01.messagehub.services.us-south.bluemix.net:9093",
-    "kafka01-prod01.messagehub.services.us-south.bluemix.net:9093",
-    "kafka02-prod01.messagehub.services.us-south.bluemix.net:9093",
-    "kafka04-prod01.messagehub.services.us-south.bluemix.net:9093"
-  ],
-  "user": "G0qpMYiKrGnk6uSE",
-  "password": "OuQ17n9lwcpUv9FrkA1j3cGQqR7d28CX"
-}
