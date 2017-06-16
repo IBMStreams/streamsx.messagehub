@@ -54,8 +54,8 @@ dependencies {
 }
 
 
-ext.getKafkaLibrary = { ->
-    def tempDir = '.kafka'
+def getKafkaLibrary() {
+    def tempDir = projectDir.getPath() + '/.kafka'
     // download and extract the kafka repo
     copy {
         def zipPath = project.configurations.compile.find {it.name.startsWith("streamsx.kafka")}
@@ -81,7 +81,7 @@ ext.getKafkaLibrary = { ->
     // copy the library into the opt/downloaded folder
     copy {
         from fileTree(dir : (new File(kafkaDir, 'impl/lib')).getPath(), include : ['*.jar'])
-        into 'opt/downloaded'
+        into projectDir.getPath() + '/opt/downloaded'
     }
 
 }
