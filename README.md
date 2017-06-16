@@ -6,7 +6,7 @@ A toolkit that simplifies integration between IBM Streams and the BlueMix Messag
 ## Documentation
 
 The toolkit documentation, including details on ways to configure
-the toolkit to connect to MessageHub can be found here: [COMING SOON!]()
+the toolkit to connect to MessageHub can be found here: [https://ibmstreams.github.io/streamsx.messagehub/](https://ibmstreams.github.io/streamsx.messagehub/)
 
 
 ## Build
