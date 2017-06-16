@@ -12,7 +12,7 @@ import com.ibm.streams.operator.model.OutputPortSet.WindowPunctuationOutputMode;
 import com.ibm.streamsx.kafka.operators.AbstractKafkaConsumerOperator;
 import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
 
-@PrimitiveOperator(name = "MessageHubConsumer", namespace = "com.ibm.streamsx.messagehub")
+@PrimitiveOperator(name = "MessageHubConsumer", namespace = "com.ibm.streamsx.messagehub", description=MessageHubConsumerOperator.DESC)
 @Icons(location16 = "icons/MessageHubConsumer_16.png", location32 = "icons/MessageHubConsumer_32.png")
 @Libraries({"opt/downloaded/*"})
 @OutputPorts({
@@ -41,4 +41,6 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
                 MessageHubOperatorUtil.loadMessageHubCredsFromAppConfig(getOperatorContext(), appConfigName));
         super.loadFromAppConfig();
     }
+    
+    public static final String DESC = "The MessageHubConsumer operator is used to read messages from the BlueMix MessageHub service.";
 }
