@@ -1,4 +1,0 @@
-include 'com.ibm.streamsx.messagehub'
-include 'tests/MessageHubTests'
-
-rootProject.name = 'streamsx.messagehub'
