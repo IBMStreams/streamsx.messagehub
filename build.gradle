@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply from: "$rootDir/common.gradle"
 
+allprojects {
 repositories {
     jcenter()
     ivy {
@@ -9,6 +10,7 @@ repositories {
             artifact '/[organization]/[module]/archive/[revision].[ext]'
         }
     }
+}
 }
 
 dependencies {
