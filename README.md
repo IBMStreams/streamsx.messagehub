@@ -5,24 +5,25 @@ A toolkit that simplifies integration between IBM Streams and the BlueMix Messag
 
 ## Documentation
 
-Toolkit documentation can be found here: SPLDoc (COMING SOON!)
+The toolkit documentation, including details on ways to configure
+the toolkit to connect to MessageHub can be found here: [](COMING SOON!)
 
 
 ## Build
 
 ```
 cd com.ibm.streamsx.messagehub
-../gradlew build
+../gradlew.sh build
 ```
 
 ## Build SPLDoc
 ```
-./gradlew spldoc
+./gradlew.sh spldoc
 ```
 
 ## Release
 ```
-./gradlew release
+./gradlew.sh release
 ```
 
 ## Test
