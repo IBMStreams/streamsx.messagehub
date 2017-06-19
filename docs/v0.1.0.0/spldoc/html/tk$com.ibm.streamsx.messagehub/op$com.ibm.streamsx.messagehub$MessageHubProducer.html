@@ -32,7 +32,156 @@
 
 <div class="section">
 
-<p class="p">The MessageHubProducer operator is used to write messages to the BlueMix MessageHub service.
+<p class="p">The <strong class="ph b">MessageHubProducer</strong> operator is used to consume records from the Bluemix MessageHub service. The operator has been designed to make connectivity to the service as simple as possible. This is achieved in a number of different ways, from having default values for the <strong class="ph b">appConfigName</strong> parameter to allowing the user to copy/paste the raw MessageHub Credentials JSON into either an application configuration property or a file.
+</p>
+
+<p class="p">The following table lists the default values that have been set by this operator for a couple of parameters: 
+</p>
+
+<div class="p">
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all">
+
+
+
+<thead class="thead" align="left">
+<tr class="row">
+<th class="entry" colspan="1" valign="top" id="d5612e69">
+<p class="p">Parameter
+</p>
+
+</th>
+
+<th class="entry" colspan="1" valign="top" id="d5612e75">
+<p class="p">Default Value
+</p>
+
+</th>
+
+<th class="entry" colspan="1" valign="top" id="d5612e81">
+<p class="p">Description
+</p>
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody class="tbody">
+<tr class="row">
+<td class="entry" colspan="1" valign="top" headers="d5612e69 ">
+<p class="p"><strong class="ph b">appConfigName</strong>
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d5612e75 ">
+<p class="p"><tt class="ph tt">messagehub</tt>
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d5612e81 ">
+<p class="p">Users can choose to place the raw MesageHub Credentials JSON in a property called <tt class="ph tt">messagehub.creds</tt> in an application configuration called <tt class="ph tt">messagehub</tt>. The operator will extract the information needed to connect to MessageHub.
+</p>
+
+</td>
+
+</tr>
+
+<tr class="row">
+<td class="entry" colspan="1" valign="top" headers="d5612e69 ">
+<p class="p"><strong class="ph b">messageHubCredentialsFile</strong>
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d5612e75 ">
+<p class="p"><tt class="ph tt">etc/messagehub.json</tt>
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d5612e81 ">
+<p class="p">Users can paste the raw MessageHub Credentials JSON into a file pointed to by this parameter. The operator will extract the information needed to connect to MessageHub. By default, the operator will look for a file called <tt class="ph tt">etc/messagehub.json</tt>.
+</p>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+</div>
+
+</div>
+
+</div>
+
+<div class="section"><h2 class="title sectiontitle">Setup
+</h2>
+
+<p class="p">This section outlines different options for enabling the <strong class="ph b">MessageHubProducer</strong> operator to connet to Bluemix MessageHub. Any of the following options can be used to configure the operator for connecting to Bluemix. 
+</p>
+
+<p class="p"><strong class="ph b">Save Credentials in Application Configuration Property</strong>
+</p>
+
+<p class="p">With this option, users can copy their MessageHub Credentials JSON from the MessageHub service and store it in an application configuration property called <tt class="ph tt">messagehub.creds</tt>. When the operator starts, it will look for that property and extract the information needed to connect. The following steps outline how this can be done: 
+</p>
+
+<div class="p">
+<ol class="ol">
+<li class="li"> Create an application configuration called <tt class="ph tt">messagehub</tt>.</li>
+
+<li class="li"> Create a property in the <tt class="ph tt">messagehub</tt> application configuration <em class="ph i">named</em> <tt class="ph tt">messagehub.creds</tt>.
+<ul class="ul">
+<li class="li"> The <em class="ph i">value</em> of the property should be the raw MessageHub Credentials JSON</li>
+
+</ul>
+</li>
+
+<li class="li"> The operator will automatically look for an application configuration named <tt class="ph tt">messagehub</tt> and will extract the information needed to connect. Users only need to specify the topic(s) that they wish to consume messages from (set via the <strong class="ph b">topic</strong> parameter).</li>
+
+</ol>
+
+</div>
+
+<p class="p"><strong class="ph b">NOTE:</strong> Users can specify a different application configuration name by setting the <strong class="ph b">appConfigName</strong> parameter. The operator will still look for a property called <tt class="ph tt">messagehub.creds</tt> containing the MessageHub Credentials JSON. 
+</p>
+
+<p class="p"><strong class="ph b">Save Credentials in File</strong>
+</p>
+
+<p class="p">With this option, users can copy their MessageHub credentials JSON from the MessageHub service and store it in a file called <tt class="ph tt">messagehub.json</tt>. When the operator starts up it will read the credentials from that file and extract the information needed to connect. The following steps outline how this can be done: 
+</p>
+
+<div class="p">
+<ol class="ol">
+<li class="li"> Create a file called <tt class="ph tt">messagehub.json</tt> in the <tt class="ph tt">&lt;application_directory&gt;/etc/</tt> directory. </li>
+
+<li class="li"> Paste the MessageHub Credentials JSON into this file and save it. </li>
+
+<li class="li"> The operator will automatically look for the file <tt class="ph tt">&lt;application_directory&gt;/etc/messagehub.json</tt> and will extract the information needed to connect. Users only need to specify the topic(s) that they wish to consume messages from (set via the <strong class="ph b">topic</strong> parameter).</li>
+
+</ol>
+
+</div>
+
+<p class="p"><strong class="ph b">NOTE:</strong> Users can use the <strong class="ph b">messageHubCredentialsFile</strong> parameter to specify a different file containing the MessageHub Credentials JSON.
+</p>
+
+</div>
+
+<div class="section"><h2 class="title sectiontitle">Additional Operator Details
+</h2>
+
+<p class="p">The MessageHub Toolkit wraps the <tt class="ph tt">KafkaConsumer</tt> and <tt class="ph tt">KafkaProducer</tt> operators from a specific version of the Kafka Toolkit. This implies that all of the functionality and restrictions provided by the Kafka Toolkit are inherited by the MessageHub Toolkit.
+</p>
+
+<p class="p">This version of the MessageHub Toolkit wraps <strong class="ph b">Kafka Toolkit v1.x</strong>. It is recommended that users review the Kafka Toolkit documentation for additional information on supported functionality. The Kafka Toolkit documentation can be found here: <a class="xref" href="https://ibmstreams.github.io/streamsx.kafka/docs/v0.1.0.0/spldoc/html/index.html">Kafka Toolkit v1.x Documentation</a>.
 </p>
 
 </div>
@@ -57,7 +206,7 @@
 
   <dd class="dd">This operator supports 8 parameters.
 <p class="p"> Optional: 
-<a class="xref" href="#spldoc_operator__parameter__appConfig">appConfig</a>, <a class="xref" href="#spldoc_operator__parameter__keyAttribute">keyAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageAttribute">messageAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredsFile">messageHubCredsFile</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__topicAttribute">topicAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
+<a class="xref" href="#spldoc_operator__parameter__appConfig">appConfig</a>, <a class="xref" href="#spldoc_operator__parameter__keyAttribute">keyAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageAttribute">messageAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredentialsFile">messageHubCredentialsFile</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__topicAttribute">topicAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
 
 </p>
 </dd>
@@ -131,7 +280,7 @@
 <p class="p splhead-1"><strong class="ph b"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters">Parameters</a></strong></p>
 This operator supports 8 parameters.
 <p class="p"> Optional: 
-<a class="xref" href="#spldoc_operator__parameter__appConfig">appConfig</a>, <a class="xref" href="#spldoc_operator__parameter__keyAttribute">keyAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageAttribute">messageAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredsFile">messageHubCredsFile</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__topicAttribute">topicAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
+<a class="xref" href="#spldoc_operator__parameter__appConfig">appConfig</a>, <a class="xref" href="#spldoc_operator__parameter__keyAttribute">keyAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageAttribute">messageAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredentialsFile">messageHubCredentialsFile</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__topicAttribute">topicAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
 
 </p>
 <dl class="dl">
@@ -229,9 +378,12 @@ This operator supports 8 parameters.
 
 
 
-<dt class="dt dlterm"><a name="spldoc_operator__parameter__messageHubCredsFile"><!-- --></a><tt class="ph tt">messageHubCredsFile</tt></dt>
+<dt class="dt dlterm"><a name="spldoc_operator__parameter__messageHubCredentialsFile"><!-- --></a><tt class="ph tt">messageHubCredentialsFile</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Specifies the name of the file that contains the complete MessageHub credentials JSON. If not specified, this parameter will attempt to load the credentials from the file <tt class="ph tt">etc/messagehub.json</tt>.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
