@@ -62,7 +62,7 @@
 </p>
 
 <p class="p"> Optional: 
-<a class="xref" href="#spldoc_operator__parameter__appConfigName">appConfigName</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredsFile">messageHubCredsFile</a>, <a class="xref" href="#spldoc_operator__parameter__outputKeyAttributeName">outputKeyAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputMessageAttributeName">outputMessageAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputTopicAttributeName">outputTopicAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__partition">partition</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__startPosition">startPosition</a>, <a class="xref" href="#spldoc_operator__parameter__triggerCount">triggerCount</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
+<a class="xref" href="#spldoc_operator__parameter__appConfig">appConfig</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredsFile">messageHubCredsFile</a>, <a class="xref" href="#spldoc_operator__parameter__outputKeyAttributeName">outputKeyAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputMessageAttributeName">outputMessageAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputTopicAttributeName">outputTopicAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__partition">partition</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__startPosition">startPosition</a>, <a class="xref" href="#spldoc_operator__parameter__triggerCount">triggerCount</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
 
 </p>
 </dd>
@@ -153,14 +153,17 @@ This operator supports 11 parameters.
 </p>
 
 <p class="p"> Optional: 
-<a class="xref" href="#spldoc_operator__parameter__appConfigName">appConfigName</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredsFile">messageHubCredsFile</a>, <a class="xref" href="#spldoc_operator__parameter__outputKeyAttributeName">outputKeyAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputMessageAttributeName">outputMessageAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputTopicAttributeName">outputTopicAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__partition">partition</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__startPosition">startPosition</a>, <a class="xref" href="#spldoc_operator__parameter__triggerCount">triggerCount</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
+<a class="xref" href="#spldoc_operator__parameter__appConfig">appConfig</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredsFile">messageHubCredsFile</a>, <a class="xref" href="#spldoc_operator__parameter__outputKeyAttributeName">outputKeyAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputMessageAttributeName">outputMessageAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputTopicAttributeName">outputTopicAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__partition">partition</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__startPosition">startPosition</a>, <a class="xref" href="#spldoc_operator__parameter__triggerCount">triggerCount</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
 
 </p>
 <dl class="dl">
 
-<dt class="dt dlterm"><a name="spldoc_operator__parameter__appConfigName"><!-- --></a><tt class="ph tt">appConfigName</tt></dt>
+<dt class="dt dlterm"><a name="spldoc_operator__parameter__appConfig"><!-- --></a><tt class="ph tt">appConfig</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Specifies the name of the application configuration containing Kafka properties.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
@@ -216,7 +219,10 @@ This operator supports 11 parameters.
 
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__outputKeyAttributeName"><!-- --></a><tt class="ph tt">outputKeyAttributeName</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Specifies the output attribute name that should contain the key. If not specified, the operator will attempt to store the message in an attribute named 'key'.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
@@ -244,7 +250,10 @@ This operator supports 11 parameters.
 
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__outputMessageAttributeName"><!-- --></a><tt class="ph tt">outputMessageAttributeName</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Specifies the output attribute name that will contain the message. If not specified, the operator will attempt to store the message in an attribute named 'message'.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
@@ -272,7 +281,10 @@ This operator supports 11 parameters.
 
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__outputTopicAttributeName"><!-- --></a><tt class="ph tt">outputTopicAttributeName</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Specifies the output attribute name that should contain the topic. If not specified, the operator will attempt to store the message in an attribute named 'topic'.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
@@ -300,7 +312,10 @@ This operator supports 11 parameters.
 
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__partition"><!-- --></a><tt class="ph tt">partition</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Specifies the partitions that the consumer should be assigned to for each of the topics specified. It should be noted that using this parameter will <em class="ph i">assign</em> the consumer to the specified topics, rather than <em class="ph i">subscribe</em> to them. This implies that the consumer will not use Kafka's group management feature.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
@@ -325,7 +340,10 @@ This operator supports 11 parameters.
 
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__propertiesFile"><!-- --></a><tt class="ph tt">propertiesFile</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Specifies the name of the properties file containing Kafka properties.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
@@ -353,7 +371,10 @@ This operator supports 11 parameters.
 
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__startPosition"><!-- --></a><tt class="ph tt">startPosition</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Specifies whether the operator should start reading from the end of the topic, or start reading all messages from the beginning of the topic. Valid options include: <tt class="ph tt">Beginning</tt>, <tt class="ph tt">End</tt>. If not specified, the default value is <tt class="ph tt">End</tt>.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
@@ -384,7 +405,10 @@ This operator supports 11 parameters.
 
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__topic"><!-- --></a><tt class="ph tt">topic</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Specifies the topic or topics that the consumer should subscribe to. To assign the consumer to specific partitions, use the <strong class="ph b">partitions</strong> parameter.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
@@ -409,7 +433,10 @@ This operator supports 11 parameters.
 
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__triggerCount"><!-- --></a><tt class="ph tt">triggerCount</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">This parameter specifies the approximate number of messages that will be submitted to the output port before initiating a checkpoint. The operator retrieves batches of messages from Kafka, and the consistent region is only started after all messages in the batch have been submitted. The implication of this is that more tuples maybe submitted by the operator before a consistent region is triggered. This parameter is only used if the operator is the start of a consistent region.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
@@ -437,7 +464,10 @@ This operator supports 11 parameters.
 
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__userLib"><!-- --></a><tt class="ph tt">userLib</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Allows the user to specify paths to JAR files that should be loaded into the operators classpath. This is useful if the user wants to be able to specify their own partitioners. The value of this parameter can either point to a specific JAR file, or to a directory. In the case of a directory, the operator will load all files ending in <tt class="ph tt">.jar</tt> onto the classpath. By default, this parameter will load all jar files found in <tt class="ph tt">&lt;application_dir&gt;/etc/libs</tt>.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 

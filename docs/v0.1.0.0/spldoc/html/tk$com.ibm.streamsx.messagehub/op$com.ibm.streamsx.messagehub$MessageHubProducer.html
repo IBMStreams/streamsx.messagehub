@@ -57,7 +57,7 @@
 
   <dd class="dd">This operator supports 8 parameters.
 <p class="p"> Optional: 
-<a class="xref" href="#spldoc_operator__parameter__appConfigName">appConfigName</a>, <a class="xref" href="#spldoc_operator__parameter__keyAttribute">keyAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageAttribute">messageAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredsFile">messageHubCredsFile</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__topicAttribute">topicAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
+<a class="xref" href="#spldoc_operator__parameter__appConfig">appConfig</a>, <a class="xref" href="#spldoc_operator__parameter__keyAttribute">keyAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageAttribute">messageAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredsFile">messageHubCredsFile</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__topicAttribute">topicAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
 
 </p>
 </dd>
@@ -131,14 +131,17 @@
 <p class="p splhead-1"><strong class="ph b"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters">Parameters</a></strong></p>
 This operator supports 8 parameters.
 <p class="p"> Optional: 
-<a class="xref" href="#spldoc_operator__parameter__appConfigName">appConfigName</a>, <a class="xref" href="#spldoc_operator__parameter__keyAttribute">keyAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageAttribute">messageAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredsFile">messageHubCredsFile</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__topicAttribute">topicAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
+<a class="xref" href="#spldoc_operator__parameter__appConfig">appConfig</a>, <a class="xref" href="#spldoc_operator__parameter__keyAttribute">keyAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageAttribute">messageAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredsFile">messageHubCredsFile</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__topicAttribute">topicAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
 
 </p>
 <dl class="dl">
 
-<dt class="dt dlterm"><a name="spldoc_operator__parameter__appConfigName"><!-- --></a><tt class="ph tt">appConfigName</tt></dt>
+<dt class="dt dlterm"><a name="spldoc_operator__parameter__appConfig"><!-- --></a><tt class="ph tt">appConfig</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Specifies the name of the application configuration containing Kafka properties.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
@@ -166,7 +169,10 @@ This operator supports 8 parameters.
 
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__keyAttribute"><!-- --></a><tt class="ph tt">keyAttribute</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Specifies the input attribute that contains the Kafka key value. If not specified, the operator will look for an input attribute named <em class="ph i">key</em>.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
@@ -194,7 +200,10 @@ This operator supports 8 parameters.
 
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__messageAttribute"><!-- --></a><tt class="ph tt">messageAttribute</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Specifies the attribute on the input port that contains the message payload. If not specified, the operator will look for an input attribute named <em class="ph i">message</em>. If this parameter is not specified and there is no input attribute named <em class="ph i">message</em>, the operator will throw an exception and terminate.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
@@ -250,7 +259,10 @@ This operator supports 8 parameters.
 
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__propertiesFile"><!-- --></a><tt class="ph tt">propertiesFile</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Specifies the name of the properties file containing Kafka properties.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
@@ -278,7 +290,10 @@ This operator supports 8 parameters.
 
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__topic"><!-- --></a><tt class="ph tt">topic</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Specifies the topic(s) that the producer should send messages to. The value of this parameter will take precedence over the <strong class="ph b">topicAttrName</strong> parameter. This parameter will also take precedence if the input tuple schema contains an attribute named topic.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
@@ -303,7 +318,10 @@ This operator supports 8 parameters.
 
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__topicAttribute"><!-- --></a><tt class="ph tt">topicAttribute</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Specifies the input attribute that contains the name of the topic that the message should be written to. If this parameter is not specified, the operator will attempt to look for an input attribute named <em class="ph i">topic</em>. This parameter value is overridden if the <strong class="ph b">topic</strong> parameter is specified.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
@@ -334,7 +352,10 @@ This operator supports 8 parameters.
 
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__userLib"><!-- --></a><tt class="ph tt">userLib</tt></dt>
 
-<dd class="dd"><dl class="dl">
+<dd class="dd">
+<p class="p">Allows the user to specify paths to JAR files that should be loaded into the operators classpath. This is useful if the user wants to be able to specify their own partitioners. The value of this parameter can either point to a specific JAR file, or to a directory. In the case of a directory, the operator will load all files ending in <tt class="ph tt">.jar</tt> onto the classpath. By default, this parameter will load all jar files found in <tt class="ph tt">&lt;application_dir&gt;/etc/libs</tt>.
+</p>
+<dl class="dl">
 
  <dt class="dt dlterm">Properties </dt>
 
