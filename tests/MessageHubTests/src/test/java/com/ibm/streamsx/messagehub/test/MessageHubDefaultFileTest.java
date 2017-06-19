@@ -1,15 +1,11 @@
 package com.ibm.streamsx.messagehub.test;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.streamsx.messagehub.test.utils.Constants;
@@ -26,47 +22,18 @@ import com.ibm.streamsx.topology.spl.SPLStreams;
 import com.ibm.streamsx.topology.tester.Condition;
 import com.ibm.streamsx.topology.tester.Tester;
 
-public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
+public class MessageHubDefaultFileTest extends AbstractMessageHubTest {
 
 	private static final String TEST_NAME = "KafkaOperatorsGreenThread";
-	private static final String APP_CONFIG_NAME = "userAppConfig";
 	
-	public MessageHubAppConfigParamTest() throws Exception {
+	public MessageHubDefaultFileTest() throws Exception {
 		super(TEST_NAME);
 	}
 	
-	@Before
-	public void setup() throws Exception {
-		String creds = new String(Files.readAllBytes(Paths.get("etc/messagehub.json")));
-		creds = "messagehub.creds=" + creds.replace("=", "&#61;");
-		
-		ProcessBuilder pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "mkappconfig", "--property", creds, APP_CONFIG_NAME);
-		pb.inheritIO();
-		Process p = pb.start();
-		
-		p.waitFor(25, TimeUnit.SECONDS);
-		if(p.exitValue() != 0) {
-			System.out.println(p.exitValue());
-			Assert.fail("Creating app config failed! Test cancelled!");
-		}
-	}
-	
-	@After
-	public void cleanup() throws Exception {
-		ProcessBuilder pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "rmappconfig", "--noprompt", APP_CONFIG_NAME);
-		pb.inheritIO();
-		Process p = pb.start();
-		
-		p.waitFor(25, TimeUnit.SECONDS);
-		if(p.exitValue() != 0) {
-			System.out.println(p.exitValue());
-			Assert.fail("Removing appconfig failed. App config must be removed manually!");
-		}
-	}
-	
 	@Test
-	public void messageHubAppConfigParamTest() throws Exception {
+	public void messageHubDefaultFileTest() throws Exception {
 		Topology topo = getTopology();
+		topo.addFileDependency("etc/messagehub.json", "etc");
 		
 		// create the producer (produces tuples after a short delay)
 		TStream<String> stringSrcStream = topo.strings(Constants.STRING_DATA).modify(new Delay<>(5000));
@@ -93,7 +60,6 @@ public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
 		Map<String, Object> params = new HashMap<String, Object>();
 		
 		params.put("topic", Constants.TOPIC_TEST);
-		params.put("appConfigName", APP_CONFIG_NAME);
 		
 		return params;
 	}

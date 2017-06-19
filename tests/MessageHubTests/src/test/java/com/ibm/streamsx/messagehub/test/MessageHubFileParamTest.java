@@ -1,13 +1,17 @@
 package com.ibm.streamsx.messagehub.test;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
+import com.google.common.io.Files;
 import com.ibm.streamsx.messagehub.test.utils.Constants;
 import com.ibm.streamsx.messagehub.test.utils.Delay;
 import com.ibm.streamsx.messagehub.test.utils.MessageHubSPLStreamsUtils;
@@ -25,15 +29,26 @@ import com.ibm.streamsx.topology.tester.Tester;
 public class MessageHubFileParamTest extends AbstractMessageHubTest {
 
 	private static final String TEST_NAME = "KafkaOperatorsGreenThread";
+	private static final String MESSAGEHUB_CREDS_FILE_PATH = "etc/userfile.json";
 	
 	public MessageHubFileParamTest() throws Exception {
 		super(TEST_NAME);
 	}
 	
+	@Before
+	public void setup() throws Exception {
+		Files.copy(new File("etc/messagehub.json"), new File(MESSAGEHUB_CREDS_FILE_PATH));
+	}
+
+	@After
+	public void cleanup() throws Exception {
+		(new File(MESSAGEHUB_CREDS_FILE_PATH)).deleteOnExit();
+	}
+	
 	@Test
 	public void messageHubFileParamTest() throws Exception {
 		Topology topo = getTopology();
-		topo.addFileDependency("etc/messagehub.json", "etc");
+		topo.addFileDependency(MESSAGEHUB_CREDS_FILE_PATH, "etc");
 		
 		// create the producer (produces tuples after a short delay)
 		TStream<String> stringSrcStream = topo.strings(Constants.STRING_DATA).modify(new Delay<>(5000));
@@ -60,6 +75,7 @@ public class MessageHubFileParamTest extends AbstractMessageHubTest {
 		Map<String, Object> params = new HashMap<String, Object>();
 		
 		params.put("topic", Constants.TOPIC_TEST);
+		params.put("messageHubCredentialsFile", MESSAGEHUB_CREDS_FILE_PATH);
 		
 		return params;
 	}

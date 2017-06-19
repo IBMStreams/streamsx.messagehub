@@ -26,12 +26,11 @@ import com.ibm.streamsx.topology.spl.SPLStreams;
 import com.ibm.streamsx.topology.tester.Condition;
 import com.ibm.streamsx.topology.tester.Tester;
 
-public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
+public class MessageHubDefaultAppConfigTest extends AbstractMessageHubTest {
 
 	private static final String TEST_NAME = "KafkaOperatorsGreenThread";
-	private static final String APP_CONFIG_NAME = "userAppConfig";
 	
-	public MessageHubAppConfigParamTest() throws Exception {
+	public MessageHubDefaultAppConfigTest() throws Exception {
 		super(TEST_NAME);
 	}
 	
@@ -40,7 +39,7 @@ public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
 		String creds = new String(Files.readAllBytes(Paths.get("etc/messagehub.json")));
 		creds = "messagehub.creds=" + creds.replace("=", "&#61;");
 		
-		ProcessBuilder pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "mkappconfig", "--property", creds, APP_CONFIG_NAME);
+		ProcessBuilder pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "mkappconfig", "--property", creds, "messagehub");
 		pb.inheritIO();
 		Process p = pb.start();
 		
@@ -53,7 +52,7 @@ public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
 	
 	@After
 	public void cleanup() throws Exception {
-		ProcessBuilder pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "rmappconfig", "--noprompt", APP_CONFIG_NAME);
+		ProcessBuilder pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "rmappconfig", "--noprompt", "messagehub");
 		pb.inheritIO();
 		Process p = pb.start();
 		
@@ -65,7 +64,7 @@ public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
 	}
 	
 	@Test
-	public void messageHubAppConfigParamTest() throws Exception {
+	public void messageHubDefaultAppConfigTest() throws Exception {
 		Topology topo = getTopology();
 		
 		// create the producer (produces tuples after a short delay)
@@ -93,7 +92,6 @@ public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
 		Map<String, Object> params = new HashMap<String, Object>();
 		
 		params.put("topic", Constants.TOPIC_TEST);
-		params.put("appConfigName", APP_CONFIG_NAME);
 		
 		return params;
 	}
