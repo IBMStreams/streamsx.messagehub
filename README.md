@@ -13,17 +13,17 @@ the toolkit to connect to MessageHub can be found here: [https://ibmstreams.gith
 
 ```
 cd com.ibm.streamsx.messagehub
-../gradlew.sh build
+../gradlew build
 ```
 
 ## Build SPLDoc
 ```
-./gradlew.sh spldoc
+./gradlew spldoc
 ```
 
 ## Release
 ```
-./gradlew.sh release
+./gradlew release
 ```
 
 ## Test
