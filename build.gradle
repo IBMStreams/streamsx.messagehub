@@ -15,11 +15,6 @@ allprojects {
 
 def toolkitVersion = ext.getVersion()
 
-dependencies {
-    compile 'IBMStreams1:streamsx.kafka:0.1.0.0-mhtest@zip'
-}
-
-
 def release() {
     delete fileTree(dir: 'build/release', include: '**/**')
 

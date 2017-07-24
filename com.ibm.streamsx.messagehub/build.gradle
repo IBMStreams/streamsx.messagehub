@@ -39,7 +39,7 @@ repositories {
 
 /* Defs */
 def STREAMS_INSTALL = System.getenv("STREAMS_INSTALL")
-def KAFKA_BASE_TAG = 'v0.1.0.0-mhtest' // Update this tag when changing the underlying Kafka version
+def KAFKA_BASE_TAG = 'v1.0.0' // Update this tag when changing the underlying Kafka version
 
 dependencies {
     compile fileTree(dir: STREAMS_INSTALL + '/lib', include: ['com.ibm.streams.operator.jar', 'com.ibm.streams.operator.samples.jar'])
