@@ -22,6 +22,11 @@ composite MessageHubFileSample
         () as MessageHubProducer_2 = MessageHubProducer(Beacon_1_out0)
         {
             param
+                /*
+                 * By default, the operator will look for an file called "messagehub.json" in the etc/ directory.
+                 * Uncomment out this parameter to specify a different file. 
+                 */            
+                // messageHubCredentialsFile : "etc/my-creds.json";
                 topic : "test";
         }
 
@@ -29,6 +34,11 @@ composite MessageHubFileSample
             MessageHubConsumer_3 = MessageHubConsumer()
         {
             param
+                /*
+                 * By default, the operator will look for an file called "messagehub.json" in the etc/ directory.
+                 * Uncomment out this parameter to specify a different file. 
+                 */            
+                // messageHubCredentialsFile : "etc/my-creds.json";            
                 topic : "test" ;
         }
 

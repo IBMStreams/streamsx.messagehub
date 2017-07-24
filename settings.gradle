@@ -1,4 +1,5 @@
 include 'com.ibm.streamsx.messagehub'
 include 'tests/MessageHubTests'
+include 'samples/MessageHubFileSample', 'samples/MessageHubAppConfigSample'
 
 rootProject.name = 'streamsx.messagehub'
