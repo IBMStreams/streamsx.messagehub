@@ -1,0 +1,132 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply from: "../common.gradle"
+
+eclipse {
+    classpath {
+        downloadSources=true
+        downloadJavadoc=true
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['impl/java/src']
+        }
+        output.classesDir = 'impl/java/bin'
+    }
+}
+
+version = "0.1.0.0"
+libsDirName = '../impl/lib'
+
+processResources {
+    from ('impl/java/src') {
+        include '**/*.properties'
+    }
+}
+
+repositories {
+    jcenter()
+    ivy {
+        url 'https://github.com/'
+        layout 'pattern', {
+            artifact '/[organization]/[module]/archive/[revision].[ext]'
+        }
+    }
+}
+
+/* Defs */
+def STREAMS_INSTALL = System.getenv("STREAMS_INSTALL")
+def KAFKA_BASE_TAG = 'v1.0.0' // Update this tag when changing the underlying Kafka version
+
+dependencies {
+    compile fileTree(dir: STREAMS_INSTALL + '/lib', include: ['com.ibm.streams.operator.jar', 'com.ibm.streams.operator.samples.jar'])
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile group: 'org.apache.kafka', name: 'kafka_2.10', version: '0.10.2.0'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.0'
+    compile group: 'com.google.guava', name: 'guava', version: '21.0'
+    compile "IBMStreams:streamsx.kafka:$KAFKA_BASE_TAG@zip"
+    compile fileTree(dir: 'opt/downloaded', include: ['com.ibm.streamsx.kafka*.jar'])
+    testCompile 'junit:junit:4.12'
+}
+
+
+def getKafkaLibrary() {
+    def tempDir = projectDir.getPath() + '/.kafka'
+    // download and extract the kafka repo
+    copy {
+        def zipPath = project.configurations.compile.find {it.name.startsWith("streamsx.kafka")}
+
+        from zipTree(file(zipPath))
+        into file("$tempDir")
+    }
+
+    // get the toolkit directory
+    def outDir = new File("$tempDir")
+    def kafkaDir;
+    outDir.eachDirMatch(~/streamsx.kafka.*/) { file ->  
+        kafkaDir = new File(file, 'com.ibm.streamsx.kafka')
+    }
+
+    // build kafka toolkit
+    org.gradle.tooling.ProjectConnection connection = org.gradle.tooling.GradleConnector.newConnector().forProjectDirectory(kafkaDir).connect()
+    org.gradle.tooling.BuildLauncher bl = connection.newBuild()
+    bl.forTasks('build')
+    bl.setStandardOutput(System.out)
+    bl.run()
+
+    // copy the library into the opt/downloaded folder
+    copy {
+        from fileTree(dir : (new File(kafkaDir, 'impl/lib')).getPath(), include : ['*.jar'])
+        into projectDir.getPath() + '/opt/downloaded'
+    }
+
+}
+
+task kafka {
+    doLast {
+        getKafkaLibrary()
+    }
+}
+
+
+task getDeps(type: Copy) {
+    into "opt/downloaded"
+    from configurations.runtime
+    exclude '*streams*'
+}
+
+task copyLibToImpl(type: Copy) {
+    into "impl/lib"
+    from "build/libs/"
+}
+
+task deleteDeps(type: Delete) {
+    delete "opt"
+    delete "bin"
+    delete "output"
+    delete "com.ibm.streamsx.messagehub"
+    delete "impl/java/bin"
+    delete "impl/lib/com.ibm.streamsx.messagehub-${version}.jar"
+    delete ".kafka"
+}
+
+task buildToolkit() {
+    doLast {
+        splMakeToolkit()
+    }   
+}
+
+task cleanToolkit() {
+    doLast {
+        splCleanToolkit()
+    }   
+}
+
+compileJava.dependsOn getDeps, kafka
+compileJava.finalizedBy buildToolkit
+build.finalizedBy copyLibToImpl
+clean.dependsOn deleteDeps, cleanToolkit

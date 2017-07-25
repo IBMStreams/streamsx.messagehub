@@ -1,0 +1,75 @@
+apply plugin: 'java'
+apply from: "$rootDir/common.gradle"
+
+allprojects {
+    repositories {
+        jcenter()
+        ivy {
+            url 'https://github.com/'
+            layout 'pattern', {
+                artifact '/[organization]/[module]/archive/[revision].[ext]'
+            }
+        }
+    }
+}
+
+def toolkitVersion = ext.getVersion()
+
+def release() {
+    delete fileTree(dir: 'build/release', include: '**/**')
+
+    copy {
+        from 'com.ibm.streamsx.messagehub'
+        into 'build/release/com.ibm.streamsx.messagehub'
+    }
+
+    delete 'build/release/com.ibm.streamsx.messagehub/icons'
+    delete 'build/release/com.ibm.streamsx.messagehub/build'
+    delete 'build/release/com.ibm.streamsx.messagehub/build.gradle'
+    delete 'build/release/com.ibm.streamsx.messagehub/impl/java/src'
+    delete 'build/release/com.ibm.streamsx.messagehub/impl/src'
+    delete 'build/release/com.ibm.streamsx.messagehub/impl/bin'
+    delete 'build/release/com.ibm.streamsx.messagehub/.gradle'
+    delete 'build/release/com.ibm.streamsx.messagehub/.toolkitList'
+    delete 'build/release/com.ibm.streamsx.messagehub/.classpath'
+    delete 'build/release/com.ibm.streamsx.messagehub/.apt_generated'
+    delete 'build/release/com.ibm.streamsx.messagehub/.project'
+    delete 'build/release/com.ibm.streamsx.messagehub/.settings'
+    delete 'build/release/com.ibm.streamsx.messagehub/impl/include'
+    delete 'build/release/com.ibm.streamsx.messagehub/data'
+    delete 'build/release/com.ibm.streamsx.messagehub/impl/java'
+}
+
+task archive(type: Tar) {
+    from('build/release/') {
+        exclude('output', 'com.ibm.streamsx.messagehub/.kafka')
+    }
+    compression = Compression.GZIP
+    destinationDir = file('build/release/output')
+    baseName = "com.ibm.streamsx.messagehub"
+    version = toolkitVersion
+    doLast {
+        ant.checksum file: archivePath
+    }
+}
+
+task release {
+    doLast {
+        release()
+    }
+    dependsOn ':com.ibm.streamsx.messagehub:build'
+    finalizedBy archive
+}  
+
+
+
+task spldoc(dependsOn: ":com.ibm.streamsx.messagehub:build") {
+    doLast {
+        spldoc('com.ibm.streamsx.messagehub', 'MessageHub Toolkit')
+    }
+}
+
+task deleteSplDocDir {
+    delete "docs"
+}
+
