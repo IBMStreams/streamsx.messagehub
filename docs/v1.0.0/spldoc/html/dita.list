@@ -1,4 +1,4 @@
-#Mon Jun 19 07:38:22 EDT 2017
+#Tue Jul 25 11:15:27 EDT 2017
 copytosourcelist=
 hreftargetslist=dita/tk$com.ibm.streamsx.messagehub/op$com.ibm.streamsx.messagehub$MessageHubProducer.xml,dita/tk$com.ibm.streamsx.messagehub/op$com.ibm.streamsx.messagehub$MessageHubConsumer.xml,dita/tk$com.ibm.streamsx.messagehub/ix$Namespace.xml,dita/toolkits/ix$Namespace.xml,dita/toolkits/ix$Operator.xml,dita/tk$com.ibm.streamsx.messagehub/ns$com.ibm.streamsx.messagehub.xml,dita/tk$com.ibm.streamsx.messagehub/ix$Operator.xml,dita/toolkits/toolkits.xml,dita/references/OperatorModel.xml,dita/tk$com.ibm.streamsx.messagehub/tk$com.ibm.streamsx.messagehub.xml
 fullditatopicfile=fullditatopic.list
@@ -37,7 +37,7 @@ codereffile=coderef.list
 keylist=
 codereflist=
 user.input.file.listfile=usr.input.file.list
-user.input.dir=/home/streamsadmin/git/streamsx.messagehub/docs/spldoc
+user.input.dir=/tmp/streamsx.messagehub/docs/spldoc
 uplevels=../
 tempdirToinputmapdir.relative.value=dita/
 conrefpushfile=conrefpush.list
