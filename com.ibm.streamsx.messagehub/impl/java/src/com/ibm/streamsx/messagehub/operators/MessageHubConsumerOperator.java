@@ -14,7 +14,7 @@ import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
 
 @PrimitiveOperator(name = "MessageHubConsumer", namespace = "com.ibm.streamsx.messagehub", description=MessageHubConsumerOperator.DESC)
 @Icons(location16 = "icons/MessageHubConsumer_16.png", location32 = "icons/MessageHubConsumer_32.png")
-@Libraries({"opt/downloaded/*"})
+@Libraries({"opt/downloaded/*", "impl/lib/*"})
 @OutputPorts({
     @OutputPortSet(description = "Port that produces tuples", cardinality = 1, optional = false, windowPunctuationOutputMode = WindowPunctuationOutputMode.Generating) })
 public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {

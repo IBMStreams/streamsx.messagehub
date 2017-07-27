@@ -13,7 +13,7 @@ import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
 
 @PrimitiveOperator(name = "MessageHubProducer", namespace = "com.ibm.streamsx.messagehub", description=MessageHubProducerOperator.DESC)
 @Icons(location16 = "icons/MessageHubProducer_16.png", location32 = "icons/MessageHubProducer_32.png")
-@Libraries({"opt/downloaded/*"})
+@Libraries({"opt/downloaded/*", "impl/lib/*"})
 @InputPorts({ @InputPortSet(description = "Port that consumes tuples", cardinality = 1, optional = false) })
 public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
 
