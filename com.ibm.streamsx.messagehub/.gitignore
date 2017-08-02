@@ -4,3 +4,5 @@
 toolkit.xml
 /opt
 bin/
+.kafka
+build
