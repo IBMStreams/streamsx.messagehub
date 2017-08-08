@@ -28,12 +28,16 @@ cd com.ibm.streamsx.messagehub
 
 ## Test
 
-Add the MessageHub JSON credentials to the `tests/KafkaTests/etc/messagehub.json` file.
+Create a MessageHub Service in [IBM Bluemix](https://console.bluemix.net)
+
+In the IBM Bluemix MessageHub service, create a topic "test"
+
+Add the MessageHub JSON credentials to the `tests/MessageHubTests/etc/messagehub.json` file.
 
 Run the following commands to launch the tests:
 
 ```
-cd tests/KafkaTests
+cd tests/MessageHubTestsTests
 ../../gradlew test
 ```
 
