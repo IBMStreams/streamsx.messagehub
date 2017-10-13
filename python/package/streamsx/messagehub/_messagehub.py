@@ -1,3 +1,8 @@
+# coding=utf-8
+# Licensed Materials - Property of IBM
+# Copyright IBM Corp. 2017
+
+import streamsx.spl.op
 from streamsx.topology.schema import CommonSchema
 
 def consumeAsJson(topology, topic, app_config_name=None, name=None):
