@@ -1,1 +1,1 @@
-from _messagehub import consumeAsJson, produceAsJson
+from streamsx.messagehub._messagehub import consumeAsJson, produceAsJson
