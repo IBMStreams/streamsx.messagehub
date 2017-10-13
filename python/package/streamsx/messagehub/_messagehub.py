@@ -5,11 +5,11 @@
 import streamsx.spl.op
 from streamsx.topology.schema import CommonSchema
 
-def consumeAsJson(topology, topic, app_config_name=None, name=None):
+def consume_as_json(topology, topic, app_config_name=None, name=None):
     _op = MessageHubConsumer(topology, schema=CommonSchema.Json, outputMessageAttributeName='jsonString', appConfigName=app_config_name, topic=topic)
     return _op.stream
 
-def produceAsJson(stream, topic, app_config_name=None, name=None):
+def produce_as_json(stream, topic, app_config_name=None, name=None):
     stream = stream.as_json()
     _op = MessageHubProducer(stream, appConfigName=app_config_name, topic=topic)
     _op.params('messageAttribute', _op.attribute(stream, 'jsonString'))
@@ -62,8 +62,6 @@ class MessageHubProducer(streamsx.spl.op.Sink):
     def __init__(self, stream, vmArg=None, appConfigName=None, keyAttribute=None, messageAttribute=None, messageHubCredentialsFile=None, partitionAttribute=None, propertiesFile=None, timestampAttribute=None, topicAttribute=None, topic=None, userLib=None, name=None):
         topology = stream.topology
         kind="com.ibm.streamsx.messagehub::MessageHubProducer"
-        inputs=stream
-        schemas=None
         params = dict()
         if vmArg is not None:
             params['vmArg'] = vmArg
@@ -87,4 +85,4 @@ class MessageHubProducer(streamsx.spl.op.Sink):
             params['topic'] = topic
         if userLib is not None:
             params['userLib'] = userLib
-        super(MessageHubProducer, self).__init__(topology,kind,inputs,params,name)
+        super(MessageHubProducer, self).__init__(kind,stream,params,name)
