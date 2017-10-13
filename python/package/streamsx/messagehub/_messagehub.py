@@ -5,14 +5,33 @@
 import streamsx.spl.op
 from streamsx.topology.schema import CommonSchema
 
-def consume_as_json(topology, topic, app_config_name=None, name=None):
-    _op = MessageHubConsumer(topology, schema=CommonSchema.Json, outputMessageAttributeName='jsonString', appConfigName=app_config_name, topic=topic)
+def consume(topology, topic, schema, app_config_name=None, name=None):
+     """Consume messages from Message Hub for a topic.
+     """
+     msg_att_name = None
+     if schema == CommonSchema.Json:
+         msg_att_name='jsonString'
+     elif schema == CommonSchema.String:
+         msg_att_name='string'
+     else:
+         raise TypeError(schema)
+
+    _op = MessageHubConsumer(topology, schema=CommonSchema.Json, outputMessageAttributeName=msg_attr_name, appConfigName=app_config_name, topic=topic)
     return _op.stream
 
-def produce_as_json(stream, topic, app_config_name=None, name=None):
-    stream = stream.as_json()
+def produce(stream, topic, app_config_name=None, name=None):
+    """Produce Message Hub messages to a topic.
+    For each tuple on `stream` a message is produced on queue `topic`.
+    """
+    if stream.oport.schema == CommonSchema.Json:
+        msg_attr = 'jsonString'
+    elif stream.oport.schema == CommonSchema.String:
+        msg_attr = 'string'
+     else:
+         raise TypeError(schema)
+
     _op = MessageHubProducer(stream, appConfigName=app_config_name, topic=topic)
-    _op.params['messageAttribute'] = _op.attribute(stream, 'jsonString')
+    _op.params['messageAttribute'] = _op.attribute(stream, msg_attr)
     
 class MessageHubConsumer(streamsx.spl.op.Source):
     def __init__(self, topology, schema, vmArg=None, appConfigName=None, clientId=None, messageHubCredentialsFile=None, outputKeyAttributeName=None, outputMessageAttributeName=None, outputTimestampAttributeName=None, outputOffsetAttributeName=None, outputPartitionAttributeName=None, outputTopicAttributeName=None, partition=None, propertiesFile=None, startPosition=None, startTime=None, topic=None, triggerCount=None, userLib=None, name=None):
