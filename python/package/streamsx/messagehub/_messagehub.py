@@ -12,7 +12,7 @@ def consume_as_json(topology, topic, app_config_name=None, name=None):
 def produce_as_json(stream, topic, app_config_name=None, name=None):
     stream = stream.as_json()
     _op = MessageHubProducer(stream, appConfigName=app_config_name, topic=topic)
-    _op.params('messageAttribute', _op.attribute(stream, 'jsonString'))
+    _op.params['messageAttribute'] = _op.attribute(stream, 'jsonString')
     
 class MessageHubConsumer(streamsx.spl.op.Source):
     def __init__(self, topology, schema, vmArg=None, appConfigName=None, clientId=None, messageHubCredentialsFile=None, outputKeyAttributeName=None, outputMessageAttributeName=None, outputTimestampAttributeName=None, outputOffsetAttributeName=None, outputPartitionAttributeName=None, outputTopicAttributeName=None, partition=None, propertiesFile=None, startPosition=None, startTime=None, topic=None, triggerCount=None, userLib=None, name=None):
