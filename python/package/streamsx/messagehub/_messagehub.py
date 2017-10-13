@@ -8,11 +8,10 @@ from streamsx.topology.schema import CommonSchema
 def consume(topology, topic, schema, app_config_name=None, name=None):
     """Consume messages from Message Hub for a topic.
     """
-    msg_att_name = None
     if schema == CommonSchema.Json:
-        msg_att_name='jsonString'
+        msg_attr_name='jsonString'
     elif schema == CommonSchema.String:
-        msg_att_name='string'
+        msg_attr_name='string'
     else:
         raise TypeError(schema)
 
