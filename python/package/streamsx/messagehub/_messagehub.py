@@ -6,15 +6,15 @@ import streamsx.spl.op
 from streamsx.topology.schema import CommonSchema
 
 def consume(topology, topic, schema, app_config_name=None, name=None):
-     """Consume messages from Message Hub for a topic.
-     """
-     msg_att_name = None
-     if schema == CommonSchema.Json:
-         msg_att_name='jsonString'
-     elif schema == CommonSchema.String:
-         msg_att_name='string'
-     else:
-         raise TypeError(schema)
+    """Consume messages from Message Hub for a topic.
+    """
+    msg_att_name = None
+    if schema == CommonSchema.Json:
+        msg_att_name='jsonString'
+    elif schema == CommonSchema.String:
+        msg_att_name='string'
+    else:
+        raise TypeError(schema)
 
     _op = MessageHubConsumer(topology, schema=CommonSchema.Json, outputMessageAttributeName=msg_attr_name, appConfigName=app_config_name, topic=topic)
     return _op.stream
@@ -27,8 +27,8 @@ def produce(stream, topic, app_config_name=None, name=None):
         msg_attr = 'jsonString'
     elif stream.oport.schema == CommonSchema.String:
         msg_attr = 'string'
-     else:
-         raise TypeError(schema)
+    else:
+        raise TypeError(schema)
 
     _op = MessageHubProducer(stream, appConfigName=app_config_name, topic=topic)
     _op.params['messageAttribute'] = _op.attribute(stream, msg_attr)
