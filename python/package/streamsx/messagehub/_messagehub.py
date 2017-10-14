@@ -15,7 +15,7 @@ def consume(topology, topic, schema, app_config_name=None, name=None):
     else:
         raise TypeError(schema)
 
-    _op = MessageHubConsumer(topology, schema=CommonSchema.Json, outputMessageAttributeName=msg_attr_name, appConfigName=app_config_name, topic=topic)
+    _op = MessageHubConsumer(topology, schema=schema, outputMessageAttributeName=msg_attr_name, appConfigName=app_config_name, topic=topic)
     return _op.stream
 
 def produce(stream, topic, app_config_name=None, name=None):
