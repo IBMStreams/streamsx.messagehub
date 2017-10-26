@@ -5,8 +5,21 @@
 import streamsx.spl.op
 from streamsx.topology.schema import CommonSchema
 
-def consume(topology, topic, schema, app_config_name=None, name=None):
-    """Consume messages from Message Hub for a topic.
+def subscribe(topology, topic, schema, credentials=None, name=None):
+    """Subscribe to messages from Message Hub for a topic.
+
+    Adds a Message Hub consumer that subscribes to a topic
+    and converts each message to a stream tuple.
+
+    Args:
+        topology(Topology): Topology that will contain the stream of messages.
+        topic(str): Topic to subscribe messages from.
+        schema(StreamSchema): Schema for returned stream.
+        credentials(str): Name of the application configuration containing the credentials for Message Hub. When set to ``None`` the application configuration ``messagehub`` is used.
+        name(str): Consumer name in the Stremas context, defaults to a generated name.
+
+    Returns:
+         Stream: Stream containing messages.
     """
     if schema == CommonSchema.Json:
         msg_attr_name='jsonString'
@@ -15,12 +28,20 @@ def consume(topology, topic, schema, app_config_name=None, name=None):
     else:
         raise TypeError(schema)
 
-    _op = MessageHubConsumer(topology, schema=schema, outputMessageAttributeName=msg_attr_name, appConfigName=app_config_name, topic=topic)
+    _op = MessageHubConsumer(topology, schema=schema, outputMessageAttributeName=msg_attr_name, appConfigName=credentials, topic=topic)
     return _op.stream
 
-def produce(stream, topic, app_config_name=None, name=None):
-    """Produce Message Hub messages to a topic.
-    For each tuple on `stream` a message is produced on queue `topic`.
+def publish(stream, topic, credentials=None, name=None):
+    """Publish Message Hub messages to a topic.
+
+    Adds a Message Hub producer where each tuple on `stream` is
+    published as a stream message.
+
+    Args:
+        stream(Stream): Stream of tuples to published as messages.
+        topic(str): Topic to publish messages to.
+        credentials(str): Name of the application configuration containing the credentials for Message Hub. When set to ``None`` the application configuration ``messagehub`` is used.
+        name(str): Producer name in the Streams context, defaults to a generated name.
     """
     if stream.oport.schema == CommonSchema.Json:
         msg_attr = 'jsonString'
@@ -29,7 +50,7 @@ def produce(stream, topic, app_config_name=None, name=None):
     else:
         raise TypeError(schema)
 
-    _op = MessageHubProducer(stream, appConfigName=app_config_name, topic=topic)
+    _op = MessageHubProducer(stream, appConfigName=credentials, topic=topic)
     _op.params['messageAttribute'] = _op.attribute(stream, msg_attr)
     
 class MessageHubConsumer(streamsx.spl.op.Source):
