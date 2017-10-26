@@ -16,7 +16,7 @@ def subscribe(topology, topic, schema, credentials=None, name=None):
         topic(str): Topic to subscribe messages from.
         schema(StreamSchema): Schema for returned stream.
         credentials(str): Name of the application configuration containing the credentials for Message Hub. When set to ``None`` the application configuration ``messagehub`` is used.
-        name(str): Consumer name in the Stremas context, defaults to a generated name.
+        name(str): Consumer name in the Streams context, defaults to a generated name.
 
     Returns:
          Stream: Stream containing messages.

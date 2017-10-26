@@ -31,7 +31,7 @@ The schema of the stream defines how messages are handled.
 * ``CommonSchema.String`` - Each message is a UTF-8 encoded string.
 * ``CommonSchema.Json`` - Each message is a UTF-8 encoded serialized JSON object.
 
-No other formats are supportedsagehub.credsmessagehub.creds
+No other formats are supported.
 
 Sample
 ++++++
@@ -40,6 +40,8 @@ A simple hello world example of a Streams application publishing to
 a topic and the same application consuming the same topic::
 
     from streamsx.topology.topology import Topology
+    from streamsx.topology.schema import CommonSchema
+    from streamsx.topology.context import submit
     import streamsx.messagehub as messagehub
 
     topo = Topology("MessageHubHelloWorld")
@@ -51,16 +53,11 @@ a topic and the same application consuming the same topic::
     messagehub.publish(to_mh, topic='MH_HW')
 
     # Subscribe to a topic as a stream
-    from_mh = messagehub.subscribe(topo, topic='MH_HW')
+    from_mh = messagehub.subscribe(topo, schema=CommonSchema.String, topic='MH_HW')
 
     from_mh.print()
 
-   
-
-    
-
- 
-    
+    submit('STREAMING_ANALYTICS_SERVICE', topo)
 
 """
 
