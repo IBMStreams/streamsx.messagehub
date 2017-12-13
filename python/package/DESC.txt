@@ -1,1 +1,6 @@
-IBM Streams messagehub toolkit for Python
+IBM Streams Message Hub toolkit for Python
+
+Provides functions to read messages from Message Hub as a stream
+and submit tuples to Message Hub as messages.
+
+`IBM® Message Hub <http://www-03.ibm.com/software/products/en/ibm-message-hub>`_ is a fully managed, cloud-based messaging service. It is built on Apache Kafka and is available through IBM Bluemix® Platform as a Service for developers—both in Bluemix Public and Bluemix Dedicated. 
