@@ -1,6 +1,37 @@
-IBM Streams Message Hub toolkit for Python
+Overview
+========
 
 Provides functions to read messages from Message Hub as a stream
 and submit tuples to Message Hub as messages.
 
 `IBM® Message Hub <http://www-03.ibm.com/software/products/en/ibm-message-hub>`_ is a fully managed, cloud-based messaging service. It is built on Apache Kafka and is available through IBM Bluemix® Platform as a Service for developers—both in Bluemix Public and Bluemix Dedicated. 
+
+Sample
+======
+
+A simple hello world example of a Streams application publishing to a topic and the same application consuming the same topic::
+
+    from streamsx.topology.topology import Topology
+    from streamsx.topology.schema import CommonSchema
+    from streamsx.topology.context import submit
+    import streamsx.messagehub as messagehub
+
+    topo = Topology('MessageHubHelloWorld')
+
+    to_mh = topo.source(['Hello', 'World!'])
+    to_mh = to_mh.as_string()
+
+    # Publish a stream to Message Hub using MH_HW topic
+    messagehub.publish(to_mh, topic='MH_HW')
+
+    # Subscribe to same topic as a stream
+    from_mh = messagehub.subscribe(topo, schema=CommonSchema.String, topic='MH_HW')
+
+    from_mh.print()
+
+    submit('STREAMING_ANALYTICS_SERVICE', topo)
+
+Documentation
+=============
+
+* `streamsx.messagehub package documentation <http://streamsxmessagehub.readthedocs.io/en/pypackage/>`_
