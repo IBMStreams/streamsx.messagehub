@@ -76,7 +76,6 @@ class StringData(object):
 class TestMH(TestCase):
     def setUp(self):
         Tester.setup_streaming_analytics(self, force_remote_build=True)
-        #Tester.setup_standalone(self)
 
     def test_json(self):
         n = 104
@@ -86,7 +85,6 @@ class TestMH(TestCase):
         mh.publish(s, 'MH_TEST')
 
         r = mh.subscribe(topo, 'MH_TEST', CommonSchema.Json)
-        #r = s
         r = r.filter(lambda t : t['p'].startswith(uid))
         expected = list(JsonData(uid, n, False)())
 
@@ -103,7 +101,6 @@ class TestMH(TestCase):
         mh.publish(s, 'MH_TEST')
 
         r = mh.subscribe(topo, 'MH_TEST', CommonSchema.String)
-        #L r = s
         r = r.filter(lambda t : t.startswith(uid))
         expected = list(StringData(uid, n, False)())
 
@@ -113,33 +110,36 @@ class TestMH(TestCase):
         tester.test(self.test_ctxtype, self.test_config)
 
     def test_end_beginning(self):
-        # Pre-populate with some data.
-        n1 = 58
-        topo = Topology()
-        uid1 = str(uuid.uuid4())
-        s1 = topo.source(StringData(uid1, n1, False)).as_string()
-        mh.publish(s1, 'MH_TEST')
-        tester = Tester(topo)
-        tester.tuple_count(s1, n1)
-        tester.test(self.test_ctxtype, self.test_config)
+        for start in [False, True]:
+            with self.subTest(start=start):
+                # Pre-populate with some data.
+                n1 = 58
+                topo = Topology()
+                uid1 = str(uuid.uuid4())
+                s1 = topo.source(StringData(uid1, n1, False)).as_string()
+                mh.publish(s1, 'MH_TEST')
+                tester = Tester(topo)
+                tester.tuple_count(s1, n1)
+                tester.test(self.test_ctxtype, self.test_config)
+        
+                n2 = 43
+                topo = Topology()
+                uid2 = str(uuid.uuid4())
+                s2 = topo.source(StringData(uid2, n2)).as_string()
+                mh.publish(s2, 'MH_TEST')
+        
+                r = mh.subscribe(topo, 'MH_TEST', CommonSchema.String, start=start)
+                r = r.filter(lambda t : t.startswith(uid1) or t.startswith(uid2))
 
-        n2 = 43
-        topo = Topology()
-        uid2 = str(uuid.uuid4())
-        s2 = topo.source(StringData(uid2, n2)).as_string()
-        mh.publish(s2, 'MH_TEST')
+                if start:
+                    expected = list(StringData(uid1, n1, False)())
+                    expected.extend(StringData(uid2, n2, False)())
+                    n = n1 + n2
+                else:
+                    expected = list(StringData(uid2, n2, False)())
+                    n = n2
 
-        r = mh.subscribe(topo, 'MH_TEST', CommonSchema.String, start=True)
-        r = r.filter(lambda t : t.startswith(uid1) or t.startswith(uid2))
-
-        expected = list(StringData(uid1, n1, False)())
-        expected.extend(StringData(uid2, n2, False)())
-        n = n1 + n2
-
-        #expected = list(StringData(uid2, n2, False)())
-        #n =  n2
-
-        tester = Tester(topo)
-        tester.contents(r, expected)
-        tester.tuple_count(r, n)
-        tester.test(self.test_ctxtype, self.test_config)
+                tester = Tester(topo)
+                tester.contents(r, expected)
+                tester.tuple_count(r, n)
+                tester.test(self.test_ctxtype, self.test_config)
