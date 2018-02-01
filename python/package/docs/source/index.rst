@@ -8,13 +8,6 @@ IBM Streams Message Hub integration
 
 .. automodule:: streamsx.messagehub
 
-Contents:
-
-.. toctree::
-   :maxdepth: 2
-
-
-
 Indices and tables
 ==================
 
