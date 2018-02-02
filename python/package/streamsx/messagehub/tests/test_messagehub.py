@@ -143,3 +143,51 @@ class TestMH(TestCase):
                 tester.contents(r, expected)
                 tester.tuple_count(r, n)
                 tester.test(self.test_ctxtype, self.test_config)
+
+    def test_start_time(self):
+        for start in [False, True]:
+            with self.subTest(start=start):
+                # Pre-populate with some data.
+                # that will not be picked up
+                n0 = 62
+                topo = Topology()
+                uid0 = str(uuid.uuid4())
+                s0 = topo.source(StringData(uid0, n0, False)).as_string()
+                mh.publish(s0, 'MH_TEST')
+                tester = Tester(topo)
+                tester.tuple_count(s0, n0)
+                tester.test(self.test_ctxtype, self.test_config)
+
+                # A start time after the messages published in set 0
+                if start:
+                    start = datetime.datetime.now()
+                else:
+                    start = time.time()
+
+                # Pre-populate with some data.
+                n1 = 53
+                topo = Topology()
+                uid1 = str(uuid.uuid4())
+                s1 = topo.source(StringData(uid1, n1, False)).as_string()
+                mh.publish(s1, 'MH_TEST')
+                tester = Tester(topo)
+                tester.tuple_count(s1, n1)
+                tester.test(self.test_ctxtype, self.test_config)
+        
+                n2 = 49
+                topo = Topology()
+                uid2 = str(uuid.uuid4())
+                s2 = topo.source(StringData(uid2, n2)).as_string()
+                mh.publish(s2, 'MH_TEST')
+        
+                r = mh.subscribe(topo, 'MH_TEST', CommonSchema.String, start=start)
+                r = r.filter(lambda t : t.startswith(uid0) or t.startswith(uid1) or t.startswith(uid2))
+                expected = list(StringData(uid1, n1, False)())
+                expected.extend(StringData(uid2, n2, False)())
+                n = n1 + n2
+
+                tester = Tester(topo)
+                tester.contents(r, expected)
+                tester.tuple_count(r, n)
+                tester.test(self.test_ctxtype, self.test_config)
+
