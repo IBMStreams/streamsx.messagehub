@@ -108,7 +108,7 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
     		"\\n" + 
     		"This version of the Message Hub Toolkit wraps **Kafka Toolkit v1.x**. It is recommended that users review "
     		+ "the Kafka Toolkit documentation for additional information on supported functionality. "
-    		+ "The Kafka Toolkit documentation can be found here: "
-    		+ "[ https://ibmstreams.github.io/streamsx.kafka/docs/v0.1.0.0/spldoc/html/index.html | Kafka Toolkit v1.x Documentation ].\\n" + 
+    		+ "The Kafka Toolkit project page can be found here: "
+    		+ "[ https://ibmstreams.github.io/streamsx.kafka/| Kafka Toolkit ].\\n" + 
     		"\\n";
 }
