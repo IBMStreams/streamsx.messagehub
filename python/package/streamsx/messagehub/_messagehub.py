@@ -31,9 +31,9 @@ def subscribe(topology, topic, schema, start=False, credentials=None, name=None)
     Returns:
          Stream: Stream containing messages.
     """
-    if schema == CommonSchema.Json:
+    if schema is CommonSchema.Json:
         msg_attr_name='jsonString'
-    elif schema == CommonSchema.String:
+    elif schema is CommonSchema.String:
         msg_attr_name='string'
     else:
         raise TypeError(schema)
