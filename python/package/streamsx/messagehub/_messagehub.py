@@ -1,20 +1,30 @@
 # coding=utf-8
 # Licensed Materials - Property of IBM
-# Copyright IBM Corp. 2017
+# Copyright IBM Corp. 2017,2018
+
+import datetime
 
 import streamsx.spl.op
+import streamsx.spl.types
 from streamsx.topology.schema import CommonSchema
 
-def subscribe(topology, topic, schema, credentials=None, name=None):
+def subscribe(topology, topic, schema, start=False, credentials=None, name=None):
     """Subscribe to messages from Message Hub for a topic.
 
     Adds a Message Hub consumer that subscribes to a topic
     and converts each message to a stream tuple.
 
+    Starting position for reading messages from the topic is set by the `start` parameter.
+
+    * When `start` evaluates to false messages are read from the end of the topic's queue.
+    * When `start` is equal to `True` messages are read from the start of the topic's queue.
+    * When `start` is an ``float`` or ``datetime.datetime`` the value is used as a timestamp and messages are read from the earliest offset whose timestamp is greater than or equal to the timestamp. For an ``float`` value it is taken as the number of seconds since the Unix 1970 epoch (for example a value from ``time.time()``.
+
     Args:
         topology(Topology): Topology that will contain the stream of messages.
         topic(str): Topic to subscribe messages from.
         schema(StreamSchema): Schema for returned stream.
+        start: Where to start reading messages.
         credentials(str): Name of the application configuration containing the credentials for Message Hub. When set to ``None`` the application configuration ``messagehub`` is used.
         name(str): Consumer name in the Streams context, defaults to a generated name.
 
@@ -28,7 +38,22 @@ def subscribe(topology, topic, schema, credentials=None, name=None):
     else:
         raise TypeError(schema)
 
-    _op = MessageHubConsumer(topology, schema=schema, outputMessageAttributeName=msg_attr_name, appConfigName=credentials, topic=topic)
+    start_pos = None
+    start_time = None
+    if start:
+        if isinstance(start, datetime.datetime):
+            start = start.timestamp()
+
+        if start is True:
+            start_pos = streamsx.spl.op.Expression.expression('Beginning')
+        elif isinstance(start, float):
+            start_pos = streamsx.spl.op.Expression.expression('Time')
+            start_time = streamsx.spl.types.int64(int(start * 1000.0))
+        else:
+            raise TypeError(type(start))
+
+    _op = MessageHubConsumer(topology, schema=schema, outputMessageAttributeName=msg_attr_name, appConfigName=credentials, topic=topic, startPosition=start_pos, startTime=start_time, name=name)
+    print("MHCONS",  _op.params)
     return _op.stream
 
 def publish(stream, topic, credentials=None, name=None):
