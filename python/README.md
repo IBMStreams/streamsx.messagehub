@@ -16,7 +16,7 @@ Note: This is done using the `ibmstreams` account at pypi.org
 
 Package details: https://pypi.python.org/pypi/streamsx.messagehub
 
-Documentation is using sphinix and can be built locally using:
+Documentation is using Sphinx and can be built locally using:
 ```
 cd python/package/docs
 make html
