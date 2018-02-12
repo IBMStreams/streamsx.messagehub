@@ -24,7 +24,6 @@ def release() {
         into 'build/release/com.ibm.streamsx.messagehub'
     }
 
-    delete 'build/release/com.ibm.streamsx.messagehub/icons'
     delete 'build/release/com.ibm.streamsx.messagehub/build'
     delete 'build/release/com.ibm.streamsx.messagehub/build.gradle'
     delete 'build/release/com.ibm.streamsx.messagehub/impl/java/src'
