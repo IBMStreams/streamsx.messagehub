@@ -10,14 +10,27 @@ In order to successfully run this sample, the following steps must be taken:
  3. Paste the Message Hub Service Credentials JSON into this file and save it
  4. Rebuild the application and launch
 
- ## Build
+## Build
 
- ```
+```
+make
+```
+
+or if you are in a cloned or forked git repository
+
+```
 ../../gradlew build
- ```
+```
 
- ## Clean
+## Clean
 
- ```
+
+```
+make clean
+```
+
+or if you are in a cloned or forked git repository
+
+```
 ../../gradlew clean
- ```
+```

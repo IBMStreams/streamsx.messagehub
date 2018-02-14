@@ -20,10 +20,23 @@ In order to successfully run this sample, the following steps must be taken:
 ## Build
 
 ```
+make
+```
+
+or if you are in a cloned or forked git repository
+
+```
 ../../gradlew build
 ```
 
 ## Clean
+
+
+```
+make clean
+```
+
+or if you are in a cloned or forked git repository
 
 ```
 ../../gradlew clean
