@@ -23,6 +23,15 @@ def release() {
         from 'com.ibm.streamsx.messagehub'
         into 'build/release/com.ibm.streamsx.messagehub'
     }
+    copy {
+        from 'samples'
+        into 'build/release/samples'
+    }
+    copy {
+        from 'docs'
+        into 'build/release/com.ibm.streamsx.messagehub/doc'
+    }
+
 
     delete 'build/release/com.ibm.streamsx.messagehub/build'
     delete 'build/release/com.ibm.streamsx.messagehub/build.gradle'
@@ -58,6 +67,7 @@ task release {
         release()
     }
     dependsOn ':com.ibm.streamsx.messagehub:build'
+    dependsOn 'spldoc'
     finalizedBy archive
 }  
 

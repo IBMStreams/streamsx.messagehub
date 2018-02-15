@@ -44,7 +44,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
     }
     
     public static final String DESC = ""
-    		+ "The **MessageHubProducer** operator is used to consume records from the Bluemix Message Hub service. "
+    		+ "The **MessageHubProducer** operator is used to consume records from the IBM Cloud Message Hub service. "
     		+ "The operator has been designed to make connectivity to the service as simple as possible. "
     		+ "This is achieved in a number of different ways, from having default values for the **appConfigName** parameter "
     		+ "to allowing the user to copy/paste the raw Message Hub Credentials JSON into either an application configuration "
@@ -63,8 +63,8 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
     		"\\n" + 
     		"# Setup\\n" + 
     		"\\n" + 
-    		"This section outlines different options for enabling the **MessageHubProducer** operator to connet to Bluemix Message Hub. "
-    		+ "Any of the following options can be used to configure the operator for connecting to Bluemix. \\n" + 
+    		"This section outlines different options for enabling the **MessageHubProducer** operator to connet to IBM Cloud Message Hub. "
+    		+ "Any of the following options can be used to configure the operator for connecting to IBM Cloud. \\n" + 
     		"\\n" + 
     		"**Save Credentials in Application Configuration Property**\\n" + 
     		"\\n" + 
@@ -108,6 +108,6 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
     		"This version of the Message Hub Toolkit wraps **Kafka Toolkit v1.x**. It is recommended that users review "
     		+ "the Kafka Toolkit documentation for additional information on supported functionality. "
     		+ "The Kafka Toolkit documentation can be found here: "
-    		+ "[ https://ibmstreams.github.io/streamsx.kafka/docs/v0.1.0.0/spldoc/html/index.html | Kafka Toolkit v1.x Documentation ].\\n" + 
+    		+ "[ https://ibmstreams.github.io/streamsx.kafka/ | Kafka Toolkit].\\n" + 
     		"\\n";
 }

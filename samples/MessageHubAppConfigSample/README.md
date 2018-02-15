@@ -1,6 +1,6 @@
-# MessageHub Application Configuration Sample
+# Message Hub Application Configuration Sample
 
-This sample demonstrates how to create an application that connects to MessageHub by retrieving the MessageHub Service Credentials from an application configuration. 
+This sample demonstrates how to create an application that connects to Message Hub by retrieving the Message Hub Service Credentials from an application configuration. 
 
 ## Setup
 In order to successfully run this sample, the following steps must be taken: 
@@ -13,17 +13,30 @@ In order to successfully run this sample, the following steps must be taken:
  6. In the **name** field, set the value to `messagehub`
  7. Add a property to the table with the following details: 
     * **Name:** `messagehub.creds`
-    * **Value:** &lt;MessageHub_Service_Credentials_JSON&gt;
+    * **Value:** &lt;Message Hub_Service_Credentials_JSON&gt;
  8. Save the application configuration
 
 
 ## Build
 
 ```
+make
+```
+
+or if you are in a cloned or forked git repository
+
+```
 ../../gradlew build
 ```
 
 ## Clean
+
+
+```
+make clean
+```
+
+or if you are in a cloned or forked git repository
 
 ```
 ../../gradlew clean

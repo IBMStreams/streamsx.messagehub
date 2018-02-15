@@ -1,12 +1,12 @@
-# MessageHub Toolkit
+# Message Hub Toolkit
 
-A toolkit that simplifies integration between IBM Streams and the BlueMix MessageHub service. 
+A toolkit that simplifies integration between IBM Streams and the IBM Cloud Message Hub service. 
 
 
 ## Documentation
 
 The toolkit documentation, including details on ways to configure
-the toolkit to connect to MessageHub can be found here: [https://ibmstreams.github.io/streamsx.messagehub/](https://ibmstreams.github.io/streamsx.messagehub/)
+the toolkit to connect to Message Hub can be found here: [https://ibmstreams.github.io/streamsx.messagehub/](https://ibmstreams.github.io/streamsx.messagehub/)
 
 
 ## Build
@@ -28,11 +28,11 @@ cd com.ibm.streamsx.messagehub
 
 ## Test
 
-Create a MessageHub Service in [IBM Bluemix](https://console.bluemix.net)
+Create a Message Hub Service in [IBM Cloud](https://console.bluemix.net)
 
-In the IBM Bluemix MessageHub service, create a topic "test"
+In the IBM Cloud Message Hub service, create a topic "test"
 
-Add the MessageHub JSON credentials to the `tests/MessageHubTests/etc/messagehub.json` file.
+Add the Message Hub JSON credentials to the `tests/MessageHubTests/etc/messagehub.json` file.
 
 Run the following commands to launch the tests:
 
@@ -46,4 +46,8 @@ cd tests/MessageHubTestsTests
 
 ## Samples
 
-Each sample contains a *build.gradle* file. The samples can be built/compiled by running `gradle build` from the sample directory.
+Each sample contains a *build.gradle* file and a makefile. You can compile/build the samples by 
+a) running `gradle build` from the sample directory if gradle is installed,
+b) running `../../gradlew build` if you are in a cloned or forked git repository, or
+c) running `make` in all other cases.
+
