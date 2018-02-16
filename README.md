@@ -1,12 +1,12 @@
-# MessageHub Toolkit
+# Message Hub Toolkit
 
-A toolkit that simplifies integration between IBM Streams and the BlueMix MessageHub service. 
+A toolkit that simplifies integration between IBM Streams and the IBM Cloud Message Hub service. 
 
 
 ## Documentation
 
 The toolkit documentation, including details on ways to configure
-the toolkit to connect to MessageHub can be found here: [https://ibmstreams.github.io/streamsx.messagehub/](https://ibmstreams.github.io/streamsx.messagehub/)
+the toolkit to connect to Message Hub can be found here: [https://ibmstreams.github.io/streamsx.messagehub/](https://ibmstreams.github.io/streamsx.messagehub/)
 
 
 ## Build
@@ -28,11 +28,11 @@ cd com.ibm.streamsx.messagehub
 
 ## Test
 
-Create a MessageHub Service in [IBM Bluemix](https://console.bluemix.net)
+Create a Message Hub Service in [IBM Cloud](https://console.bluemix.net)
 
-In the IBM Bluemix MessageHub service, create a topic "test"
+In the IBM Cloud Message Hub service, create a topic "test"
 
-Add the MessageHub JSON credentials to the `tests/MessageHubTests/etc/messagehub.json` file.
+Add the Message Hub JSON credentials to the `tests/MessageHubTests/etc/messagehub.json` file.
 
 Run the following commands to launch the tests:
 
