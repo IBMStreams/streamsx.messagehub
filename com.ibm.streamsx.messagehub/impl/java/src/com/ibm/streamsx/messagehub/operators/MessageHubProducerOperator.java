@@ -29,6 +29,16 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
         this.messageHubCredsFile = messageHubCredsFile;
     }
 
+    /**
+     * Not annotated as Parameter like the base class to hide the parameter `consistentRegionPolicy` in this operator.
+     * MessageHub is on Kafka 0.10.2.1 that does not support transactions. Avoid using parameter consistentRegionPolicy: transactional this way.
+     * The method has an empty body.
+     * @see com.ibm.streamsx.kafka.operators.AbstractKafkaProducerOperator#setConsistentRegionPolicy(com.ibm.streamsx.kafka.operators.AbstractKafkaProducerOperator.ConsistentRegionPolicy)
+     */
+    @Override
+    public void setConsistentRegionPolicy (AbstractKafkaProducerOperator.ConsistentRegionPolicy consistentRegionPolicy) {
+    }
+
     @Override
     protected void loadProperties() throws Exception {
         getKafkaProperties().putAllIfNotPresent(MessageHubOperatorUtil.loadMessageHubCredsFromFile(getOperatorContext(),
