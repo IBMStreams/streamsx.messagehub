@@ -1,6 +1,6 @@
 ---
 title: "Operator Design"
-permalink: /docs/user/OperatorDesign
+permalink: /docs/user/OperatorDesign/
 excerpt: "Describes the design of the Message Hub toolkit operators."
 last_modified_at: 2018-02-22T12:37:48+01:00
 redirect_from:
