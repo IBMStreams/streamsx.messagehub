@@ -1,0 +1,46 @@
+# main links
+main:
+  - title: "Domain Knowledge"
+    url: /docs/knowledge/overview/
+  - title: "User Documentation"
+    url: /docs/user/overview
+  - title: "Developer Documentation"
+    url: /docs/developer/overview
+  # - title: "Sample Collections"
+  #   url: /collection-archive/
+  # - title: "Sitemap"
+  #   url: /sitemap/
+
+# knowledge documentation links
+knowledgedocs:
+  - title: Background knowledge
+    children:
+      - title: "Overview"
+        url: /docs/knowledge/overview
+
+# user documentation links
+userdocs:
+  - title: User documentation
+    children:
+      - title: "Overview"
+        url: /docs/user/overview
+      - title: "SPL Doc"
+        url: /docs/user/SPLDoc
+      - title: "Operator Design"
+        url: /docs/user/OperatorDesign
+      - title: "Standard Consumer Use Patterns"
+        url: /docs/user/StandardConsumerUsePatternsWithPartitions
+
+# developer documentation links
+developerdocs:
+  - title: Developer documentation
+    children:
+      - title: "Overview"
+        url: /docs/developer/overview
+      - title: "New Feature Checklist"
+        url: /docs/developer/new_feature_checklist
+      - title: "Release Process"
+        url: /docs/developer/release_process
+      - title: "SPLDoc Process"
+        url: /docs/developer/spldoc_process
+
