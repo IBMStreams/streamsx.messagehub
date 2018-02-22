@@ -2,7 +2,7 @@
 title: "New feature checklist"
 permalink: /docs/developer/new_feature_checklist
 excerpt: "New feature checklist"
-last_modified_at: 2018-01-10T12:37:48+01:00
+last_modified_at: 2018-02-22T12:37:48+01:00
 redirect_from:
    - /theme-setup/
 sidebar:

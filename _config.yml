@@ -13,7 +13,7 @@ name                     : &name "IBMStreams" # &name is a YAML anchor which can
 description              : &description "toolkit site description."
 url                      : https://ibmstreams.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "/streamsx.messagehub" # the subpath of your site, e.g. "/blog"
-repository               : "IBMStreams/streamsx.kafka" # GitHub username/repo-name
+repository               : "IBMStreams/streamsx.messagehub" # GitHub username/repo-name
 github_base_url          : "https://github.com" # your github server, will differ when enterprise github
 github_editme_path       : https://github.com/IBMStreams/streamsx.messagehub/blob/gh-pages
 spldoc_path              : &default_cta_url "/doc/spldoc/html"
