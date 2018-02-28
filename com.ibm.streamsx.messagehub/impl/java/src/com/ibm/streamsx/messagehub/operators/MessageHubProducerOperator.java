@@ -9,6 +9,7 @@ import com.ibm.streams.operator.model.Libraries;
 import com.ibm.streams.operator.model.Parameter;
 import com.ibm.streams.operator.model.PrimitiveOperator;
 import com.ibm.streamsx.kafka.operators.AbstractKafkaProducerOperator;
+import com.ibm.streamsx.kafka.properties.KafkaOperatorProperties;
 import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
 
 @PrimitiveOperator(name = "MessageHubProducer", namespace = "com.ibm.streamsx.messagehub", description=MessageHubProducerOperator.DESC)
@@ -17,10 +18,10 @@ import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
 @InputPorts({ @InputPortSet(description = "Port that consumes tuples", cardinality = 1, optional = false) })
 public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
 
-    @SuppressWarnings("unused")
     private static final Logger logger = Logger.getLogger(MessageHubProducerOperator.class);
 
     private String messageHubCredsFile = MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_CREDS_FILE_PATH; //$NON-NLS-1$
+    private boolean appConfigRequired = false;
 
     @Parameter(optional = true, name="messageHubCredentialsFile", description="Specifies the name of the file that contains "
     		+ "the complete Message Hub credentials JSON. If not specified, this parameter will "
@@ -41,15 +42,26 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
 
     @Override
     protected void loadProperties() throws Exception {
-        getKafkaProperties().putAllIfNotPresent(MessageHubOperatorUtil.loadMessageHubCredsFromFile(getOperatorContext(),
-                convertToAbsolutePath(messageHubCredsFile)));
+        final KafkaOperatorProperties credsFileProps = MessageHubOperatorUtil.loadMessageHubCredsFromFile(getOperatorContext(), convertToAbsolutePath (messageHubCredsFile));
+        if (credsFileProps == null || credsFileProps.isEmpty()) {
+            logger.info ("Could not read Message Hub credentials from properties file; requiring an App Config.");
+            appConfigRequired  = true;
+        }
+        else {
+            getKafkaProperties().putAllIfNotPresent(credsFileProps);
+        }
         super.loadProperties();
     }
 
     @Override
     protected void loadFromAppConfig() throws Exception {
-        getKafkaProperties().putAllIfNotPresent(
-                MessageHubOperatorUtil.loadMessageHubCredsFromAppConfig(getOperatorContext(), appConfigName));
+        final KafkaOperatorProperties appCfgProps = MessageHubOperatorUtil.loadMessageHubCredsFromAppConfig(getOperatorContext(), appConfigName);
+        if (appConfigRequired && (appCfgProps == null || appCfgProps.isEmpty())) {
+            final String msg = "Message Hub credentials not found in properties file nor in an Application Configuration";
+            logger.error(msg);
+            throw new RuntimeException(msg);
+        }
+        getKafkaProperties().putAllIfNotPresent(appCfgProps);
         super.loadFromAppConfig();
     }
     

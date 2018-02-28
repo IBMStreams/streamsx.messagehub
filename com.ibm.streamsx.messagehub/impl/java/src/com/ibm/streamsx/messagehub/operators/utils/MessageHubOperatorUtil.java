@@ -26,18 +26,27 @@ public class MessageHubOperatorUtil {
 
     public static KafkaOperatorProperties loadMessageHubCredsFromAppConfig(OperatorContext context,
             String appConfigName) throws Exception {
+        boolean isAppConfigNameGiven = appConfigName != null;
         if (appConfigName == null) {
             appConfigName = MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_APP_CONFIG_NAME;
+            
         }
         logger.debug("Attempting to load app config from: " + appConfigName); //$NON-NLS-1$
 
         KafkaOperatorProperties properties = new KafkaOperatorProperties();
         Map<String, String> appConfig = context.getPE().getApplicationConfiguration(appConfigName);
+        if (appConfig.isEmpty() && isAppConfigNameGiven) {
+            // we have no indication whether the app config exists or not.
+            logger.error ("given App Config '" + appConfigName + "' does not exist or is empty.");
+        }
         if (appConfig.containsKey(DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME)) {
             String credentials = appConfig.get(DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME);
             logger.trace("Creds from app config property: " + credentials); //$NON-NLS-1$
             KafkaOperatorProperties messageHubProperties = loadFromMessageHubCreds(context, credentials);
             properties.putAllIfNotPresent(messageHubProperties);
+        }
+        else if (isAppConfigNameGiven) {
+            logger.error ("App Config '" + appConfigName + "' has no key '" + DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME + "' where the Message Hub credentials in JSON format are expected.");
         }
 
         return properties;
@@ -45,20 +54,25 @@ public class MessageHubOperatorUtil {
 
     public static KafkaOperatorProperties loadMessageHubCredsFromFile(OperatorContext context, File messageHubCredsFile)
             throws Exception {
-    	logger.debug("Attempting to load properties file from: " + messageHubCredsFile);
+    	logger.info("Attempting to load properties file from: " + messageHubCredsFile);
         if (!messageHubCredsFile.exists()) {
-            logger.debug("MessageHub credentials file does not exist: " + messageHubCredsFile.getAbsolutePath()); //$NON-NLS-1$
+            logger.info("Message Hub credentials file does not exist: " + messageHubCredsFile.getAbsolutePath()); //$NON-NLS-1$
             return null;
         }
         String creds = Files.toString(messageHubCredsFile, StandardCharsets.UTF_8);
+        if (creds == null || creds.trim().isEmpty()) {
+            logger.error ("Credential file " + messageHubCredsFile + " exists, but is empty");
+        }
         return loadFromMessageHubCreds(context, creds);
     }
 
     public static KafkaOperatorProperties loadFromMessageHubCreds(OperatorContext context, String credentials) {
-        if (credentials == null)
+        if (credentials == null || credentials.trim().isEmpty()) {
             return null;
+        }
 
-        logger.debug("Parsing MessageHub creds: " + credentials);
+        logger.info ("Parsing Message Hub creds: ** NOT LOGGED **");
+        logger.trace ("Message Hub creds: " + credentials);
         
         KafkaOperatorProperties properties = new KafkaOperatorProperties();
         Gson gson = new Gson();
@@ -87,7 +101,12 @@ public class MessageHubOperatorUtil {
         properties.put("ssl.enabled.protocols", "TLSv1.2"); //$NON-NLS-1$ //$NON-NLS-2$
         properties.put("ssl.endpoint.identification.algorithm", "HTTPS"); //$NON-NLS-1$ //$NON-NLS-2$
 
-        logger.debug("Properties from MessageHub credentials: " + properties); //$NON-NLS-1$
+        // for logging, we create a temporary set of properties, in which we replace SASL_JAAS_PROPERTIES by stars
+        KafkaOperatorProperties logProps = new KafkaOperatorProperties();
+        logProps.putAll(properties);
+        if (logProps.containsKey(JaasUtil.SASL_JAAS_PROPERTY)) logProps.put (JaasUtil.SASL_JAAS_PROPERTY, "**********");
+        logger.info ("Properties from Message Hub credentials: " + logProps); //$NON-NLS-1$
+        
         return properties;
     }
 }
