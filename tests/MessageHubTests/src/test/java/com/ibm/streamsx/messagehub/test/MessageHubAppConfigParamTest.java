@@ -28,7 +28,7 @@ import com.ibm.streamsx.topology.tester.Tester;
 
 public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
 
-	private static final String TEST_NAME = "KafkaOperatorsGreenThread";
+	private static final String TEST_NAME = "MessageHubAppConfigParamTest";
 	private static final String APP_CONFIG_NAME = "userAppConfig";
 	
 	public MessageHubAppConfigParamTest() throws Exception {
