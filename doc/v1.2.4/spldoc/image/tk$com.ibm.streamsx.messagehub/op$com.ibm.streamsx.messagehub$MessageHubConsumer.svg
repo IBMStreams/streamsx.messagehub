@@ -101,9 +101,9 @@ YVm0nmjqx4c+3+sKVu4/c56D6nTCih8AAAAASUVORK5CYII="
       ><set attributeName="visibility" from="hidden" end="sdt1.mouseout" to="visible" begin="sdt1.mouseover"
     /></g
     ><g visibility="hidden" style="stroke:none;font-style:italic;font-size:12px;font-family:&apos;Helvetica&apos;,&apos;SansSerif&apos;;"
-    ><rect x="47.65" y="15.0" width="485.36" style="fill:rgb(230,230,255);stroke:rgb(0,0,80);" rx="2.0" ry="2.0" height="92.0"
+    ><rect x="47.65" y="15.0" width="424.93997" style="fill:rgb(230,230,255);stroke:rgb(0,0,80);" rx="2.0" ry="2.0" height="92.0"
       /><text x="48.65" y="28.0"
-      >Optional: appConfigName, clientId, groupId, messageHubCredentialsFile, </text
+      >Optional: appConfigName, clientId, messageHubCredentialsFile, </text
       ><text x="48.65" y="43.0"
       >outputKeyAttributeName, outputMessageAttributeName, </text
       ><text x="48.65" y="58.0"
@@ -111,9 +111,9 @@ YVm0nmjqx4c+3+sKVu4/c56D6nTCih8AAAAASUVORK5CYII="
       ><text x="48.65" y="73.0"
       >outputPartitionAttributeName, outputTopicAttributeName, </text
       ><text x="48.65" y="88.0"
-      >partition, propertiesFile, startOffset, startPosition, </text
+      >partition, propertiesFile, startPosition, startTime, </text
       ><text x="48.65" y="103.0"
-      >startTime, topic, triggerCount, userLib</text
+      >topic, triggerCount, userLib</text
       ><set attributeName="visibility" from="hidden" end="sdt2.mouseout" to="visible" begin="sdt2.mouseover"
     /></g
     ><g visibility="hidden" style="stroke:none;font-style:italic;font-size:12px;font-family:&apos;Helvetica&apos;,&apos;SansSerif&apos;;"

@@ -16,8 +16,6 @@ The following steps can be followed to generate new SPLDocs for the toolkit and 
 **NOTE:** It is recommended that a new repository be cloned in `/tmp` to isolate SPL doc generation and
 github pages documentation from development work.
 
-**TODO: The following procedure must be verified!**
-
 1. `cd /tmp`
 1. `git clone git@github.com:IBMStreams/streamsx.messagehub.git streamsx.messagehub.gh-pages`
 1. `cd streamsx.messagehub.gh-pages`
@@ -35,8 +33,9 @@ replace the generated documentation in the right directory.
        * add generated doc as latest doc: `mv -v ../docs/spldoc .`
 1. `popd`
 1. remove the generated `docs` directory: `rm -rf docs`
-1. Add untracked documentation to the index
+1. Add untracked and modified documentation in 'doc' to the index
 1. If you added new documentation, update the `_docs/210-user_spldoc.md` markdown file, which references all SPL docs.
-1. `git commit -m "Update docs for vX.Y.Z`
+1. `git commit -m "Update docs for vX.Y.Z"`
 1. `git push -u origin gh-pages`
 1. When the result is ok for you, delete the temporary clone that you created in the second step
+
