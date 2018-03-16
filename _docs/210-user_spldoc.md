@@ -17,11 +17,11 @@ sidebar:
 
 ### Toolkit documentation for previous versions
 
-### v1.2.4
+#### v1.2.4
 
 [Toolkit Documentation (SPLDoc)](/streamsx.messagehub/doc/v1.2.4/spldoc/html/)
 
-### v1.2.3
+#### v1.2.3
 
 [Toolkit Documentation (SPLDoc)](/streamsx.messagehub/doc/v1.2.3/spldoc/html/)
 
