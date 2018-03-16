@@ -10,6 +10,7 @@ import com.ibm.streams.operator.model.Parameter;
 import com.ibm.streams.operator.model.PrimitiveOperator;
 import com.ibm.streams.operator.model.OutputPortSet.WindowPunctuationOutputMode;
 import com.ibm.streamsx.kafka.operators.AbstractKafkaConsumerOperator;
+import com.ibm.streamsx.kafka.properties.KafkaOperatorProperties;
 import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
 
 @PrimitiveOperator(name = "MessageHubConsumer", namespace = "com.ibm.streamsx.messagehub", description=MessageHubConsumerOperator.DESC)
@@ -18,10 +19,10 @@ import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
 @OutputPorts({
     @OutputPortSet(description = "Port that produces tuples", cardinality = 1, optional = false, windowPunctuationOutputMode = WindowPunctuationOutputMode.Generating) })
 public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
-    @SuppressWarnings("unused")
     private static final Logger logger = Logger.getLogger(MessageHubConsumerOperator.class);
 
     private String messageHubCredsFile = MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_CREDS_FILE_PATH;
+    private boolean appConfigRequired = false;
 
     @Parameter(optional = true, name="messageHubCredentialsFile", description="Specifies the name of the file that contains "
     		+ "the complete Message Hub credentials JSON. If not specified, this parameter will "
@@ -32,16 +33,41 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
 
     @Override
     protected void loadProperties() throws Exception {
-        getKafkaProperties().putAllIfNotPresent(MessageHubOperatorUtil.loadMessageHubCredsFromFile(getOperatorContext(),
-                convertToAbsolutePath(messageHubCredsFile)));
+        final KafkaOperatorProperties credsFileProps = MessageHubOperatorUtil.loadMessageHubCredsFromFile(getOperatorContext(), convertToAbsolutePath (messageHubCredsFile));
+        if (credsFileProps == null || credsFileProps.isEmpty()) {
+            logger.info ("Could not read Message Hub credentials from properties file; requiring an App Config.");
+            appConfigRequired  = true;
+        }
+        else {
+            getKafkaProperties().putAllIfNotPresent(credsFileProps);
+        }
+        // super.loadProperties reads 1. from properties file, 2. from app config (where the overwritten method is invoked)
         super.loadProperties();
+//        for (Object key: getKafkaProperties().keySet()) System.out.println (key + " = '" + getKafkaProperties().get(key) + "'");
     }
 
     @Override
     protected void loadFromAppConfig() throws Exception {
-        getKafkaProperties().putAllIfNotPresent(
-                MessageHubOperatorUtil.loadMessageHubCredsFromAppConfig(getOperatorContext(), appConfigName));
+        final KafkaOperatorProperties appCfgProps = MessageHubOperatorUtil.loadMessageHubCredsFromAppConfig(getOperatorContext(), appConfigName);
+        if (appConfigRequired && (appCfgProps == null || appCfgProps.isEmpty())) {
+            final String msg = "Message Hub credentials not found in properties file nor in an Application Configuration";
+            logger.error(msg);
+            throw new RuntimeException(msg);
+        }
+        // When we are here, we might have read the properties derived from a JSON credentials file. In this case 'appConfigRequired' is false.
+        // Then we put them only if not yet present.
+        // If we have not read a JSON credentials file, we might already have read Kafka properties from a properties file.
+        // To give the properties derived from the JSON credentials precedence,
+        // we must put them, regardless of what is already present in the properties.
+        if (appConfigRequired) {
+            getKafkaProperties().putAll(appCfgProps);
+        }
+        else {
+            getKafkaProperties().putAllIfNotPresent(appCfgProps);
+        }
+        // load more (Kafka) properties from the app config, but remove 'messagehub.creds'
         super.loadFromAppConfig();
+        getKafkaProperties().remove (MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME);
     }
     
     public static final String DESC = ""
@@ -106,7 +132,7 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
     		"The Message Hub Toolkit wraps the `KafkaConsumer` and `KafkaProducer` operators from a specific version of the Kafka Toolkit. "
     		+ "This implies that all of the functionality and restrictions provided by the Kafka Toolkit are inherited by the Message Hub Toolkit.\\n" + 
     		"\\n" + 
-    		"This version of the Message Hub Toolkit wraps **Kafka Toolkit v1.x**. It is recommended that users review "
+    		"This version of the Message Hub Toolkit wraps **Kafka Toolkit v1.3.x**. It is recommended that users review "
     		+ "the Kafka Toolkit documentation for additional information on supported functionality. "
     		+ "The Kafka Toolkit project page can be found here: "
     		+ "[ https://ibmstreams.github.io/streamsx.kafka/| Kafka Toolkit ].\\n" + 

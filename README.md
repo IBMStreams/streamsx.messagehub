@@ -46,4 +46,8 @@ cd tests/MessageHubTestsTests
 
 ## Samples
 
-Each sample contains a *build.gradle* file. The samples can be built/compiled by running `gradle build` from the sample directory.
+Each sample contains a *build.gradle* file and a makefile. You can compile/build the samples by 
+a) running `gradle build` from the sample directory if gradle is installed,
+b) running `../../gradlew build` if you are in a cloned or forked git repository, or
+c) running `make` in all other cases.
+

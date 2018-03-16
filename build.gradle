@@ -47,6 +47,10 @@ def release() {
     delete 'build/release/com.ibm.streamsx.messagehub/impl/include'
     delete 'build/release/com.ibm.streamsx.messagehub/data'
     delete 'build/release/com.ibm.streamsx.messagehub/impl/java'
+    delete fileTree ('build/release/com.ibm.streamsx.kafka/opt/downloaded') {
+        // log4j 1.2 is also part of the Streams Java Operator API so any version in the toolkit will be ignored.
+        include 'log4j-1.2.*.jar'
+    }
 }
 
 task archive(type: Tar) {
@@ -75,7 +79,7 @@ task release {
 
 task spldoc(dependsOn: ":com.ibm.streamsx.messagehub:build") {
     doLast {
-        spldoc('com.ibm.streamsx.messagehub', 'MessageHub Toolkit')
+        spldoc('com.ibm.streamsx.messagehub', 'Message Hub Toolkit')
     }
 }
 

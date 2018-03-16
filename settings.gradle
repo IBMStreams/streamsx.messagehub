@@ -1,5 +1,18 @@
+import groovy.io.FileType
+
 include 'com.ibm.streamsx.messagehub'
 include 'tests/MessageHubTests'
-include 'samples/MessageHubFileSample', 'samples/MessageHubAppConfigSample'
+
+Closure discoverSamples = {
+    def list = []
+    def dir = new File("$rootDir/samples/")
+    dir.eachDir() { file ->
+        file.eachFileMatch({it == 'build.gradle' || it == 'Makefile'}, { list += [dir.name + '/' + file.name] })
+    }
+
+    list.toArray(new java.lang.String[0])
+}
+
+include discoverSamples()
 
 rootProject.name = 'streamsx.messagehub'

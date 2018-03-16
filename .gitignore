@@ -1,2 +1,9 @@
 .gradle
 build/
+docs/
+com.ibm.streamsx.messagehub/com.ibm.streamsx.messagehub/MessageHubConsumer/
+com.ibm.streamsx.messagehub/com.ibm.streamsx.messagehub/MessageHubProducer/
+com.ibm.streamsx.messagehub/impl/lib/com.ibm.streamsx.messagehub*.jar
+samples/MessageHubAppConfigSample/toolkit.xml
+samples/MessageHubFileSample/toolkit.xml
+
