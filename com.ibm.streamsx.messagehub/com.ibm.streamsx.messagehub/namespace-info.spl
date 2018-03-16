@@ -2,9 +2,7 @@
  * This SPL namespace contains the operators to connect with an instance of the IBM Message Hub cloud service.
  * These operators are based on the operators of the streamsx.kafka toolkit. It is recommended that users 
  * review the Kafka Toolkit documentation for additional information on supported functionality. 
- * The Kafka Toolkit documentation can be found here:
- * 
- * [ https://ibmstreams.github.io/streamsx.kafka/ | Kafka Toolkit] 
+ * The Kafka Toolkit documentation can be found here: [https://ibmstreams.github.io/streamsx.kafka/|Kafka Toolkit] 
  * 
  * + Setup of the operators
  * 
@@ -89,6 +87,13 @@
  * * key.serializer
  * * value.serializer
  * 
+ * 
+ * + Tracing Kafka properties
+ * 
+ * For testing it might desirable to see all effective Kafka Consumer or Producer properties, also those 
+ * properties, which have not been setup by application configuration or configuration file.
+ * To achieve this, submit the Streams application with **application trace level INFO** or more verbose.
+ * Then the properties are traced into the PE trace. Authentication information is hidden.
  */
 
 namespace com.ibm.streamsx.messagehub;
