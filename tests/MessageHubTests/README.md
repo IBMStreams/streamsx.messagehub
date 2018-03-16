@@ -10,5 +10,5 @@ MessageHub service, without any modifications.
 ## Running
 
 ```
-../../gradlew.sh test
+../../gradlew test
 ```

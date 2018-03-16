@@ -28,7 +28,7 @@ import com.ibm.streamsx.topology.tester.Tester;
 
 public class MessageHubFileParamTest extends AbstractMessageHubTest {
 
-	private static final String TEST_NAME = "KafkaOperatorsGreenThread";
+	private static final String TEST_NAME = "MessageHubFileParamTest";
 	private static final String MESSAGEHUB_CREDS_FILE_PATH = "etc/userfile.json";
 	
 	public MessageHubFileParamTest() throws Exception {
