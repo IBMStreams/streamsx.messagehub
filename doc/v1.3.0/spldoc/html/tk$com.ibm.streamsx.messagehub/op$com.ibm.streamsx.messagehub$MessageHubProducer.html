@@ -22,7 +22,7 @@
 <div class="body refbody">
 <div class="section">
 <p class="p">
-<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 1.3.1</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; MessageHubProducer</p>
+<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 1.3.0</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; MessageHubProducer</p>
 
 </div>
 
@@ -46,19 +46,19 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d8449e69">
+<th class="entry" colspan="1" valign="top" id="d8084e69">
 <p class="p">Parameter
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d8449e75">
+<th class="entry" colspan="1" valign="top" id="d8084e75">
 <p class="p">Default Value
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d8449e81">
+<th class="entry" colspan="1" valign="top" id="d8084e81">
 <p class="p">Description
 </p>
 
@@ -70,19 +70,19 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d8449e69 ">
+<td class="entry" colspan="1" valign="top" headers="d8084e69 ">
 <p class="p"><strong class="ph b">appConfigName</strong>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d8449e75 ">
+<td class="entry" colspan="1" valign="top" headers="d8084e75 ">
 <p class="p"><tt class="ph tt">messagehub</tt>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d8449e81 ">
+<td class="entry" colspan="1" valign="top" headers="d8084e81 ">
 <p class="p">Users can choose to place the raw MesageHub Credentials JSON in a property called <tt class="ph tt">messagehub.creds</tt> in an application configuration called <tt class="ph tt">messagehub</tt>. The operator will extract the information needed to connect to Message Hub.
 </p>
 
@@ -91,19 +91,19 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d8449e69 ">
+<td class="entry" colspan="1" valign="top" headers="d8084e69 ">
 <p class="p"><strong class="ph b">messageHubCredentialsFile</strong>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d8449e75 ">
+<td class="entry" colspan="1" valign="top" headers="d8084e75 ">
 <p class="p"><tt class="ph tt">etc/messagehub.json</tt>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d8449e81 ">
+<td class="entry" colspan="1" valign="top" headers="d8084e81 ">
 <p class="p">Users can paste the raw Message Hub Credentials JSON into a file pointed to by this parameter. The operator will extract the information needed to connect to Message Hub. By default, the operator will look for a file called <tt class="ph tt">etc/messagehub.json</tt>.
 </p>
 
@@ -319,7 +319,7 @@ This operator supports 11 parameters.
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__clientId"><!-- --></a><tt class="ph tt">clientId</tt></dt>
 
 <dd class="dd">
-<p class="p">Specifies the client ID that should be used when connecting to the Kafka cluster. The value specified by this parameter will override the <tt class="ph tt">client.id</tt> Kafka property if specified. If this parameter is not specified and the <tt class="ph tt">client.id</tt> Kafka property is not specified, the operator will use a random client ID.
+<p class="p">Specifies the client ID that should be used when connecting to the Kafka cluster. The value specified by this parameter will override the <tt class="ph tt">client.id</tt> Kafka property if specified. If this parameter is not specified and the the <tt class="ph tt">client.id</tt> Kafka property is not specified, the operator will use a random client ID.
 </p>
 <dl class="dl">
 
@@ -508,7 +508,7 @@ This operator supports 11 parameters.
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__timestampAttribute"><!-- --></a><tt class="ph tt">timestampAttribute</tt></dt>
 
 <dd class="dd">
-<p class="p">Specifies the attribute on the input port that contains the timestamp for the message. If not specified, the operator will look for an input attribute named <em class="ph i">messageTimestamp</em>. If this parameter is not specified and there is no input attribute named <em class="ph i">messageTimestamp</em>, the operator will use the timestamp provided by Kafka (broker config <tt class="ph tt">log.message.timestamp.type=[CreateTime|LogAppendTime]</tt>).
+<p class="p">Specifies the attribute on the input port that contains the timestamp for the message. If not specified, theoperator will look for an input attribute named <em class="ph i">messageTimestamp</em>. If this parameter is not specified and there is no input attribute named <em class="ph i">messageTimestamp</em>, the operator will use the timestamp provided by the underlying Kafka API.
 </p>
 <dl class="dl">
 
