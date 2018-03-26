@@ -39,7 +39,7 @@ repositories {
 
 /* Defs */
 def STREAMS_INSTALL = System.getenv("STREAMS_INSTALL")
-def KAFKA_BASE_TAG = 'v1.3.0' // Update this tag when changing the underlying Kafka version
+def KAFKA_BASE_TAG = 'v1.3.1' // Update this tag when changing the underlying Kafka version
 
 dependencies {
     compile fileTree(dir: STREAMS_INSTALL + '/lib', include: ['com.ibm.streams.operator.jar'])
@@ -113,7 +113,7 @@ task deleteDeps(type: Delete) {
     delete "output"
     delete fileTree(dir : 'com.ibm.streamsx.messagehub', exclude : ['*.spl'])
     delete "impl/java/bin"
-    delete "impl/lib/com.ibm.streamsx.messagehub-${version}.jar"
+    delete fileTree(dir: 'impl/lib', include: ['com.ibm.streamsx.messagehub-*.jar'])
     delete ".kafka"
 }
 
