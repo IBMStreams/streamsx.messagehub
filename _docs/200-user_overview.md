@@ -25,5 +25,6 @@ Read more about how to use these operators in the [SPL documentaion](/streamsx.m
 
 * [MessageHubAppConfigSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/MessageHubAppConfigSample)
 * [MessageHubFileSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/MessageHubFileSample)
+* [MessageHubConsumerInputPortSample](ttps://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/MessageHubConsumerInputPortSample)
 
 It is also worth looking at the samples of the Kafka toolkit, which can be found [here](https://ibmstreams.github.io/streamsx.kafka/docs/user/overview/).
