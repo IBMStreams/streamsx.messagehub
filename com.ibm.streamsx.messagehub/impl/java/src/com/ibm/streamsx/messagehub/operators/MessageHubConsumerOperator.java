@@ -3,12 +3,14 @@ package com.ibm.streamsx.messagehub.operators;
 import org.apache.log4j.Logger;
 
 import com.ibm.streams.operator.model.Icons;
+import com.ibm.streams.operator.model.InputPortSet;
+import com.ibm.streams.operator.model.InputPorts;
 import com.ibm.streams.operator.model.Libraries;
 import com.ibm.streams.operator.model.OutputPortSet;
+import com.ibm.streams.operator.model.OutputPortSet.WindowPunctuationOutputMode;
 import com.ibm.streams.operator.model.OutputPorts;
 import com.ibm.streams.operator.model.Parameter;
 import com.ibm.streams.operator.model.PrimitiveOperator;
-import com.ibm.streams.operator.model.OutputPortSet.WindowPunctuationOutputMode;
 import com.ibm.streamsx.kafka.operators.AbstractKafkaConsumerOperator;
 import com.ibm.streamsx.kafka.properties.KafkaOperatorProperties;
 import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
@@ -16,6 +18,42 @@ import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
 @PrimitiveOperator(name = "MessageHubConsumer", namespace = "com.ibm.streamsx.messagehub", description=MessageHubConsumerOperator.DESC)
 @Icons(location16 = "icons/MessageHubConsumer_16.png", location32 = "icons/MessageHubConsumer_32.png")
 @Libraries({"opt/downloaded/*", "impl/lib/*"})
+@InputPorts({
+    @InputPortSet(description = "This port is used to specify the topic-partition offsets that the consumer should begin reading messages from. When this "
+            + "port is specified, the operator will ignore the `topic`, `partition` and `startPosition` parameters. The operator will only begin "
+            + "consuming messages once a tuple is received on this port. Each tuple received on this port will cause the operator to "
+            + "seek to the offsets for the specified topic-partitions. This works as follows: "
+            + "\\n"
+            + " * To seek to the beginning of a topic-partition, set the value of the offset to `-1.`\\n"
+            + " * To seek to the end of a topic-partition, set the value of the offset attribute to `-2.`\\n"
+            + " * Any other value will cause the operator to seek to that offset value. If that value does not exist, then the operator will use the "
+            + "`auto.offset.reset` policy to determine where to begin reading messages from.\\n"
+            + "\\n"
+            + "This input port must contain a single `rstring` attribute. In order to add or remove a topic partition, the attribute must contain "
+            + "a JSON string in the following format: \\n"
+            + "\\n"
+            + "    {\\n"
+            + "      \\\"action\\\" : \\\"ADD\\\" or \\\"REMOVE\\\",\\n" 
+            + "      \\\"topicPartitionOffsets\\\" : [\\n" 
+            + "        {\\n"
+            + "          \\\"topic\\\" : \\\"topic-name\\\",\\n"
+            + "          \\\"partition\\\" : <partition_number>,\\n" 
+            + "          \\\"offset\\\" : <offset_number>\\n" 
+            + "        },\\n" 
+            + "        ...\\n" 
+            + "      ]\\n"  
+            + "    }\\n"
+            + "\\n"
+            + "The following convenience functions are available to aid in creating the messages: \\n"
+            + "\\n"
+            + " * `rstring addTopicPartitionMessage(rstring topic, int32 partition, int64 offset);` \\n" 
+            + "\\n"
+            + " * `rstring addTopicPartitionMessage(list<tuple<rstring topic, int32 partition, int64 offset>> topicPartitionsToAdd);` \\n" 
+            + "\\n"
+            + " * `rstring removeTopicPartitionMessage(rstring topic, int32 partition);` \\n" 
+            + "\\n"  
+            + " * `rstring removeTopicPartitionMessage(list<tuple<rstring topic, int32 partition>> topicPartitionsToRemove);`", 
+            cardinality = 1, optional = true)})
 @OutputPorts({
     @OutputPortSet(description = "Port that produces tuples", cardinality = 1, optional = false, windowPunctuationOutputMode = WindowPunctuationOutputMode.Generating) })
 public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {

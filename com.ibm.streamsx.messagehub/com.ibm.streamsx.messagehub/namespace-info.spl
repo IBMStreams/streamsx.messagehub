@@ -46,31 +46,41 @@
  * 
  * **NOTE:** Users can use the **messageHubCredentialsFile** parameter to specify a different file containing the Message Hub Credentials in JSON format.
  * 
+ * When both, a credentials file and an application configuration is specified, also when the credentials are stored 
+ * with the default file name `messagehub.json`, the application configuration is ignored.
+ * 
  * 
  * **The following Kafka properties are setup by the operators by default:**
  * 
- * -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- * | property name                         | value                                                                                                                             |
- * |=======================================|===================================================================================================================================|
- * | bootstrap.servers                     | *parsed from the service credentials*                                                                                             |
- * |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
- * | sasl.jaas.config                      | org.apache.kafka.common.security.plain.PlainLoginModule required serviceName="kafka" username="*username*" password="*password*"; |
- * |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
- * | security.protocol                     | SASL_SSL                                                                                                                          |
- * |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
- * | sasl.mechanism                        | PLAIN                                                                                                                             |
- * |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
- * | ssl.protocol                          | TLSv1.2                                                                                                                           |
- * |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
- * | ssl.truststore                        | JKS                                                                                                                               |
- * |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
- * | ssl.enabled.protocols                 | TLSv1.2                                                                                                                           |
- * |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
- * | ssl.endpoint.identification.algorithm | HTTPS                                                                                                                             |
- * -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------------------------------------------------------
+ * | property name                         | value                                                                              |
+ * |=======================================|====================================================================================|
+ * | bootstrap.servers                     | *parsed from the service credentials*                                              |
+ * |----------------------------------------------------------------------------------------------------------------------------|
+ * | sasl.jaas.config                      | org.apache.kafka.common.security.plain.PlainLoginModule required                   |
+ * |                                       |   serviceName="kafka"                                                              |
+ * |                                       |   username="*username*"                                                            |
+ * |                                       |   password="*password*";                                                           |
+ * |                                       |                                                                                    |
+ * |                                       | (The *username* and the *password* are extracted from the service credentials.)    |
+ * |----------------------------------------------------------------------------------------------------------------------------|
+ * | security.protocol                     | SASL_SSL                                                                           |
+ * |----------------------------------------------------------------------------------------------------------------------------|
+ * | sasl.mechanism                        | PLAIN                                                                              |
+ * |----------------------------------------------------------------------------------------------------------------------------|
+ * | ssl.protocol                          | TLSv1.2                                                                            |
+ * |----------------------------------------------------------------------------------------------------------------------------|
+ * | ssl.truststore                        | JKS                                                                                |
+ * |----------------------------------------------------------------------------------------------------------------------------|
+ * | ssl.enabled.protocols                 | TLSv1.2                                                                            |
+ * |----------------------------------------------------------------------------------------------------------------------------|
+ * | ssl.endpoint.identification.algorithm | HTTPS                                                                              |
+ * ------------------------------------------------------------------------------------------------------------------------------
  *
  * 
- * These properties are not overwritten by specific Kafka properties provided via properties file or application configuration.
+ * These properties cannot be overwritten by specific Kafka properties provided via properties file or application configuration.
+ * They are ignored when specified in a property file or application configuration.
+ * 
  * In addition to the properties above, the following properties are set by default like in the Kafka toolkit:
  * 
  * For the MessageHubConsumer:
