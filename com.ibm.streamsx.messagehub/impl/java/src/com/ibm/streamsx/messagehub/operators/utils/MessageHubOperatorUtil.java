@@ -26,18 +26,18 @@ public class MessageHubOperatorUtil {
 
     public static KafkaOperatorProperties loadMessageHubCredsFromAppConfig(OperatorContext context,
             String appConfigName) throws Exception {
-        boolean isAppConfigNameGiven = appConfigName != null;
         if (appConfigName == null) {
             appConfigName = MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_APP_CONFIG_NAME;
             
         }
-        logger.debug("Attempting to load app config from: " + appConfigName); //$NON-NLS-1$
+        logger.info("Attempting to load app config from: " + appConfigName); //$NON-NLS-1$
 
         KafkaOperatorProperties properties = new KafkaOperatorProperties();
         Map<String, String> appConfig = context.getPE().getApplicationConfiguration(appConfigName);
-        if (appConfig.isEmpty() && isAppConfigNameGiven) {
+        logger.info ("Properties read from App Config " + appConfigName + ": " + appConfig.keySet());
+        if (appConfig.isEmpty()) {
             // we have no indication whether the app config exists or not.
-            logger.error ("given App Config '" + appConfigName + "' does not exist or is empty.");
+            logger.warn ("App Config '" + appConfigName + "' does not exist or is empty.");
         }
         if (appConfig.containsKey(DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME)) {
             String credentials = appConfig.get(DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME);
@@ -45,8 +45,8 @@ public class MessageHubOperatorUtil {
             KafkaOperatorProperties messageHubProperties = loadFromMessageHubCreds(context, credentials);
             properties.putAllIfNotPresent(messageHubProperties);
         }
-        else if (isAppConfigNameGiven) {
-            logger.error ("App Config '" + appConfigName + "' has no key '" + DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME + "' where the Message Hub credentials in JSON format are expected.");
+        else {
+            logger.warn ("App Config '" + appConfigName + "' has no key '" + DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME + "' where the Message Hub credentials in JSON format are expected.");
         }
 
         return properties;
@@ -61,7 +61,7 @@ public class MessageHubOperatorUtil {
         }
         String creds = Files.toString(messageHubCredsFile, StandardCharsets.UTF_8);
         if (creds == null || creds.trim().isEmpty()) {
-            logger.error ("Credential file " + messageHubCredsFile + " exists, but is empty");
+            logger.warn ("Credential file " + messageHubCredsFile + " exists, but is empty");
         }
         return loadFromMessageHubCreds(context, creds);
     }
@@ -72,7 +72,7 @@ public class MessageHubOperatorUtil {
         }
 
         logger.info ("Parsing Message Hub creds: ** NOT LOGGED **");
-        logger.trace ("Message Hub creds: " + credentials);
+        logger.trace ("Message Hub creds: " + credentials);  // this exposes sensitive information
         
         KafkaOperatorProperties properties = new KafkaOperatorProperties();
         Gson gson = new Gson();

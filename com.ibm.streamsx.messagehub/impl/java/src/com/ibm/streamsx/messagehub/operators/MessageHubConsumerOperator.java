@@ -78,6 +78,8 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
         }
         else {
             getKafkaProperties().putAllIfNotPresent(credsFileProps);
+            logger.info ("kafka properties derived from the content of the credentials file " + messageHubCredsFile 
+                    + ": " + credsFileProps.keySet());
         }
         // super.loadProperties reads 1. from properties file, 2. from app config (where the overwritten method is invoked)
         super.loadProperties();
@@ -92,6 +94,10 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
             logger.error(msg);
             throw new RuntimeException(msg);
         }
+        logger.info ("kafka properties derived from App Config " + appConfigName + " (" 
+                + MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME + "): "
+                + appCfgProps.keySet());
+       
         // When we are here, we might have read the properties derived from a JSON credentials file. In this case 'appConfigRequired' is false.
         // Then we put them only if not yet present.
         // If we have not read a JSON credentials file, we might already have read Kafka properties from a properties file.
