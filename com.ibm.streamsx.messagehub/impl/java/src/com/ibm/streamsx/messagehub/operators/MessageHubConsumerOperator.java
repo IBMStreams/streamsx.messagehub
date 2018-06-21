@@ -88,13 +88,14 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
 
     @Override
     protected void loadFromAppConfig() throws Exception {
-        final KafkaOperatorProperties appCfgProps = MessageHubOperatorUtil.loadMessageHubCredsFromAppConfig(getOperatorContext(), appConfigName);
+        final String appCfgName = appConfigName == null? MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_APP_CONFIG_NAME: appConfigName;
+        final KafkaOperatorProperties appCfgProps = MessageHubOperatorUtil.loadMessageHubCredsFromAppConfig(getOperatorContext(), appCfgName);
         if (appConfigRequired && (appCfgProps == null || appCfgProps.isEmpty())) {
             final String msg = "Message Hub credentials not found in properties file nor in an Application Configuration";
             logger.error(msg);
             throw new RuntimeException(msg);
         }
-        logger.info ("kafka properties derived from App Config " + appConfigName + " (" 
+        logger.info ("kafka properties derived from App Config " + appCfgName + " (" 
                 + MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME + "): "
                 + appCfgProps.keySet());
        
