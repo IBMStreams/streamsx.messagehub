@@ -115,7 +115,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
     		+ "The following steps outline how this can be done: \\n" + 
     		"\\n" + 
     		" 1. Create an application configuration called `messagehub`.\\n" + 
-    		" 2. Create a property in the `messagehub` application configuration *named* `messagehub.creds`.\\n" + 
+    		" 2. Create a property in the `messagehub` application configuration with *name* `messagehub.creds`.\\n" + 
     		"   * The *value* of the property should be the raw Message Hub Credentials JSON\\n" + 
     		" 3. The operator will automatically look for an application configuration named `messagehub` and will extract "
     		+ "the information needed to connect. Users only need to specify the topic(s) that they wish to consume messages "
