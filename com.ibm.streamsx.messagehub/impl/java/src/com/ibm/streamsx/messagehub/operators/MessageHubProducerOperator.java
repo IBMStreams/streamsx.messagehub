@@ -146,7 +146,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
     		"The Message Hub Toolkit wraps the `KafkaConsumer` and `KafkaProducer` operators from a specific version of the Kafka Toolkit. "
     		+ "This implies that all of the functionality and restrictions provided by the Kafka Toolkit are inherited by the Message Hub Toolkit.\\n" + 
     		"\\n" + 
-    		"This version of the Message Hub Toolkit wraps **Kafka Toolkit v1.3.x**. It is recommended that users review "
+    		"This version of the Message Hub Toolkit wraps **Kafka Toolkit v1.4.x**. It is recommended that users review "
     		+ "the Kafka Toolkit documentation for additional information on supported functionality. "
     		+ "The Kafka Toolkit documentation can be found here: "
     		+ "[ https://ibmstreams.github.io/streamsx.kafka/ | Kafka Toolkit].\\n" + 
