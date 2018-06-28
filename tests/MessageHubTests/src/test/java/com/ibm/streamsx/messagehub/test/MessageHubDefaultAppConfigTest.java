@@ -42,7 +42,7 @@ public class MessageHubDefaultAppConfigTest extends AbstractMessageHubTest {
 		ProcessBuilder pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "mkappconfig", "--property", creds, "messagehub");
 		pb.inheritIO();
 		Process p = pb.start();
-		
+		Thread.sleep(5000);
 		p.waitFor(25, TimeUnit.SECONDS);
 		if(p.exitValue() != 0) {
 			System.out.println(p.exitValue());
