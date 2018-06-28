@@ -93,6 +93,8 @@ public class MessageHubOperatorUtil {
         String value = JaasUtil.getSaslJaasPropertyValue(messageHubCreds.getUser(), messageHubCreds.getPassword());
         properties.put(JaasUtil.SASL_JAAS_PROPERTY, value);
 
+        // for debugging purpose, trace the messagehub username
+        logger.info("message hub instance user = " + messageHubCreds.getUser());
         // add SSL properties
         properties.put("security.protocol", "SASL_SSL"); //$NON-NLS-1$ //$NON-NLS-2$
         properties.put("sasl.mechanism", "PLAIN"); //$NON-NLS-1$ //$NON-NLS-2$
