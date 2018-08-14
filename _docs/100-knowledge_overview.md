@@ -13,7 +13,7 @@ sidebar:
 
 ## Purpose of this toolkit
 
-The streamsx.messaging toolkit provides those operators that help you integrate IBM Streams with the 
+The streamsx.messagehub toolkit provides those operators that help you integrate IBM Streams with the 
 [IBM Cloud Message Hub service](https://console.bluemix.net/docs/services/MessageHub/index.html#messagehub).
 This toolkit lets you read messages from Message Hub topics and write messages into topics.
 
