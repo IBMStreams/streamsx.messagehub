@@ -15,6 +15,13 @@ sidebar:
 
 [Toolkit Documentation (SPLDoc)](/streamsx.messagehub/doc/spldoc/html/)
 
+
+### 1.5.0 alpha release
+Please note, that this toolkit release is an early pre-release, which still constains instabilities.
+
+[SPLDoc](/streamsx.messagehub/doc/v1.5.0.alpha/spldoc/html/)
+
+
 ### Toolkit documentation for previous versions
 
 #### v1.4.1

@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-us" lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="copyright" content="(C) Copyright 2005"/>
+<meta name="DC.rights.owner" content="(C) Copyright 2005"/>
+<meta name="DC.Type" content="reference"/>
+<meta name="DC.Title" content="Operator MessageHubProducer"/>
+<meta name="DC.Format" content="XHTML"/>
+<meta name="DC.Identifier" content="spldoc_operator"/>
+<link rel="stylesheet" type="text/css" href="../../html/commonltr.css"/>
+<link rel="stylesheet" type="text/css" href="../../html/spldoc.css"/>
+<title>Operator MessageHubProducer</title>
+</head>
+<body id="spldoc_operator">
+
+
+<h1 class="title topictitle1">Operator <tt class="ph tt">MessageHubProducer</tt></h1>
+
+<div class="body refbody">
+<div class="section">
+<p class="p">
+<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 1.5.0.__dev_cr_grp__</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; MessageHubProducer</p>
+
+</div>
+
+<div class="section splprimop">
+  <embed class="image" src="../../image/tk$com.ibm.streamsx.messagehub/op$com.ibm.streamsx.messagehub$MessageHubProducer.svg" width="872" height="112"/>
+</div>
+
+<div class="section">
+
+<p class="p">The <strong class="ph b">MessageHubProducer</strong> operator is used to consume records from the IBM Cloud Message Hub service. The operator has been designed to make connectivity to the service as simple as possible. This is achieved in a number of different ways, from having default values for the <strong class="ph b">appConfigName</strong> parameter to allowing the user to copy/paste the raw Message Hub Credentials JSON into either an application configuration property or a file.
+</p>
+
+<p class="p">The following table lists the default values that have been set by this operator for a couple of parameters: 
+</p>
+
+<div class="p">
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all">
+
+
+
+<thead class="thead" align="left">
+<tr class="row">
+<th class="entry" colspan="1" valign="top" id="d9925e69">
+<p class="p">Parameter
+</p>
+
+</th>
+
+<th class="entry" colspan="1" valign="top" id="d9925e75">
+<p class="p">Default Value
+</p>
+
+</th>
+
+<th class="entry" colspan="1" valign="top" id="d9925e81">
+<p class="p">Description
+</p>
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody class="tbody">
+<tr class="row">
+<td class="entry" colspan="1" valign="top" headers="d9925e69 ">
+<p class="p"><strong class="ph b">appConfigName</strong>
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d9925e75 ">
+<p class="p"><tt class="ph tt">messagehub</tt>
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d9925e81 ">
+<p class="p">Users can choose to place the raw MesageHub Credentials JSON in a property called <tt class="ph tt">messagehub.creds</tt> in an application configuration called <tt class="ph tt">messagehub</tt>. The operator will extract the information needed to connect to Message Hub.
+</p>
+
+</td>
+
+</tr>
+
+<tr class="row">
+<td class="entry" colspan="1" valign="top" headers="d9925e69 ">
+<p class="p"><strong class="ph b">messageHubCredentialsFile</strong>
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d9925e75 ">
+<p class="p"><tt class="ph tt">etc/messagehub.json</tt>
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d9925e81 ">
+<p class="p">Users can paste the raw Message Hub Credentials JSON into a file pointed to by this parameter. The operator will extract the information needed to connect to Message Hub. By default, the operator will look for a file called <tt class="ph tt">etc/messagehub.json</tt>.
+</p>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+</div>
+
+</div>
+
+</div>
+
+<div class="section"><h2 class="title sectiontitle">Setup
+</h2>
+
+<p class="p">This section outlines different options for enabling the <strong class="ph b">MessageHubProducer</strong> operator to connet to IBM Cloud Message Hub. Any of the following options can be used to configure the operator for connecting to IBM Cloud. 
+</p>
+
+<p class="p"><strong class="ph b">Save Credentials in Application Configuration Property</strong>
+</p>
+
+<p class="p">With this option, users can copy their Message Hub Credentials JSON from the Message Hub service and store it in an application configuration property called <tt class="ph tt">messagehub.creds</tt>. When the operator starts, it will look for that property and extract the information needed to connect. The following steps outline how this can be done: 
+</p>
+
+<div class="p">
+<ol class="ol">
+<li class="li"> Create an application configuration called <tt class="ph tt">messagehub</tt>.</li>
+
+<li class="li"> Create a property in the <tt class="ph tt">messagehub</tt> application configuration with <em class="ph i">name</em> <tt class="ph tt">messagehub.creds</tt>.
+<ul class="ul">
+<li class="li"> The <em class="ph i">value</em> of the property should be the raw Message Hub Credentials JSON</li>
+
+</ul>
+</li>
+
+<li class="li"> The operator will automatically look for an application configuration named <tt class="ph tt">messagehub</tt> and will extract the information needed to connect. Users only need to specify the topic(s) that they wish to consume messages from (set via the <strong class="ph b">topic</strong> parameter).</li>
+
+</ol>
+
+</div>
+
+<p class="p"><strong class="ph b">NOTE:</strong> Users can specify a different application configuration name by setting the <strong class="ph b">appConfigName</strong> parameter. The operator will still look for a property called <tt class="ph tt">messagehub.creds</tt> containing the Message Hub Credentials JSON. 
+</p>
+
+<p class="p"><strong class="ph b">Save Credentials in File</strong>
+</p>
+
+<p class="p">With this option, users can copy their Message Hub credentials JSON from the Message Hub service and store it in a file called <tt class="ph tt">messagehub.json</tt>. When the operator starts up it will read the credentials from that file and extract the information needed to connect. The following steps outline how this can be done: 
+</p>
+
+<div class="p">
+<ol class="ol">
+<li class="li"> Create a file called <tt class="ph tt">messagehub.json</tt> in the <tt class="ph tt">&lt;application_directory&gt;/etc/</tt> directory. </li>
+
+<li class="li"> Paste the Message Hub Credentials JSON into this file and save it. </li>
+
+<li class="li"> The operator will automatically look for the file <tt class="ph tt">&lt;application_directory&gt;/etc/messagehub.json</tt> and will extract the information needed to connect. Users only need to specify the topic(s) that they wish to consume messages from (set via the <strong class="ph b">topic</strong> parameter).</li>
+
+</ol>
+
+</div>
+
+<p class="p"><strong class="ph b">NOTE:</strong> Users can use the <strong class="ph b">messageHubCredentialsFile</strong> parameter to specify a different file containing the Message Hub Credentials JSON.
+</p>
+
+</div>
+
+<div class="section"><h2 class="title sectiontitle">Additional Operator Details
+</h2>
+
+<p class="p">The Message Hub Toolkit wraps the <tt class="ph tt">KafkaConsumer</tt> and <tt class="ph tt">KafkaProducer</tt> operators from a specific version of the Kafka Toolkit. This implies that all of the functionality and restrictions provided by the Kafka Toolkit are inherited by the Message Hub Toolkit.
+</p>
+
+<p class="p">This version of the Message Hub Toolkit wraps <strong class="ph b">Kafka Toolkit v1.5.x</strong>. It is recommended that users review the Kafka Toolkit documentation for additional information on supported functionality. The Kafka Toolkit documentation can be found here: <a class="xref" href="https://ibmstreams.github.io/streamsx.kafka/">Kafka Toolkit</a>.
+</p>
+
+</div>
+
+<div class="section"><h2 class="title sectiontitle splhead-1">Summary</h2>
+
+<dl class="dl" compact="compact">
+ 
+  <dt class="dt dlterm">Ports</dt>
+
+  <dd class="dd">This operator has 1 input port and 0 output ports.</dd>
+
+ 
+ 
+  <dt class="dt dlterm">Windowing</dt>
+
+  <dd class="dd">This operator does not accept any windowing configurations.</dd>
+
+ 
+ 
+  <dt class="dt dlterm">Parameters</dt>
+
+  <dd class="dd">This operator supports 11 parameters.
+<p class="p"> Optional: 
+<a class="xref" href="#spldoc_operator__parameter__appConfigName">appConfigName</a>, <a class="xref" href="#spldoc_operator__parameter__clientId">clientId</a>, <a class="xref" href="#spldoc_operator__parameter__keyAttribute">keyAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageAttribute">messageAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredentialsFile">messageHubCredentialsFile</a>, <a class="xref" href="#spldoc_operator__parameter__partitionAttribute">partitionAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__timestampAttribute">timestampAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__topicAttribute">topicAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
+
+</p>
+</dd>
+
+ 
+ 
+  <dt class="dt dlterm">Metrics</dt>
+
+  <dd class="dd">This operator does not report any metrics.</dd>
+
+ 
+</dl>
+</div>
+
+<div class="section"><h2 class="title sectiontitle splhead-1">Properties</h2>
+
+<dl class="dl" compact="compact">
+ 
+  <dt class="dt dlterm">Implementation</dt>
+
+  <dd class="dd">Java</dd>
+
+ 
+</dl>
+
+</div>
+
+<div class="section">
+<p class="p splhead-1"><strong class="ph b"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__input_port_set">Input Ports</a></strong></p>
+<dl class="dl">
+  
+   <dt class="dt dlterm">Ports (0)</dt>
+
+   <dd class="dd">
+
+<p class="p">Port that consumes tuples
+</p>
+   </dd>
+
+  
+    
+      <dt class="dt dlterm">Properties</dt>
+
+      <dd class="dd">
+   <ul class="sl simple">
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__input_port_set__optional">Optional</a>: false
+     </li>
+
+   </ul>
+
+   <ul class="sl simple">
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__input_port_set__controlport">ControlPort</a>: false
+</li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__input_port_set__windowingmode">WindowingMode</a>: NonWindowed
+</li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__input_port_set__windowpunctuationinputmode">WindowPunctuationInputMode</a>: Oblivious
+</li>
+
+   </ul>
+
+      </dd>
+
+    
+</dl>
+
+</div>
+
+<div class="section">
+<p class="p splhead-1"><strong class="ph b"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters">Parameters</a></strong></p>
+This operator supports 11 parameters.
+<p class="p"> Optional: 
+<a class="xref" href="#spldoc_operator__parameter__appConfigName">appConfigName</a>, <a class="xref" href="#spldoc_operator__parameter__clientId">clientId</a>, <a class="xref" href="#spldoc_operator__parameter__keyAttribute">keyAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageAttribute">messageAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredentialsFile">messageHubCredentialsFile</a>, <a class="xref" href="#spldoc_operator__parameter__partitionAttribute">partitionAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__timestampAttribute">timestampAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__topicAttribute">topicAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
+
+</p>
+<dl class="dl">
+
+<dt class="dt dlterm"><a name="spldoc_operator__parameter__appConfigName"><!-- --></a><tt class="ph tt">appConfigName</tt></dt>
+
+<dd class="dd">
+<p class="p">Specifies the name of the application configuration containing Kafka properties.
+</p>
+<dl class="dl">
+
+ <dt class="dt dlterm">Properties </dt>
+
+ <dd class="dd">
+  <ul class="sl simple">
+  <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__type">Type</a>: rstring
+  </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__cardinality">Cardinality</a>: 1
+     </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__optional">Optional</a>: true
+     </li>
+
+  </ul>
+
+ </dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt class="dt dlterm"><a name="spldoc_operator__parameter__clientId"><!-- --></a><tt class="ph tt">clientId</tt></dt>
+
+<dd class="dd">
+<p class="p">Specifies the client ID that should be used when connecting to the Kafka cluster. The value specified by this parameter will override the <tt class="ph tt">client.id</tt> Kafka property if specified. If this parameter is not specified and the <tt class="ph tt">client.id</tt> Kafka property is not specified, the operator will use a random client ID.
+</p>
+<dl class="dl">
+
+ <dt class="dt dlterm">Properties </dt>
+
+ <dd class="dd">
+  <ul class="sl simple">
+  <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__type">Type</a>: rstring
+  </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__cardinality">Cardinality</a>: 1
+     </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__optional">Optional</a>: true
+     </li>
+
+  </ul>
+
+ </dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt class="dt dlterm"><a name="spldoc_operator__parameter__keyAttribute"><!-- --></a><tt class="ph tt">keyAttribute</tt></dt>
+
+<dd class="dd">
+<p class="p">Specifies the input attribute that contains the Kafka key value. If not specified, the operator will look for an input attribute named <em class="ph i">key</em>.
+</p>
+<dl class="dl">
+
+ <dt class="dt dlterm">Properties </dt>
+
+ <dd class="dd">
+  <ul class="sl simple">
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__cardinality">Cardinality</a>: 1
+     </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__optional">Optional</a>: true
+     </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__expressionmode">ExpressionMode</a>: Attribute
+     </li>
+
+  </ul>
+
+ </dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt class="dt dlterm"><a name="spldoc_operator__parameter__messageAttribute"><!-- --></a><tt class="ph tt">messageAttribute</tt></dt>
+
+<dd class="dd">
+<p class="p">Specifies the attribute on the input port that contains the message payload. If not specified, the operator will look for an input attribute named <em class="ph i">message</em>. If this parameter is not specified and there is no input attribute named <em class="ph i">message</em>, the operator will throw an exception and terminate.
+</p>
+<dl class="dl">
+
+ <dt class="dt dlterm">Properties </dt>
+
+ <dd class="dd">
+  <ul class="sl simple">
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__cardinality">Cardinality</a>: 1
+     </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__optional">Optional</a>: true
+     </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__expressionmode">ExpressionMode</a>: Attribute
+     </li>
+
+  </ul>
+
+ </dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt class="dt dlterm"><a name="spldoc_operator__parameter__messageHubCredentialsFile"><!-- --></a><tt class="ph tt">messageHubCredentialsFile</tt></dt>
+
+<dd class="dd">
+<p class="p">Specifies the name of the file that contains the complete Message Hub credentials JSON. If not specified, this parameter will attempt to load the credentials from the file <tt class="ph tt">etc/messagehub.json</tt>. A relative path is always interpreted as relative to the <em class="ph i">application directory</em> of the Streams application. If the credential file is placed in the <tt class="ph tt">etc</tt> directory of the application bundle, specify <tt class="ph tt">getThisToolkitDir() + "/etc/&lt;your filename&gt;"</tt> as the parameter value.
+</p>
+<dl class="dl">
+
+ <dt class="dt dlterm">Properties </dt>
+
+ <dd class="dd">
+  <ul class="sl simple">
+  <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__type">Type</a>: rstring
+  </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__cardinality">Cardinality</a>: 1
+     </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__optional">Optional</a>: true
+     </li>
+
+  </ul>
+
+ </dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt class="dt dlterm"><a name="spldoc_operator__parameter__partitionAttribute"><!-- --></a><tt class="ph tt">partitionAttribute</tt></dt>
+
+<dd class="dd">
+<p class="p">Specifies the input attribute that contains the partition number that the message should be written to. If this parameter is not specified, the operator will look for an input attribute named <strong class="ph b">partition</strong>. If the user does not indicate which partition the message should be written to, then Kafka's default partitioning strategy will be used instead (partition based on the specified partitioner or in a round-robin fashion).
+</p>
+<dl class="dl">
+
+ <dt class="dt dlterm">Properties </dt>
+
+ <dd class="dd">
+  <ul class="sl simple">
+  <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__type">Type</a>: int32
+  </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__cardinality">Cardinality</a>: 1
+     </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__optional">Optional</a>: true
+     </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__expressionmode">ExpressionMode</a>: Attribute
+     </li>
+
+  </ul>
+
+ </dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt class="dt dlterm"><a name="spldoc_operator__parameter__propertiesFile"><!-- --></a><tt class="ph tt">propertiesFile</tt></dt>
+
+<dd class="dd">
+<p class="p">Specifies the name of the properties file containing Kafka properties.
+</p>
+<dl class="dl">
+
+ <dt class="dt dlterm">Properties </dt>
+
+ <dd class="dd">
+  <ul class="sl simple">
+  <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__type">Type</a>: rstring
+  </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__cardinality">Cardinality</a>: 1
+     </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__optional">Optional</a>: true
+     </li>
+
+  </ul>
+
+ </dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt class="dt dlterm"><a name="spldoc_operator__parameter__timestampAttribute"><!-- --></a><tt class="ph tt">timestampAttribute</tt></dt>
+
+<dd class="dd">
+<p class="p">Specifies the attribute on the input port that contains the timestamp for the message. If not specified, the operator will look for an input attribute named <em class="ph i">messageTimestamp</em>. If this parameter is not specified and there is no input attribute named <em class="ph i">messageTimestamp</em>, the operator will use the timestamp provided by Kafka (broker config <tt class="ph tt">log.message.timestamp.type=[CreateTime|LogAppendTime]</tt>).
+</p>
+<dl class="dl">
+
+ <dt class="dt dlterm">Properties </dt>
+
+ <dd class="dd">
+  <ul class="sl simple">
+  <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__type">Type</a>: int64
+  </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__cardinality">Cardinality</a>: 1
+     </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__optional">Optional</a>: true
+     </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__expressionmode">ExpressionMode</a>: Attribute
+     </li>
+
+  </ul>
+
+ </dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt class="dt dlterm"><a name="spldoc_operator__parameter__topic"><!-- --></a><tt class="ph tt">topic</tt></dt>
+
+<dd class="dd">
+<p class="p">Specifies the topic(s) that the producer should send messages to. The value of this parameter will take precedence over the <strong class="ph b">topicAttribute</strong> parameter. This parameter will also take precedence if the input tuple schema contains an attribute named <em class="ph i">topic</em>.
+</p>
+<dl class="dl">
+
+ <dt class="dt dlterm">Properties </dt>
+
+ <dd class="dd">
+  <ul class="sl simple">
+  <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__type">Type</a>: rstring
+  </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__optional">Optional</a>: true
+     </li>
+
+  </ul>
+
+ </dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt class="dt dlterm"><a name="spldoc_operator__parameter__topicAttribute"><!-- --></a><tt class="ph tt">topicAttribute</tt></dt>
+
+<dd class="dd">
+<p class="p">Specifies the input attribute that contains the name of the topic that the message should be written to. If this parameter is not specified, the operator will look for an input attribute named <em class="ph i">topic</em>. This parameter value is overridden if the <strong class="ph b">topic</strong> parameter is specified.
+</p>
+<dl class="dl">
+
+ <dt class="dt dlterm">Properties </dt>
+
+ <dd class="dd">
+  <ul class="sl simple">
+  <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__type">Type</a>: rstring
+  </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__cardinality">Cardinality</a>: 1
+     </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__optional">Optional</a>: true
+     </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__expressionmode">ExpressionMode</a>: Attribute
+     </li>
+
+  </ul>
+
+ </dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt class="dt dlterm"><a name="spldoc_operator__parameter__userLib"><!-- --></a><tt class="ph tt">userLib</tt></dt>
+
+<dd class="dd">
+<p class="p">Allows the user to specify paths to JAR files that should be loaded into the operators classpath. This is useful if the user wants to be able to specify their own partitioners. The value of this parameter can either point to a specific JAR file, or to a directory. In the case of a directory, the operator will load all files ending in <tt class="ph tt">.jar</tt> onto the classpath. By default, this parameter will load all jar files found in <tt class="ph tt">&lt;application_dir&gt;/etc/libs</tt>.
+</p>
+<dl class="dl">
+
+ <dt class="dt dlterm">Properties </dt>
+
+ <dd class="dd">
+  <ul class="sl simple">
+  <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__type">Type</a>: rstring
+  </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__optional">Optional</a>: true
+     </li>
+
+  </ul>
+
+ </dd>
+
+
+</dl>
+
+</dd>
+
+
+</dl>
+
+</div>
+
+<div class="section">
+<p class="p splhead-1"><strong class="ph b"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__context__dependencies">Libraries</a></strong></p>
+
+ <dl class="dl">
+ 
+  <dt class="dt dlterm">Operator class library
+  </dt>
+
+  <dd class="dd"/>
+
+  <dd class="dd"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__context__dependencies__managedlibrary__libpath">Library Path</a>: <tt class="ph tt">../../impl/java/bin, ../../opt/downloaded/*, ../../impl/lib/*</tt></dd>
+
+ 
+ </dl>
+
+</div>
+
+</div>
+
+
+</body>
+</html>
