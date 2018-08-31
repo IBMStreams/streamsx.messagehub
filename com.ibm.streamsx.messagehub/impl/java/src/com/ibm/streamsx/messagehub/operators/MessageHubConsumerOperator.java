@@ -64,7 +64,10 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
 
     @Parameter(optional = true, name="messageHubCredentialsFile", description="Specifies the name of the file that contains "
     		+ "the complete Message Hub credentials JSON. If not specified, this parameter will "
-    		+ "attempt to load the credentials from the file `etc/messagehub.json`.")
+    		+ "attempt to load the credentials from the file `etc/messagehub.json`. A relative path is always "
+    		+ "interpreted as relative to the *application directory* of the Streams application. If the credential file is "
+    		+ "placed in the `etc` directory of the application bundle, specify `getThisToolkitDir() + \\\"/etc/<your filename>\\\"` "
+    		+ "as the parameter value.")
     public void setMessageHubCredsFile(String messageHubCredsFile) {
         this.messageHubCredsFile = messageHubCredsFile;
     }
@@ -177,7 +180,7 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
     		"The Message Hub Toolkit wraps the `KafkaConsumer` and `KafkaProducer` operators from a specific version of the Kafka Toolkit. "
     		+ "This implies that all of the functionality and restrictions provided by the Kafka Toolkit are inherited by the Message Hub Toolkit.\\n" + 
     		"\\n" + 
-    		"This version of the Message Hub Toolkit wraps **Kafka Toolkit v1.4.x**. It is recommended that users review "
+    		"This version of the Message Hub Toolkit wraps **Kafka Toolkit v1.5.x**. It is recommended that users review "
     		+ "the Kafka Toolkit documentation for additional information on supported functionality. "
     		+ "The Kafka Toolkit project page can be found here: "
     		+ "[ https://ibmstreams.github.io/streamsx.kafka/| Kafka Toolkit ].\\n" + 
