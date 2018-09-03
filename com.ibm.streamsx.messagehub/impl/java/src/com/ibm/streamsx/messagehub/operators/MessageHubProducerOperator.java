@@ -26,9 +26,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
     @Parameter(optional = true, name="messageHubCredentialsFile", description="Specifies the name of the file that contains "
     		+ "the complete Message Hub credentials JSON. If not specified, this parameter will "
     		+ "attempt to load the credentials from the file `etc/messagehub.json`. A relative path is always "
-            + "interpreted as relative to the *application directory* of the Streams application. If the credential file is "
-            + "placed in the `etc` directory of the application bundle, specify `getThisToolkitDir() + \\\"/etc/<your filename>\\\"` "
-            + "as the parameter value.")
+            + "interpreted as relative to the *application directory* of the Streams application.")
     public void setMessageHubCredsFile(String messageHubCredsFile) {
         this.messageHubCredsFile = messageHubCredsFile;
     }
