@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-us" lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="copyright" content="(C) Copyright 2005"/>
+<meta name="DC.rights.owner" content="(C) Copyright 2005"/>
+<meta name="DC.Type" content="reference"/>
+<meta name="DC.Title" content="Setup of the operators"/>
+<meta name="DC.Format" content="XHTML"/>
+<meta name="DC.Identifier" content="spldoc_page"/>
+<link rel="stylesheet" type="text/css" href="../../html/commonltr.css"/>
+<link rel="stylesheet" type="text/css" href="../../html/spldoc.css"/>
+<title>Setup of the operators</title>
+</head>
+<body id="spldoc_page">
+
+
+<h1 class="title topictitle1">Setup of the operators</h1>
+
+<div class="body refbody">
+<div class="section">
+<p class="p">
+<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 1.5.0.beta1</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; Setup of the operators</p>
+
+</div>
+
+
+<div class="section">
+<p class="p">When you create an instance of the IBM Message Hub service, you must also create credentials to use the servcie. These credentials are given in JSON format. This piece of information is required to setup the operators  to connect to the service instance.
+</p>
+
+<p class="p">Any of the following options can be used to configure the operator for connecting to IBM Cloud.
+</p>
+
+</div>
+
+<div class="section"><h2 class="title sectiontitle">Save Credentials in Application Configuration Property
+</h2>
+
+<p class="p">With this option, users can copy their Message Hub Credentials JSON from the Message Hub service  and store it in an application configuration property named <tt class="ph tt">messagehub.creds</tt>.  When the operator starts, it will look for that property and extract the information needed to connect. The following steps outline how this can be done:
+</p>
+
+<div class="p">
+<ol class="ol">
+<li class="li"> Create an application configuration with the name <strong class="ph b">messagehub</strong>.</li>
+
+<li class="li"> Create a property in the messagehub application configuration with the name <tt class="ph tt">messagehub.creds</tt>.</li>
+
+<li class="li"> The value of the property must be the raw Message Hub Credentials JSON.</li>
+
+<li class="li"> The operator will automatically look for an application configuration named messagehub and will extract the information needed to connect. Users only need to specify the topic(s) that they wish to consume messages from (set via the topic parameter).</li>
+
+</ol>
+
+</div>
+
+<p class="p"><strong class="ph b">NOTE 1:</strong> Users can specify a different application configuration name by setting the <strong class="ph b">appConfigName</strong> parameter. The operator will still look for a property with the name <tt class="ph tt">messagehub.creds</tt> containing the Message Hub Credentials JSON.
+</p>
+
+<p class="p"><strong class="ph b">NOTE 2:</strong> Users can add generic Kafka properties, for example <tt class="ph tt">client.id</tt>, to the application configuration. To make the operator use these Kafka properties, the <strong class="ph b">appConfigName</strong> parameter must be specified even if the default application configuration name <tt class="ph tt">messagehub</tt> is used. Looking at the other way round, when the default application configuration name <tt class="ph tt">messagehub</tt> is used, but <em class="ph i">not</em> specified as <strong class="ph b">appConfigName</strong> parameter value,  only the service credentials are used from the application config.
+</p>
+
+</div>
+
+<div class="section"><h2 class="title sectiontitle">Save Credentials in a File
+</h2>
+
+<p class="p">With this option, users can copy their Message Hub credentials JSON from the Message Hub service and store it in a file called <tt class="ph tt">messagehub.json</tt>. When the operator starts up it will read the credentials from that file and extract the information needed to connect. The following steps outline how this can be done:
+</p>
+
+<div class="p">
+<ol class="ol">
+<li class="li"> Create a file with the name <tt class="ph tt">messagehub.json</tt> in the &lt;application_directory&gt;/etc/ directory.</li>
+
+<li class="li"> Paste the Message Hub Credentials JSON into this file and save it.</li>
+
+<li class="li"> The operator will automatically look for the file &lt;application_directory&gt;/etc/messagehub.json and will extract the information needed to connect. Users only need to specify the topic(s) that they wish to consume messages from (set via the topic parameter).</li>
+
+</ol>
+
+</div>
+
+<p class="p"><strong class="ph b">NOTE:</strong> Users can use the <strong class="ph b">messageHubCredentialsFile</strong> parameter to specify a different file containing the Message Hub Credentials in JSON format.
+</p>
+
+<p class="p">When both, a credentials file and an application configuration is specified, also when the credentials are stored  with the default file name <tt class="ph tt">messagehub.json</tt>, the application configuration is ignored.
+</p>
+
+<p class="p"><strong class="ph b">The following Kafka properties are setup by the operators by default:</strong>
+</p>
+
+<div class="p">
+
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all">
+
+
+<thead class="thead" align="left">
+<tr class="row">
+<th class="entry" colspan="1" valign="top" id="d2772e171">
+<p class="p">property name
+</p>
+
+</th>
+
+<th class="entry" colspan="1" valign="top" id="d2772e177">
+<p class="p">value
+</p>
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody class="tbody">
+<tr class="row">
+<td class="entry" colspan="1" valign="top" headers="d2772e171 ">
+<p class="p">bootstrap.servers
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d2772e177 ">
+<p class="p"><em class="ph i">parsed from the service credentials</em>
+</p>
+
+</td>
+
+</tr>
+
+<tr class="row">
+<td class="entry" colspan="1" valign="top" headers="d2772e171 ">
+<p class="p">sasl.jaas.config
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d2772e177 ">
+<p class="p">org.apache.kafka.common.security.plain.PlainLoginModule required   serviceName="kafka"   username="<em class="ph i">username</em>"   password="<em class="ph i">password</em>";
+</p>
+
+<p class="p">(The <em class="ph i">username</em> and the <em class="ph i">password</em> are extracted from the service credentials.)
+</p>
+
+</td>
+
+</tr>
+
+<tr class="row">
+<td class="entry" colspan="1" valign="top" headers="d2772e171 ">
+<p class="p">security.protocol
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d2772e177 ">
+<p class="p">SASL_SSL
+</p>
+
+</td>
+
+</tr>
+
+<tr class="row">
+<td class="entry" colspan="1" valign="top" headers="d2772e171 ">
+<p class="p">sasl.mechanism
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d2772e177 ">
+<p class="p">PLAIN
+</p>
+
+</td>
+
+</tr>
+
+<tr class="row">
+<td class="entry" colspan="1" valign="top" headers="d2772e171 ">
+<p class="p">ssl.protocol
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d2772e177 ">
+<p class="p">TLSv1.2
+</p>
+
+</td>
+
+</tr>
+
+<tr class="row">
+<td class="entry" colspan="1" valign="top" headers="d2772e171 ">
+<p class="p">ssl.truststore
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d2772e177 ">
+<p class="p">JKS
+</p>
+
+</td>
+
+</tr>
+
+<tr class="row">
+<td class="entry" colspan="1" valign="top" headers="d2772e171 ">
+<p class="p">ssl.enabled.protocols
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d2772e177 ">
+<p class="p">TLSv1.2
+</p>
+
+</td>
+
+</tr>
+
+<tr class="row">
+<td class="entry" colspan="1" valign="top" headers="d2772e171 ">
+<p class="p">ssl.endpoint.identification.algorithm
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d2772e177 ">
+<p class="p">HTTPS
+</p>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+</div>
+
+</div>
+
+<p class="p">These properties cannot be overwritten by specific Kafka properties provided via properties file or application configuration. They are ignored when specified in a property file or application configuration.
+</p>
+
+<p class="p">In addition to the properties above, the following properties are set by default like in the Kafka toolkit:
+</p>
+
+<p class="p">For the MessageHubConsumer:
+</p>
+
+<div class="p">
+<ul class="ul">
+<li class="li"> client.id</li>
+
+<li class="li"> group.id</li>
+
+<li class="li"> key.deserializer</li>
+
+<li class="li"> value.deserializer</li>
+
+<li class="li"> auto.commit.enable</li>
+
+</ul>
+
+</div>
+
+<p class="p">For the MessageHubProducer:
+</p>
+
+<div class="p">
+<ul class="ul">
+<li class="li"> client.id</li>
+
+<li class="li"> key.serializer</li>
+
+<li class="li"> value.serializer</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+
+</body>
+</html>
