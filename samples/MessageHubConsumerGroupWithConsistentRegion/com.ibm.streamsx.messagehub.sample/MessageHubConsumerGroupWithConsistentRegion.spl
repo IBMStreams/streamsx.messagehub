@@ -10,10 +10,10 @@ use com.ibm.streamsx.messagehub::MessageHubProducer ;
 composite MessageHubConsumerGroupWithConsistentRegion {
     param
         // settings for the consumer group
-        expression <int32> $nConsumers: 5;   // number of consumers in the consumer group; can be different than number of partitions
+        expression <int32> $nConsumers: 3;   // number of consumers in the consumer group; can be different than number of partitions
         expression <rstring> $topic: "testtopic";
         // settings for the producer
-        expression <int32> $nPartitions: 4;      // number of partitions; needed for tuple distribution
+        expression <int32> $nPartitions: 4;      // number of partitions; only needed for tuple distribution by the producer
         expression <uint32> $numTuples: 100000u; // number of tuples for the producer before it stops
 
     graph
@@ -54,7 +54,7 @@ composite MessageHubConsumerGroupWithConsistentRegion {
 
 
 
-        // producer
+        // ================= producer ====================================
         stream <int32 cnt, rstring message> GeneratedData = Beacon() {
             param
                 iterations : $numTuples;
