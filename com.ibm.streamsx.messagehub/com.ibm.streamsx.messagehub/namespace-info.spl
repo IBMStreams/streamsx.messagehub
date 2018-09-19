@@ -81,22 +81,9 @@
  * These properties cannot be overwritten by specific Kafka properties provided via properties file or application configuration.
  * They are ignored when specified in a property file or application configuration.
  * 
- * In addition to the properties above, the following properties are set by default like in the Kafka toolkit:
- * 
- * For the MessageHubConsumer:
- * 
- * * client.id
- * * group.id
- * * key.deserializer
- * * value.deserializer
- * * auto.commit.enable
+ * In addition to the properties above, some more properties are setup or adjusted specific for the operators.
+ * For reference, review the operator's documentation.
  *
- * For the MessageHubProducer:
- * 
- * * client.id
- * * key.serializer
- * * value.serializer
- * 
  * 
  * + Tracing Kafka properties
  * 

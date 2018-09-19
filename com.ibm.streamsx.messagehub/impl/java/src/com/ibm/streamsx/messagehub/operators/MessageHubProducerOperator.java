@@ -9,6 +9,7 @@ import com.ibm.streams.operator.model.Libraries;
 import com.ibm.streams.operator.model.Parameter;
 import com.ibm.streams.operator.model.PrimitiveOperator;
 import com.ibm.streamsx.kafka.operators.AbstractKafkaProducerOperator;
+import com.ibm.streamsx.kafka.operators.KafkaSplDoc;
 import com.ibm.streamsx.kafka.properties.KafkaOperatorProperties;
 import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
 
@@ -112,6 +113,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
             + "# Additional Operator Details\\n"
             + "\\n"
             + "# Kafka Properties\\n"
+            
             + "\\n"
             + "The operator implements Kafka's Producer API. As a result, it supports all "
             + "Kafka properties that are supported by the underlying API. The producer properties "
@@ -132,6 +134,8 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
             + "\\n"
             + "# Kafka producer properties that are setup or adjusted by the operator"
             + "\\n"
+            // Do not replace this section before the consistentRegionPolicy parameter is enabled for the producer
+            //+ KafkaSplDoc.PRODUCER_DEFAULT_AND_ADJUSTED_PROPERTIES
             + "---\\n"
             + "| Property name | Default Value |\\n"
             + "|===|\\n"
@@ -148,6 +152,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
             + "\\n"
             + "**NOTE:** Users can override any of the above properties by explicitly setting "
             + "the property value in either a properties file or in an application configuration. \\n"
+            // ----- End KafkaSplDoc.PRODUCER_DEFAULT_AND_ADJUSTED_PROPERTIES
             + "\\n"
             + "\\n"
             + "# Kafka Properties via Application Configuration\\n"
@@ -161,29 +166,9 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
             + "should be used for secure connections, an app config property named `ssl.cipher.suites` should "
             + "be created.\\n"
             + "\\n"
-            + "# Automatic Serialization\\n"
+            + KafkaSplDoc.PRODUCER_AUTOMATIC_SERIALIZATION
             + "\\n"
-            + "The operator will automatically select the appropriate serializers for the key "
-            + "and message based on their types. The following table outlines which "
-            + "deserializer will be used given a particular type: \\n"
-            + "\\n"
-            // TODO: extract
-            + "---\\n"
-            + "| Serializer | SPL Types |\\n"
-            + "|===|\\n"
-            + "| org.apache.kafka.common.serialization.StringSerializer | rstring |\\n"
-            + "|---|\\n"
-            + "| org.apache.kafka.common.serialization.IntegerSerializer | int32, uint32 |\\n"
-            + "|---|\\n"
-            + "| org.apache.kafka.common.serialization.LongSerializer | int64, uint64 |\\n"
-            + "|---|\\n"
-            + "| org.apache.kafka.common.serialization.FloatSerializer | float32 |\\n"
-            + "|---|\\n"
-            + "| org.apache.kafka.common.serialization.DoubleSerializer | float64 |\\n"
-            + "|---|\\n"
-            + "| org.apache.kafka.common.serialization.ByteArraySerializer | blob |\\n"
-            + "---\\n"
-            + "\\n"
+            //+ KafkaSplDoc.PRODUCER_CONSISTENT_REGION_SUPPORT; still different in MH toolkit
             + "# Consistent Region Strategy\\n"
             + "\\n"
             + "The operator cannot be the start of a consistent region. The operator supports *at least once* "
