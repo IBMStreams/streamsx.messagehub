@@ -32,15 +32,6 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
         this.messageHubCredsFile = messageHubCredsFile;
     }
 
-    /**
-     * Not annotated as Parameter like the base class. This hides the parameter `consistentRegionPolicy` in this operator.
-     * MessageHub is on Kafka 0.10.2.1 that does not support transactions. Avoid using parameter consistentRegionPolicy: transactional this way.
-     * The method has an empty body.
-     * @see com.ibm.streamsx.kafka.operators.AbstractKafkaProducerOperator#setConsistentRegionPolicy(com.ibm.streamsx.kafka.operators.AbstractKafkaProducerOperator.ConsistentRegionPolicy)
-     */
-    @Override
-    public void setConsistentRegionPolicy (AbstractKafkaProducerOperator.ConsistentRegionPolicy consistentRegionPolicy) {
-    }
 
     @Override
     protected void loadProperties() throws Exception {
@@ -134,25 +125,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
             + "\\n"
             + "# Kafka producer properties that are setup or adjusted by the operator"
             + "\\n"
-            // Do not replace this section before the consistentRegionPolicy parameter is enabled for the producer
-            //+ KafkaSplDoc.PRODUCER_DEFAULT_AND_ADJUSTED_PROPERTIES
-            + "---\\n"
-            + "| Property name | Default Value |\\n"
-            + "|===|\\n"
-            + "| client.id | Generated ID in the form: `C-J<JobId>-<operator name>` |\\n"
-            + "|---|\\n"
-            + "| key.serializer | See **Automatic Serialization** section below |\\n"
-            + "|---|\\n"
-            + "| value.serializer | See **Automatic Serialization** section below |\\n"
-//            + "|---|\\n"
-//            + "| enable.idempotence | `true` only when in consistent region and **consistentRegionPolicy** parameter is set to `Transactional`. |\\n"
-//            + "|---|\\n"
-//            + "| transactional.id | Randomly generated ID in the form: `tid-<random_string>` only when in consistent region and **consistentRegionPolicy** parameter is set to `Transactional`. |\\n"
-            + "---\\n"
-            + "\\n"
-            + "**NOTE:** Users can override any of the above properties by explicitly setting "
-            + "the property value in either a properties file or in an application configuration. \\n"
-            // ----- End KafkaSplDoc.PRODUCER_DEFAULT_AND_ADJUSTED_PROPERTIES
+            + KafkaSplDoc.PRODUCER_DEFAULT_AND_ADJUSTED_PROPERTIES
             + "\\n"
             + "\\n"
             + "# Kafka Properties via Application Configuration\\n"
@@ -168,16 +141,9 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
             + "\\n"
             + KafkaSplDoc.PRODUCER_AUTOMATIC_SERIALIZATION
             + "\\n"
-            //+ KafkaSplDoc.PRODUCER_CONSISTENT_REGION_SUPPORT; still different in MH toolkit
-            + "# Consistent Region Strategy\\n"
+            + KafkaSplDoc.PRODUCER_CONSISTENT_REGION_SUPPORT
+            + "For the Event Streams cloud service, the *Enterprise plan* must be selected to use transactions for message delivery."
             + "\\n"
-            + "The operator cannot be the start of a consistent region. The operator supports *at least once* "
-            + "delivery semantics.\\n"
-            + "\\n"
-            + "If the operator crashes or is reset while in a consistent "
-            + "region, the operator will write all tuples replayed. This ensures that every "
-            + "tuple sent to the operator will be written to the topic(s). However, *at least once* "
-            + "semantics implies that duplicate messages may be written to the topic(s).\\n"
             + "\\n"
             + "# Error Handling\\n"
             + "\\n"
