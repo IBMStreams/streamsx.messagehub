@@ -142,7 +142,8 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
             + KafkaSplDoc.PRODUCER_AUTOMATIC_SERIALIZATION
             + "\\n"
             + KafkaSplDoc.PRODUCER_CONSISTENT_REGION_SUPPORT
-            + "For the Event Streams cloud service, the *Enterprise plan* must be selected to use transactions for message delivery."
+            + "For the Event Streams cloud service, a plan that contains Kafka broker version 0.11 or higher, must "
+            + "be selected to use transactions for message delivery."
             + "\\n"
             + "\\n"
             + "# Error Handling\\n"
