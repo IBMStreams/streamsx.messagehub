@@ -8,7 +8,7 @@ This toolkit integrates IBM Streams with the IBM Event Streams or IBM Message Hu
 This toolkit is a specialized version of the [https://github.com/IBMStreams/streamsx.kafka|Kafka-Toolkit], 
 which simplifies the setup for connecting to the cloud service.
    </info:description>
-   <info:version>1.5.0.beta6</info:version>
+   <info:version>1.5.0</info:version>
    <info:requiredProductVersion>4.2.0.0</info:requiredProductVersion>
  </info:identity>
  <info:dependencies/>
