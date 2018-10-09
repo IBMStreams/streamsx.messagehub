@@ -13,7 +13,6 @@ import com.ibm.streamsx.messagehub.test.utils.Delay;
 import com.ibm.streamsx.messagehub.test.utils.MessageHubSPLStreamsUtils;
 import com.ibm.streamsx.topology.TStream;
 import com.ibm.streamsx.topology.Topology;
-import com.ibm.streamsx.topology.context.ContextProperties;
 import com.ibm.streamsx.topology.context.StreamsContext;
 import com.ibm.streamsx.topology.context.StreamsContext.Type;
 import com.ibm.streamsx.topology.context.StreamsContextFactory;
@@ -37,7 +36,7 @@ public class MessageHubDefaultFileTest extends AbstractMessageHubTest {
         topo.addFileDependency("etc/messagehub.json", "etc");
 
         // create the producer (produces tuples after a short delay)
-        TStream<String> stringSrcStream = topo.strings(Constants.STRING_DATA).modify(new Delay<>(3000));
+        TStream<String> stringSrcStream = topo.strings(Constants.STRING_DATA).modify(new Delay<>(10000));
         SPL.invokeSink(com.ibm.streamsx.messagehub.test.utils.Constants.MessageHubProducerOp, 
                 MessageHubSPLStreamsUtils.convertStreamToMessageHubTuple(stringSrcStream), 
                 getKafkaParams());
@@ -49,15 +48,15 @@ public class MessageHubDefaultFileTest extends AbstractMessageHubTest {
         // test the output of the consumer
         StreamsContext<?> context = StreamsContextFactory.getStreamsContext(Type.DISTRIBUTED_TESTER);
         Tester tester = topo.getTester();
-        Condition<List<String>> condition = MessageHubSPLStreamsUtils.stringContentsUnordered(tester, msgStream, Constants.STRING_DATA);
+        Condition<List<String>> stringContentsUnordered = tester.stringContentsUnordered (msgStream.toStringStream(), Constants.STRING_DATA);
         HashMap<String, Object> config = new HashMap<>();
 //        config.put (ContextProperties.TRACING_LEVEL, java.util.logging.Level.FINE);
 //        config.put(ContextProperties.KEEP_ARTIFACTS,  new Boolean(true));
-        tester.complete(context, config, condition, 60, TimeUnit.SECONDS);
+        tester.complete(context, config, stringContentsUnordered, 60, TimeUnit.SECONDS);
 
         // check the results
-        Assert.assertTrue(condition.getResult().size() > 0);
-        Assert.assertTrue(condition.getResult().toString(), condition.valid());
+        Assert.assertTrue (stringContentsUnordered.valid());
+        Assert.assertTrue (stringContentsUnordered.getResult().size() == 10);
     }
 
     private Map<String, Object> getKafkaParams() {
