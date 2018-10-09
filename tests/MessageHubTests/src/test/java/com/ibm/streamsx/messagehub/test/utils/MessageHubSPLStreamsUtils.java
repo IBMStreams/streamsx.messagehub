@@ -22,54 +22,54 @@ import com.ibm.streamsx.topology.tester.Tester;
 
 public class MessageHubSPLStreamsUtils {
 
-	public static final StreamSchema STRING_SCHEMA = Type.Factory.getStreamSchema("tuple<rstring key, rstring message>");
+    public static final StreamSchema STRING_SCHEMA = Type.Factory.getStreamSchema("tuple<rstring key, rstring message>");
 
-	public static SPLStream convertStreamToMessageHubTupleTuple(TStream<String> stream) {
-		return SPLStreams.convertStream(stream, MessageHubSPLStreamsUtils.getStringBiFunction(), MessageHubSPLStreamsUtils.STRING_SCHEMA);
-	}
-	
-	public static BiFunction<String, OutputTuple, OutputTuple> getStringBiFunction() {
-		return new BiFunction<String, OutputTuple, OutputTuple>() {
-			private static final long serialVersionUID = 1L;
-			private int counter = 0;
-			
-			@Override
-			public OutputTuple apply(String message, OutputTuple outTuple) {
-				outTuple.setString("key", "key_" + counter++);
-				outTuple.setString("message", message);
-				
-				return outTuple;
-			}
-		};
-	}
-	
-	public static SPLStream union(List<SPLStream> streams, StreamSchema schema) {
-		if(streams.size() == 0)
-			throw new IllegalArgumentException("At least one stream must be provided.");
-		
-		if(streams.size() == 1) {
-			return streams.get(0);
-		} else {
-			SPLStream stream1 = streams.get(0);
-			Set<TStream<Tuple>> streamSet = new HashSet<TStream<Tuple>>(streams);
-			streamSet.remove(stream1);
-			
-			return SPLStreams.convertStream(stream1.union(streamSet), getTupleStreamConvert(), schema);
-		}
-	}
-	
-	private static BiFunction<Tuple, OutputTuple, OutputTuple> getTupleStreamConvert() {
-		return new BiFunction<Tuple, OutputTuple, OutputTuple>() {
-			private static final long serialVersionUID = 1L;
+    public static SPLStream convertStreamToMessageHubTuple(TStream<String> stream) {
+        return SPLStreams.convertStream(stream, MessageHubSPLStreamsUtils.getStringBiFunction(), MessageHubSPLStreamsUtils.STRING_SCHEMA);
+    }
 
-			@Override
-			public OutputTuple apply(Tuple v1, OutputTuple v2) {
-				v2.assign(v1);
-				return v2;
-			}
-		};
-	}
-	
+    public static BiFunction<String, OutputTuple, OutputTuple> getStringBiFunction() {
+        return new BiFunction<String, OutputTuple, OutputTuple>() {
+            private static final long serialVersionUID = 1L;
+            private int counter = 0;
+
+            @Override
+            public OutputTuple apply(String message, OutputTuple outTuple) {
+                outTuple.setString("key", "key_" + counter++);
+                outTuple.setString("message", message);
+
+                return outTuple;
+            }
+        };
+    }
+
+    public static SPLStream union(List<SPLStream> streams, StreamSchema schema) {
+        if(streams.size() == 0)
+            throw new IllegalArgumentException("At least one stream must be provided.");
+
+        if(streams.size() == 1) {
+            return streams.get(0);
+        } else {
+            SPLStream stream1 = streams.get(0);
+            Set<TStream<Tuple>> streamSet = new HashSet<TStream<Tuple>>(streams);
+            streamSet.remove(stream1);
+
+            return SPLStreams.convertStream(stream1.union(streamSet), getTupleStreamConvert(), schema);
+        }
+    }
+
+    private static BiFunction<Tuple, OutputTuple, OutputTuple> getTupleStreamConvert() {
+        return new BiFunction<Tuple, OutputTuple, OutputTuple>() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public OutputTuple apply(Tuple v1, OutputTuple v2) {
+                v2.assign(v1);
+                return v2;
+            }
+        };
+    }
+
     public static Condition<List<String>> stringContentsUnordered(Tester tester, SPLStream stream,
             String... values) {
 
@@ -82,7 +82,7 @@ public class MessageHubSPLStreamsUtils {
         tester.splHandler(stream, tuples);
 
         return new Condition<List<String>>() {
-            
+
             @Override
             public List<String> getResult() {
                 List<String> strings = new ArrayList<>(tuples.getTupleCount());
@@ -93,6 +93,7 @@ public class MessageHubSPLStreamsUtils {
                 }
                 return strings;
             }
+
 
             @Override
             public boolean valid() {
@@ -107,17 +108,23 @@ public class MessageHubSPLStreamsUtils {
             public String toString() {
                 return "Received Tuples: " + getResult();
             }
+
+
+            @Override
+            public boolean failed() {
+                return false;
+            }
         };
     }
-    
+
     public static String[] duplicateArrayEntries(String[] inputArr, int numDuplicates) {
-    	List<String> list = new ArrayList<String>();
-    	for(String d : inputArr) {
-    		for(int i = 0; i < numDuplicates; i++) {
-    			list.add(d);
-    		}
-    	}
-    	
-    	return list.toArray(new String[0]);
+        List<String> list = new ArrayList<String>();
+        for(String d : inputArr) {
+            for(int i = 0; i < numDuplicates; i++) {
+                list.add(d);
+            }
+        }
+
+        return list.toArray(new String[0]);
     }
 }
