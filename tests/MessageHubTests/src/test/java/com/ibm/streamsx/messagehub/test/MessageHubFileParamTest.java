@@ -28,56 +28,59 @@ import com.ibm.streamsx.topology.tester.Tester;
 
 public class MessageHubFileParamTest extends AbstractMessageHubTest {
 
-	private static final String TEST_NAME = "MessageHubFileParamTest";
-	private static final String MESSAGEHUB_CREDS_FILE_PATH = "etc/userfile.json";
-	
-	public MessageHubFileParamTest() throws Exception {
-		super(TEST_NAME);
-	}
-	
-	@Before
-	public void setup() throws Exception {
-		Files.copy(new File("etc/messagehub.json"), new File(MESSAGEHUB_CREDS_FILE_PATH));
-	}
+    private static final String TEST_NAME = "MessageHubFileParamTest";
+    private static final String MESSAGEHUB_CREDS_FILE_PATH = "etc/userfile.json";
 
-	@After
-	public void cleanup() throws Exception {
-		(new File(MESSAGEHUB_CREDS_FILE_PATH)).deleteOnExit();
-	}
-	
-	@Test
-	public void messageHubFileParamTest() throws Exception {
-		Topology topo = getTopology();
-		topo.addFileDependency(MESSAGEHUB_CREDS_FILE_PATH, "etc");
-		
-		// create the producer (produces tuples after a short delay)
-		TStream<String> stringSrcStream = topo.strings(Constants.STRING_DATA).modify(new Delay<>(5000));
-		SPL.invokeSink(com.ibm.streamsx.messagehub.test.utils.Constants.MessageHubProducerOp, 
-				MessageHubSPLStreamsUtils.convertStreamToMessageHubTupleTuple(stringSrcStream), 
-				getKafkaParams());
+    public MessageHubFileParamTest() throws Exception {
+        super(TEST_NAME);
+    }
 
-		// create the consumer
-		SPLStream consumerStream = SPL.invokeSource(topo, Constants.MessageHubConsumerOp, getKafkaParams(), MessageHubSPLStreamsUtils.STRING_SCHEMA);
-		SPLStream msgStream = SPLStreams.stringToSPLStream(consumerStream.convert(t -> t.getString("message")));
-		
-		// test the output of the consumer
-		StreamsContext<?> context = StreamsContextFactory.getStreamsContext(Type.DISTRIBUTED_TESTER);
-		Tester tester = topo.getTester();
-		Condition<List<String>> condition = MessageHubSPLStreamsUtils.stringContentsUnordered(tester, msgStream, Constants.STRING_DATA);
-		tester.complete(context, new HashMap<>(), condition, 30, TimeUnit.SECONDS);
+    @Before
+    public void setup() throws Exception {
+        Files.copy(new File("etc/messagehub.json"), new File(MESSAGEHUB_CREDS_FILE_PATH));
+    }
 
-		// check the results
-		Assert.assertTrue(condition.getResult().size() > 0);
-		Assert.assertTrue(condition.getResult().toString(), condition.valid());		
-	}
-	
-	private Map<String, Object> getKafkaParams() {
-		Map<String, Object> params = new HashMap<String, Object>();
-		
-		params.put("topic", Constants.TOPIC_TEST);
-		params.put("messageHubCredentialsFile", MESSAGEHUB_CREDS_FILE_PATH);
-		
-		return params;
-	}
+    @After
+    public void cleanup() throws Exception {
+        (new File(MESSAGEHUB_CREDS_FILE_PATH)).deleteOnExit();
+    }
+
+    @Test
+    public void messageHubFileParamTest() throws Exception {
+        Topology topo = getTopology();
+        topo.addFileDependency(MESSAGEHUB_CREDS_FILE_PATH, "etc");
+
+        // create the producer (produces tuples after a short delay)
+        TStream<String> stringSrcStream = topo.strings(Constants.STRING_DATA).modify(new Delay<>(10000));
+        SPL.invokeSink(com.ibm.streamsx.messagehub.test.utils.Constants.MessageHubProducerOp, 
+                MessageHubSPLStreamsUtils.convertStreamToMessageHubTuple(stringSrcStream), 
+                getKafkaParams());
+
+        // create the consumer
+        SPLStream consumerStream = SPL.invokeSource(topo, Constants.MessageHubConsumerOp, getKafkaParams(), MessageHubSPLStreamsUtils.STRING_SCHEMA);
+        SPLStream msgStream = SPLStreams.stringToSPLStream(consumerStream.convert(t -> t.getString("message")));
+
+        // test the output of the consumer
+        StreamsContext<?> context = StreamsContextFactory.getStreamsContext(Type.DISTRIBUTED_TESTER);
+        Tester tester = topo.getTester();
+        Condition<List<String>> stringContentsUnordered = tester.stringContentsUnordered (msgStream.toStringStream(), Constants.STRING_DATA);
+        HashMap<String, Object> config = new HashMap<>();
+//        config.put (ContextProperties.TRACING_LEVEL, java.util.logging.Level.FINE);
+//        config.put(ContextProperties.KEEP_ARTIFACTS,  new Boolean(true));
+        tester.complete(context, config, stringContentsUnordered, 60, TimeUnit.SECONDS);
+
+        // check the results
+        Assert.assertTrue (stringContentsUnordered.valid());
+        Assert.assertTrue (stringContentsUnordered.getResult().size() == 10);
+    }
+
+    private Map<String, Object> getKafkaParams() {
+        Map<String, Object> params = new HashMap<String, Object>();
+
+        params.put("topic", Constants.TOPIC_TEST);
+        params.put("messageHubCredentialsFile", MESSAGEHUB_CREDS_FILE_PATH);
+
+        return params;
+    }
 }
-	
+
