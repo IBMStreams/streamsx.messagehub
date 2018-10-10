@@ -11,23 +11,16 @@ sidebar:
 {% include toc %}
 {%include editme %}
 
-### v1.4.2 (latest)
+### v1.5.0 (latest)
 
 [Toolkit Documentation (SPLDoc)](/streamsx.messagehub/doc/spldoc/html/)
 
 
-### 1.5.0 beta1 release
-Please note, that this toolkit release is a pre-release, which still constains instabilities.
-
-[SPLDoc](/streamsx.messagehub/doc/v1.5.0.beta1/spldoc/html/)
-
-### 1.5.0 alpha release
-Please note, that this toolkit release is an early pre-release, which still constains instabilities.
-
-[SPLDoc](/streamsx.messagehub/doc/v1.5.0.alpha/spldoc/html/)
-
-
 ### Toolkit documentation for previous versions
+
+#### v1.4.2
+
+[Toolkit Documentation (SPLDoc)](/streamsx.messagehub/doc/v1.4.2/spldoc/html/)
 
 #### v1.4.1
 

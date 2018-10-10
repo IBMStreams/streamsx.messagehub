@@ -19,12 +19,14 @@ The MessageHubProducer operator creates Kafka messages in the Message Hub servic
 as a sink operator within your Streams application.
 
 For both, the MessageHubConsumer and the MessageHubProducer there is a one-to-one relationship between tuples and Kafka messages.
-Read more about how to use these operators in the [SPL documentaion](/streamsx.messagehub/doc/spldoc/html/index.html).
+Read more about how to use these operators in the [SPL documentaion](https://ibmstreams.github.io/streamsx.messagehub/doc/spldoc/html/).
 
 ### Samples
 
 * [MessageHubAppConfigSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/MessageHubAppConfigSample)
 * [MessageHubFileSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/MessageHubFileSample)
 * [MessageHubConsumerInputPortSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/MessageHubConsumerInputPortSample)
+* [MessageHubConsumerGroupWithConsistentRegion](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/MessageHubConsumerGroupWithConsistentRegion)
+
 
 It is also worth looking at the samples of the Kafka toolkit, which can be found [here](https://ibmstreams.github.io/streamsx.kafka/docs/user/overview/).

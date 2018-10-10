@@ -22,7 +22,7 @@
 <div class="body refbody">
 <div class="section">
 <p class="p">
-<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 1.5.0.__dev_cr_grp__</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; MessageHubConsumer</p>
+<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 1.4.2</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; MessageHubConsumer</p>
 
 </div>
 
@@ -46,19 +46,19 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d4375e69">
+<th class="entry" colspan="1" valign="top" id="d4391e69">
 <p class="p">Parameter
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d4375e75">
+<th class="entry" colspan="1" valign="top" id="d4391e75">
 <p class="p">Default Value
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d4375e81">
+<th class="entry" colspan="1" valign="top" id="d4391e81">
 <p class="p">Description
 </p>
 
@@ -70,19 +70,19 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4375e69 ">
+<td class="entry" colspan="1" valign="top" headers="d4391e69 ">
 <p class="p"><strong class="ph b">appConfigName</strong>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4375e75 ">
+<td class="entry" colspan="1" valign="top" headers="d4391e75 ">
 <p class="p"><tt class="ph tt">messagehub</tt>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4375e81 ">
+<td class="entry" colspan="1" valign="top" headers="d4391e81 ">
 <p class="p">Users can choose to place the raw MesageHub Credentials JSON in a property called <tt class="ph tt">messagehub.creds</tt> in an application configuration called <tt class="ph tt">messagehub</tt>. The operator will extract the information needed to connect to Message Hub.
 </p>
 
@@ -91,19 +91,19 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4375e69 ">
+<td class="entry" colspan="1" valign="top" headers="d4391e69 ">
 <p class="p"><strong class="ph b">messageHubCredentialsFile</strong>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4375e75 ">
+<td class="entry" colspan="1" valign="top" headers="d4391e75 ">
 <p class="p"><tt class="ph tt">etc/messagehub.json</tt>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4375e81 ">
+<td class="entry" colspan="1" valign="top" headers="d4391e81 ">
 <p class="p">Users can paste the raw Message Hub Credentials JSON into a file pointed to by this parameter. The operator will extract the information needed to connect to Message Hub. By default, the operator will look for a file called <tt class="ph tt">etc/messagehub.json</tt>.
 </p>
 
@@ -181,7 +181,7 @@
 <p class="p">The Message Hub Toolkit wraps the <tt class="ph tt">KafkaConsumer</tt> and <tt class="ph tt">KafkaProducer</tt> operators from a specific version of the Kafka Toolkit. This implies that all of the functionality and restrictions provided by the Kafka Toolkit are inherited by the Message Hub Toolkit.
 </p>
 
-<p class="p">This version of the Message Hub Toolkit wraps <strong class="ph b">Kafka Toolkit v1.5.x</strong>. It is recommended that users review the Kafka Toolkit documentation for additional information on supported functionality. The Kafka Toolkit project page can be found here: <a class="xref" href="https://ibmstreams.github.io/streamsx.kafka/">Kafka Toolkit</a>.
+<p class="p">This version of the Message Hub Toolkit wraps <strong class="ph b">Kafka Toolkit v1.4.x</strong>. It is recommended that users review the Kafka Toolkit documentation for additional information on supported functionality. The Kafka Toolkit project page can be found here: <a class="xref" href="https://ibmstreams.github.io/streamsx.kafka/">Kafka Toolkit</a>.
 </p>
 
 </div>
@@ -204,9 +204,9 @@
  
   <dt class="dt dlterm">Parameters</dt>
 
-  <dd class="dd">This operator supports 20 parameters.
+  <dd class="dd">This operator supports 19 parameters.
 <p class="p"> Optional: 
-<a class="xref" href="#spldoc_operator__parameter__appConfigName">appConfigName</a>, <a class="xref" href="#spldoc_operator__parameter__clientId">clientId</a>, <a class="xref" href="#spldoc_operator__parameter__commitCount">commitCount</a>, <a class="xref" href="#spldoc_operator__parameter__consistentRegionAssignmentMode">consistentRegionAssignmentMode</a>, <a class="xref" href="#spldoc_operator__parameter__groupId">groupId</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredentialsFile">messageHubCredentialsFile</a>, <a class="xref" href="#spldoc_operator__parameter__outputKeyAttributeName">outputKeyAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputMessageAttributeName">outputMessageAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputOffsetAttributeName">outputOffsetAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputPartitionAttributeName">outputPartitionAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputTimestampAttributeName">outputTimestampAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputTopicAttributeName">outputTopicAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__partition">partition</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__startOffset">startOffset</a>, <a class="xref" href="#spldoc_operator__parameter__startPosition">startPosition</a>, <a class="xref" href="#spldoc_operator__parameter__startTime">startTime</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__triggerCount">triggerCount</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
+<a class="xref" href="#spldoc_operator__parameter__appConfigName">appConfigName</a>, <a class="xref" href="#spldoc_operator__parameter__clientId">clientId</a>, <a class="xref" href="#spldoc_operator__parameter__commitCount">commitCount</a>, <a class="xref" href="#spldoc_operator__parameter__groupId">groupId</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredentialsFile">messageHubCredentialsFile</a>, <a class="xref" href="#spldoc_operator__parameter__outputKeyAttributeName">outputKeyAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputMessageAttributeName">outputMessageAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputOffsetAttributeName">outputOffsetAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputPartitionAttributeName">outputPartitionAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputTimestampAttributeName">outputTimestampAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputTopicAttributeName">outputTopicAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__partition">partition</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__startOffset">startOffset</a>, <a class="xref" href="#spldoc_operator__parameter__startPosition">startPosition</a>, <a class="xref" href="#spldoc_operator__parameter__startTime">startTime</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__triggerCount">triggerCount</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
 
 </p>
 </dd>
@@ -215,7 +215,7 @@
  
   <dt class="dt dlterm">Metrics</dt>
 
-  <dd class="dd">This operator reports 7 metrics.</dd>
+  <dd class="dd">This operator reports 4 metrics.</dd>
 
  
 </dl>
@@ -388,9 +388,9 @@
 
 <div class="section">
 <p class="p splhead-1"><strong class="ph b"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters">Parameters</a></strong></p>
-This operator supports 20 parameters.
+This operator supports 19 parameters.
 <p class="p"> Optional: 
-<a class="xref" href="#spldoc_operator__parameter__appConfigName">appConfigName</a>, <a class="xref" href="#spldoc_operator__parameter__clientId">clientId</a>, <a class="xref" href="#spldoc_operator__parameter__commitCount">commitCount</a>, <a class="xref" href="#spldoc_operator__parameter__consistentRegionAssignmentMode">consistentRegionAssignmentMode</a>, <a class="xref" href="#spldoc_operator__parameter__groupId">groupId</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredentialsFile">messageHubCredentialsFile</a>, <a class="xref" href="#spldoc_operator__parameter__outputKeyAttributeName">outputKeyAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputMessageAttributeName">outputMessageAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputOffsetAttributeName">outputOffsetAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputPartitionAttributeName">outputPartitionAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputTimestampAttributeName">outputTimestampAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputTopicAttributeName">outputTopicAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__partition">partition</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__startOffset">startOffset</a>, <a class="xref" href="#spldoc_operator__parameter__startPosition">startPosition</a>, <a class="xref" href="#spldoc_operator__parameter__startTime">startTime</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__triggerCount">triggerCount</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
+<a class="xref" href="#spldoc_operator__parameter__appConfigName">appConfigName</a>, <a class="xref" href="#spldoc_operator__parameter__clientId">clientId</a>, <a class="xref" href="#spldoc_operator__parameter__commitCount">commitCount</a>, <a class="xref" href="#spldoc_operator__parameter__groupId">groupId</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredentialsFile">messageHubCredentialsFile</a>, <a class="xref" href="#spldoc_operator__parameter__outputKeyAttributeName">outputKeyAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputMessageAttributeName">outputMessageAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputOffsetAttributeName">outputOffsetAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputPartitionAttributeName">outputPartitionAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputTimestampAttributeName">outputTimestampAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__outputTopicAttributeName">outputTopicAttributeName</a>, <a class="xref" href="#spldoc_operator__parameter__partition">partition</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__startOffset">startOffset</a>, <a class="xref" href="#spldoc_operator__parameter__startPosition">startPosition</a>, <a class="xref" href="#spldoc_operator__parameter__startTime">startTime</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__triggerCount">triggerCount</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
 
 </p>
 <dl class="dl">
@@ -488,49 +488,6 @@ This operator supports 20 parameters.
 
 
 
-<dt class="dt dlterm"><a name="spldoc_operator__parameter__consistentRegionAssignmentMode"><!-- --></a><tt class="ph tt">consistentRegionAssignmentMode</tt></dt>
-
-<dd class="dd">
-<p class="p">Specifies how the operator assigns topic partitions when in a consistent region. If <tt class="ph tt">Static</tt> is specified, the operator assigns itself to the partitions specified in <strong class="ph b">partition</strong> parameter or assigns it self to all partitions of the specified topics. The operator will not be managed by Kafka. Group management is disabled. This mode guarantees that the operator replays after reset of the consistent region the same tuples that it has submitted before. The partition assignment of an operator does not change after region reset.
-</p>
-
-<p class="p">If <tt class="ph tt">GroupCoordinated</tt> is specified, the operator will participate in a consumer group. In this case, Kafka decides which topic partitions are consumed by the operator. This implies that the partition assignment of an individual operator can change during consistent region reset. After reset, the operator can replay tuples that have been submitted by a different operator in the same consumer group before that reset. All operators in the consumer group replay the same set of tuples, however.
-</p>
-
-<p class="p">Using the <tt class="ph tt">GroupCoordinated</tt> parameter value, a <strong class="ph b">group ID</strong> must be specified that must be shared by all operators that participate in the consumer group. The group ID can be specified as operator parameter <strong class="ph b">groupId</strong> or as consumer property <tt class="ph tt">group.id</tt> in a property file or app option. The operator will fail at runtime if it detects the default random group ID.
-</p>
-
-<p class="p">The <tt class="ph tt">GroupCoordinated</tt> parameter value is incompatible with the control port and with the <strong class="ph b">partition</strong> parameter. The <strong class="ph b">startPosition</strong> value <tt class="ph tt">Offset</tt> cannot be used as it requires the <strong class="ph b">partition</strong> parameter.
-</p>
-
-<p class="p">The default value is <tt class="ph tt">Static</tt>.
-</p>
-<dl class="dl">
-
- <dt class="dt dlterm">Properties </dt>
-
- <dd class="dd">
-  <ul class="sl simple">
-  <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__type">Type</a>: rstring
-  </li>
-
-     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__cardinality">Cardinality</a>: 1
-     </li>
-
-     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__optional">Optional</a>: true
-     </li>
-
-  </ul>
-
- </dd>
-
-
-</dl>
-
-</dd>
-
-
-
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__groupId"><!-- --></a><tt class="ph tt">groupId</tt></dt>
 
 <dd class="dd">
@@ -565,7 +522,7 @@ This operator supports 20 parameters.
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__messageHubCredentialsFile"><!-- --></a><tt class="ph tt">messageHubCredentialsFile</tt></dt>
 
 <dd class="dd">
-<p class="p">Specifies the name of the file that contains the complete Message Hub credentials JSON. If not specified, this parameter will attempt to load the credentials from the file <tt class="ph tt">etc/messagehub.json</tt>. A relative path is always interpreted as relative to the <em class="ph i">application directory</em> of the Streams application. If the credential file is placed in the <tt class="ph tt">etc</tt> directory of the application bundle, specify <tt class="ph tt">getThisToolkitDir() + "/etc/&lt;your filename&gt;"</tt> as the parameter value.
+<p class="p">Specifies the name of the file that contains the complete Message Hub credentials JSON. If not specified, this parameter will attempt to load the credentials from the file <tt class="ph tt">etc/messagehub.json</tt>.
 </p>
 <dl class="dl">
 
@@ -901,7 +858,7 @@ This operator supports 20 parameters.
 
 </div>
 
-<p class="p">If this parameter is not specified, the start position is <tt class="ph tt">Default</tt>. The parameter is ignored when not in a consistent region.
+<p class="p">If this parameter is not specified, the start position is <tt class="ph tt">Default</tt>.
 </p>
 <dl class="dl">
 
@@ -1057,37 +1014,11 @@ This operator supports 20 parameters.
 <p class="p splhead-1"><strong class="ph b"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__context__metrics">Metrics</a></strong></p>
 <dl class="dl">
   
-    <dt class="dt dlterm"><tt class="ph tt">drainTimeMillis</tt> - <a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__context__metrics_kind_gauge">Gauge</a></dt>
+    <dt class="dt dlterm"><tt class="ph tt">nDroppedMalformedMessages</tt> - <a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__context__metrics_kind_counter">Counter</a></dt>
 
     <dd class="dd">
 
-<p class="p">Drain time of this operator in milliseconds
-</p>
-
-     <p class="p"/>
-
-     </dd>
-
-  
-  
-    <dt class="dt dlterm"><tt class="ph tt">drainTimeMillisMax</tt> - <a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__context__metrics_kind_gauge">Gauge</a></dt>
-
-    <dd class="dd">
-
-<p class="p">Maximum Drain time of this operator in milliseconds
-</p>
-
-     <p class="p"/>
-
-     </dd>
-
-  
-  
-    <dt class="dt dlterm"><tt class="ph tt">nAssignedPartitions</tt> - <a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__context__metrics_kind_gauge">Gauge</a></dt>
-
-    <dd class="dd">
-
-<p class="p">Number of Kafka topic partitions assigned to the consumer.
+<p class="p">Number of dropped malformed messages
 </p>
 
      <p class="p"/>
@@ -1101,19 +1032,6 @@ This operator supports 20 parameters.
     <dd class="dd">
 
 <p class="p">Number times message polling was paused due to low memory.
-</p>
-
-     <p class="p"/>
-
-     </dd>
-
-  
-  
-    <dt class="dt dlterm"><tt class="ph tt">nDroppedMalformedMessages</tt> - <a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__context__metrics_kind_counter">Counter</a></dt>
-
-    <dd class="dd">
-
-<p class="p">Number of dropped malformed messages
 </p>
 
      <p class="p"/>

@@ -14,12 +14,12 @@ sidebar:
 ## Purpose of this toolkit
 
 The streamsx.messagehub toolkit provides those operators that help you integrate IBM Streams with the 
-[IBM Cloud Message Hub service](https://console.bluemix.net/docs/services/MessageHub/index.html#messagehub).
-This toolkit lets you read messages from Message Hub topics and write messages into topics.
+[IBM Event Streams service](https://console.bluemix.net/docs/services/MessageHub/index.html#messagehub).
+This toolkit lets you read messages from Event Streams topics and write messages into topics.
 
 ## Introduction into Apache Kafka
 
-Since the IBM Message Hub service is based on the open-source project Apache Kafka, you should have a certain
+Since the IBM Event Streams service is based on the open-source project Apache Kafka, you should have a certain
 degree of knowledge about Apache Kafka. A first place to get introduced with Kafka is the
 [Apache Kafka home page](https://kafka.apache.org/intro).
 
