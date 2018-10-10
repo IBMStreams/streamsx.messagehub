@@ -37,7 +37,7 @@ Add the Message Hub JSON credentials to the `tests/MessageHubTests/etc/messagehu
 Run the following commands to launch the tests:
 
 ```
-cd tests/MessageHubTestsTests
+cd tests/MessageHubTests
 ../../gradlew test
 ```
 

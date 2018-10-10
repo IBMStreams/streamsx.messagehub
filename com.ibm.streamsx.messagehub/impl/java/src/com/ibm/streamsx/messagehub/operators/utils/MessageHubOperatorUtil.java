@@ -99,7 +99,7 @@ public class MessageHubOperatorUtil {
         properties.put("security.protocol", "SASL_SSL"); //$NON-NLS-1$ //$NON-NLS-2$
         properties.put("sasl.mechanism", "PLAIN"); //$NON-NLS-1$ //$NON-NLS-2$
         properties.put("ssl.protocol", "TLSv1.2"); //$NON-NLS-1$ //$NON-NLS-2$
-        properties.put("ssl.truststore", "JKS"); //$NON-NLS-1$ //$NON-NLS-2$
+        properties.put("ssl.truststore.type", "JKS"); //$NON-NLS-1$ //$NON-NLS-2$
         properties.put("ssl.enabled.protocols", "TLSv1.2"); //$NON-NLS-1$ //$NON-NLS-2$
         properties.put("ssl.endpoint.identification.algorithm", "HTTPS"); //$NON-NLS-1$ //$NON-NLS-2$
 

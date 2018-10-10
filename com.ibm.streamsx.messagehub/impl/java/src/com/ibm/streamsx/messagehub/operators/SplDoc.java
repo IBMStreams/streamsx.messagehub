@@ -22,7 +22,7 @@ public class SplDoc {
             + "|---|\\n"
             + "| ssl.protocol | TLSv1.2 |\\n"
             + "|---|\\n"
-            + "| ssl.truststore | JKS |\\n"
+            + "| ssl.truststore.type | JKS |\\n"
             + "|---|\\n"
             + "| ssl.enabled.protocols | TLSv1.2 |\\n"
             + "|---|\\n"
