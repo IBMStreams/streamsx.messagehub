@@ -1,6 +1,9 @@
 package com.ibm.streamsx.messagehub.test;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +14,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.io.Files;
 import com.ibm.streamsx.messagehub.test.utils.Constants;
 import com.ibm.streamsx.messagehub.test.utils.Delay;
 import com.ibm.streamsx.messagehub.test.utils.MessageHubSPLStreamsUtils;
@@ -37,7 +39,7 @@ public class MessageHubFileParamTest extends AbstractMessageHubTest {
 
     @Before
     public void setup() throws Exception {
-        Files.copy(new File("etc/messagehub.json"), new File(MESSAGEHUB_CREDS_FILE_PATH));
+        Files.copy (Paths.get ("etc/messagehub.json"), Paths.get (MESSAGEHUB_CREDS_FILE_PATH), StandardCopyOption.REPLACE_EXISTING);
     }
 
     @After
