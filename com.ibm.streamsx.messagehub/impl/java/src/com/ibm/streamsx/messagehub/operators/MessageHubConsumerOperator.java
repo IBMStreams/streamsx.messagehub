@@ -119,6 +119,10 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
 
     public static final String DESC = ""
             + "The **MessageHubConsumer** operator is used to consume records from the IBM Cloud Message Hub service. "
+            + ""
+            + "The standard use patterns for the MessageHubConsumer operator are described in the "
+            + "[https://ibmstreams.github.io/streamsx.messagehub/docs/user/overview/|overview] of the user documentation.\\n"
+            + "\\n"
             + "The operator has been designed to make connectivity to the service as simple as possible. "
             + "This is achieved in a number of different ways, from having default values for the **appConfigName** parameter "
             + "to allowing the user to copy/paste the raw Message Hub Credentials JSON into either an application configuration "
@@ -170,6 +174,8 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
             + KafkaSplDoc.CONSUMER_KAFKA_GROUP_MANAGEMENT
             + "\\n"
             + KafkaSplDoc.CONSUMER_COMMITTING_OFFSETS
+            + "\\n"
+            + KafkaSplDoc.CHECKPOINTING_CONFIG
             + "\\n"
             + KafkaSplDoc.CONSUMER_CONSISTENT_REGION_SUPPORT
             + "\\n"
