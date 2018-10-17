@@ -1,14 +1,19 @@
 package com.ibm.streamsx.messagehub.operators.utils;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.text.MessageFormat;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.log4j.Logger;
 
-import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ibm.streams.operator.OperatorContext;
@@ -28,7 +33,6 @@ public class MessageHubOperatorUtil {
             String appConfigName) throws Exception {
         if (appConfigName == null) {
             appConfigName = MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_APP_CONFIG_NAME;
-            
         }
         logger.info("Attempting to load app config from: " + appConfigName); //$NON-NLS-1$
 
@@ -48,32 +52,62 @@ public class MessageHubOperatorUtil {
         else {
             logger.warn ("App Config '" + appConfigName + "' has no key '" + DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME + "' where the Message Hub credentials in JSON format are expected.");
         }
-
         return properties;
     }
 
     public static KafkaOperatorProperties loadMessageHubCredsFromFile(OperatorContext context, File messageHubCredsFile)
             throws Exception {
-    	logger.info("Attempting to load properties file from: " + messageHubCredsFile);
-        if (!messageHubCredsFile.exists()) {
+        logger.info("Attempting to load properties file from: " + messageHubCredsFile);
+        if (!messageHubCredsFile.exists() || !messageHubCredsFile.isFile()) {
+            logger.info("Message Hub credentials file does not exist or is not a file: " + messageHubCredsFile.getAbsolutePath()); //$NON-NLS-1$
+            return null;
+        }
+        if (messageHubCredsFile.length() > Integer.MAX_VALUE) {
+            logger.error (MessageFormat.format ("Message Hub credentials file {0} has a suspcious length: {1}. Ignoring this file.", messageHubCredsFile.getAbsolutePath(), messageHubCredsFile.length())); //$NON-NLS-1$
+            return null;
+        }
+
+        FileInputStream inStream = null;
+        try {
+            inStream = new FileInputStream (messageHubCredsFile);
+            InputStreamReader reader = new InputStreamReader (inStream, Charset.forName ("UTF-8"));
+            CharBuffer buffer = CharBuffer.allocate ((int)messageHubCredsFile.length());
+            /*int n = */reader.read (buffer);
+            buffer.flip();
+            String creds = buffer.toString();
+            logger.info ("creds = " + creds);
+            if (creds == null || creds.trim().isEmpty()) {
+                logger.warn ("Credential file " + messageHubCredsFile + " exists, but is empty");
+                return null;
+            }
+            return loadFromMessageHubCreds(context, creds);
+        }
+        catch (FileNotFoundException fnf) {
             logger.info("Message Hub credentials file does not exist: " + messageHubCredsFile.getAbsolutePath()); //$NON-NLS-1$
             return null;
         }
-        String creds = Files.toString(messageHubCredsFile, StandardCharsets.UTF_8);
-        if (creds == null || creds.trim().isEmpty()) {
-            logger.warn ("Credential file " + messageHubCredsFile + " exists, but is empty");
+        catch (IOException ioe) {
+            logger.error (MessageFormat.format ("Message Hub credentials file {0} could not be read: {1}.", messageHubCredsFile.getAbsoluteFile(), ioe.getLocalizedMessage()));
+            throw ioe;
         }
-        return loadFromMessageHubCreds(context, creds);
+        finally {
+            if (inStream != null) {
+                try {
+                    inStream.close();
+                }
+                catch (Exception e) {
+                    logger.debug (e.getMessage());
+                }
+            }
+        }
     }
 
     public static KafkaOperatorProperties loadFromMessageHubCreds(OperatorContext context, String credentials) {
         if (credentials == null || credentials.trim().isEmpty()) {
             return null;
         }
-
         logger.info ("Parsing Message Hub creds: ** NOT LOGGED **");
         logger.trace ("Message Hub creds: " + credentials);  // this exposes sensitive information
-        
         KafkaOperatorProperties properties = new KafkaOperatorProperties();
         Gson gson = new Gson();
         MessageHubCredentials messageHubCreds;
@@ -108,7 +142,6 @@ public class MessageHubOperatorUtil {
         logProps.putAll(properties);
         if (logProps.containsKey(JaasUtil.SASL_JAAS_PROPERTY)) logProps.put (JaasUtil.SASL_JAAS_PROPERTY, "**********");
         logger.info ("Properties from Message Hub credentials: " + logProps); //$NON-NLS-1$
-        
         return properties;
     }
 }
