@@ -22,7 +22,7 @@
 <div class="body refbody">
 <div class="section">
 <p class="p">
-<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 1.5.1</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; MessageHubConsumer</p>
+<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 1.5.0</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; MessageHubConsumer</p>
 
 </div>
 
@@ -32,10 +32,7 @@
 
 <div class="section">
 
-<p class="p">The <strong class="ph b">MessageHubConsumer</strong> operator is used to consume records from the IBM Cloud Message Hub service. The standard use patterns for the MessageHubConsumer operator are described in the <a class="xref" href="https://ibmstreams.github.io/streamsx.messagehub/docs/user/overview/">overview</a> of the user documentation.
-</p>
-
-<p class="p">The operator has been designed to make connectivity to the service as simple as possible. This is achieved in a number of different ways, from having default values for the <strong class="ph b">appConfigName</strong> parameter to allowing the user to copy/paste the raw Message Hub Credentials JSON into either an application configuration property or a file.
+<p class="p">The <strong class="ph b">MessageHubConsumer</strong> operator is used to consume records from the IBM Cloud Message Hub service. The operator has been designed to make connectivity to the service as simple as possible. This is achieved in a number of different ways, from having default values for the <strong class="ph b">appConfigName</strong> parameter to allowing the user to copy/paste the raw Message Hub Credentials JSON into either an application configuration property or a file.
 </p>
 
 <p class="p">The following table lists the default values that have been set by this operator for a couple of parameters: 
@@ -49,19 +46,19 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d4275e76">
+<th class="entry" colspan="1" valign="top" id="d4275e69">
 <p class="p">Parameter
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d4275e82">
+<th class="entry" colspan="1" valign="top" id="d4275e75">
 <p class="p">Default Value
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d4275e88">
+<th class="entry" colspan="1" valign="top" id="d4275e81">
 <p class="p">Description
 </p>
 
@@ -73,19 +70,19 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e76 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e69 ">
 <p class="p"><strong class="ph b">appConfigName</strong>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e82 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e75 ">
 <p class="p"><tt class="ph tt">messagehub</tt>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e88 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e81 ">
 <p class="p">Users can choose to place the raw MesageHub Credentials JSON in a property called <tt class="ph tt">messagehub.creds</tt> in an application configuration called <tt class="ph tt">messagehub</tt>. The operator will extract the information needed to connect to Message Hub.
 </p>
 
@@ -94,19 +91,19 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e76 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e69 ">
 <p class="p"><strong class="ph b">messageHubCredentialsFile</strong>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e82 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e75 ">
 <p class="p"><tt class="ph tt">etc/messagehub.json</tt>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e88 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e81 ">
 <p class="p">Users can paste the raw Message Hub Credentials JSON into a file pointed to by this parameter. The operator will extract the information needed to connect to Message Hub. By default, the operator will look for a file called <tt class="ph tt">etc/messagehub.json</tt>.
 </p>
 
@@ -207,13 +204,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d4275e350">
+<th class="entry" colspan="1" valign="top" id="d4275e343">
 <p class="p">property name
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d4275e356">
+<th class="entry" colspan="1" valign="top" id="d4275e349">
 <p class="p">value
 </p>
 
@@ -225,13 +222,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e350 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e343 ">
 <p class="p">bootstrap.servers
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e356 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e349 ">
 <p class="p"><em class="ph i">parsed from the service credentials</em>
 </p>
 
@@ -240,13 +237,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e350 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e343 ">
 <p class="p">sasl.jaas.config
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e356 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e349 ">
 <p class="p">org.apache.kafka.common.security.plain.PlainLoginModule required serviceName="kafka" username="<em class="ph i">username</em>" password="<em class="ph i">password</em>";
 </p>
 
@@ -255,13 +252,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e350 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e343 ">
 <p class="p">security.protocol
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e356 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e349 ">
 <p class="p">SASL_SSL
 </p>
 
@@ -270,13 +267,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e350 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e343 ">
 <p class="p">sasl.mechanism
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e356 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e349 ">
 <p class="p">PLAIN
 </p>
 
@@ -285,13 +282,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e350 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e343 ">
 <p class="p">ssl.protocol
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e356 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e349 ">
 <p class="p">TLSv1.2
 </p>
 
@@ -300,13 +297,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e350 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e343 ">
 <p class="p">ssl.truststore.type
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e356 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e349 ">
 <p class="p">JKS
 </p>
 
@@ -315,13 +312,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e350 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e343 ">
 <p class="p">ssl.enabled.protocols
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e356 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e349 ">
 <p class="p">TLSv1.2
 </p>
 
@@ -330,13 +327,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e350 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e343 ">
 <p class="p">ssl.endpoint.identification.algorithm
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e356 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e349 ">
 <p class="p">HTTPS
 </p>
 
@@ -366,13 +363,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d4275e522">
+<th class="entry" colspan="1" valign="top" id="d4275e515">
 <p class="p">Property Name
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d4275e528">
+<th class="entry" colspan="1" valign="top" id="d4275e521">
 <p class="p">Default Value
 </p>
 
@@ -384,13 +381,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e522 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e515 ">
 <p class="p">client.id
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e528 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e521 ">
 <p class="p">Generated ID in the form: <tt class="ph tt">C-J&lt;JobId&gt;-&lt;operator name&gt;</tt>
 </p>
 
@@ -399,14 +396,14 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e522 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e515 ">
 <p class="p">group.id
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e528 ">
-<p class="p">hash from domain-ID, instance-ID, job-ID, and operator name
+<td class="entry" colspan="1" valign="top" headers="d4275e521 ">
+<p class="p">Randomly generated ID in the form: <tt class="ph tt">group-&lt;random_string&gt;</tt>
 </p>
 
 </td>
@@ -414,13 +411,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e522 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e515 ">
 <p class="p">key.deserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e528 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e521 ">
 <p class="p">See <strong class="ph b">Automatic deserialization</strong> section below
 </p>
 
@@ -429,13 +426,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e522 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e515 ">
 <p class="p">value.deserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e528 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e521 ">
 <p class="p">See <strong class="ph b">Automatic deserialization</strong> section below
 </p>
 
@@ -444,13 +441,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e522 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e515 ">
 <p class="p">partition.assignment.strategy
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e528 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e521 ">
 <p class="p"><strong class="ph b">Only when multiple topics are specified:</strong> <tt class="ph tt">org.apache.kafka.clients.consumer.RoundRobinAssignor</tt>
 </p>
 
@@ -459,13 +456,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e522 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e515 ">
 <p class="p">auto.commit.enable
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e528 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e521 ">
 <p class="p">adjusted to <tt class="ph tt">false</tt>
 </p>
 
@@ -474,13 +471,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e522 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e515 ">
 <p class="p">max.poll.interval.ms
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e528 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e521 ">
 <p class="p">adjusted to a minimum of <em class="ph i">3 * max (reset timeout, drain timeout)</em> when in consistent region, 300000 otherwise
 </p>
 
@@ -489,13 +486,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e522 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e515 ">
 <p class="p">metadata.max.age.ms
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e528 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e521 ">
 <p class="p">adjusted to a maximum of 2000
 </p>
 
@@ -504,13 +501,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e522 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e515 ">
 <p class="p">session.timeout.ms
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e528 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e521 ">
 <p class="p">adjusted to a maximum of 20000
 </p>
 
@@ -519,13 +516,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e522 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e515 ">
 <p class="p">request.timeout.ms
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e528 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e521 ">
 <p class="p">adjusted to session.timeout.ms + 5000
 </p>
 
@@ -558,13 +555,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d4275e741">
+<th class="entry" colspan="1" valign="top" id="d4275e737">
 <p class="p">Deserializer
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d4275e747">
+<th class="entry" colspan="1" valign="top" id="d4275e743">
 <p class="p">SPL Types
 </p>
 
@@ -576,13 +573,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e741 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e737 ">
 <p class="p">org.apache.kafka.common.serialization.StringDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e747 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e743 ">
 <p class="p">rstring
 </p>
 
@@ -591,13 +588,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e741 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e737 ">
 <p class="p">org.apache.kafka.common.serialization.IntegerDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e747 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e743 ">
 <p class="p">int32, uint32
 </p>
 
@@ -606,13 +603,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e741 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e737 ">
 <p class="p">org.apache.kafka.common.serialization.LongDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e747 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e743 ">
 <p class="p">int64, uint64
 </p>
 
@@ -621,13 +618,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e741 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e737 ">
 <p class="p">org.apache.kafka.common.serialization.FloatDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e747 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e743 ">
 <p class="p">float32
 </p>
 
@@ -636,13 +633,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e741 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e737 ">
 <p class="p">org.apache.kafka.common.serialization.DoubleDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e747 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e743 ">
 <p class="p">float64
 </p>
 
@@ -651,13 +648,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e741 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e737 ">
 <p class="p">org.apache.kafka.common.serialization.ByteArrayDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e747 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e743 ">
 <p class="p">blob
 </p>
 
@@ -730,13 +727,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d4275e992">
+<th class="entry" colspan="1" valign="top" id="d4275e988">
 <p class="p">metric name
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d4275e998">
+<th class="entry" colspan="1" valign="top" id="d4275e994">
 <p class="p">description
 </p>
 
@@ -748,13 +745,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e992 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e988 ">
 <p class="p">isGroupManagementActive
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e998 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e994 ">
 <p class="p"><tt class="ph tt">1</tt> indicates that group management is active, <tt class="ph tt">0</tt> indicates that group management is inactive.
 </p>
 
@@ -763,13 +760,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e992 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e988 ">
 <p class="p">nPartitionRebalances
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e998 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e994 ">
 <p class="p">Number of partition assignment rebalances for each consumer operator. <strong class="ph b">The metric is only visible when group management is active.</strong>
 </p>
 
@@ -799,14 +796,6 @@
 </p>
 
 <p class="p">Offsets are always committed when the consistent region drains, i.e. when the region becomes a consistent state. On drain, the consumer operator commits the offsets of those Kafka messages that have been submitted as tuples. When the operator is in a consistent region, all auto-commit related settings via consumer properties are ignored by the operator. The parameter <strong class="ph b">commitCount</strong> is also ignored because the commit frequency is given by the trigger period of the consistent region. In a consistent region, offsets are committed synchronously, i.e. the offsets are committed when the drain processing of the operator finishes. Commit failures result in consistent region reset.
-</p>
-
-</div>
-
-<div class="section"><h2 class="title sectiontitle">Checkpointing
-</h2>
-
-<p class="p">The operator does not support a <tt class="ph tt">config checkpoint</tt> clause. A compiler error will occur when checkpointing is configured.
 </p>
 
 </div>
@@ -848,13 +837,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d4275e1161">
+<th class="entry" colspan="1" valign="top" id="d4275e1145">
 <p class="p">metric name
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d4275e1167">
+<th class="entry" colspan="1" valign="top" id="d4275e1151">
 <p class="p">description
 </p>
 
@@ -866,13 +855,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e1161 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e1145 ">
 <p class="p">drainTimeMillis
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e1167 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e1151 ">
 <p class="p">drain duration of the last drain in milliseconds
 </p>
 
@@ -881,13 +870,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e1161 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e1145 ">
 <p class="p">drainTimeMillisMax
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e1167 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e1151 ">
 <p class="p">maximum drain duration in milliseconds
 </p>
 
