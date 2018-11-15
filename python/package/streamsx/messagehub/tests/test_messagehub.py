@@ -6,7 +6,10 @@ from streamsx.topology.topology import Topology
 from streamsx.topology.tester import Tester
 from streamsx.topology.schema import CommonSchema, StreamSchema
 
+import streamsx.spl.toolkit
+
 import datetime
+import os
 import time
 import uuid
 
@@ -34,19 +37,6 @@ class TestSubscribeParams(TestCase):
         self.assertRaises(TypeError, mh.subscribe, topo, 'T1', StreamSchema('tuple<int32 a>'))
         self.assertRaises(TypeError, mh.subscribe, topo, 'T1', 'tuple<int32 a>')
 
-    def test_start_ok(self):
-        topo = Topology()
-        mh.subscribe(topo, 'T1', CommonSchema.String, start=None)
-        mh.subscribe(topo, 'T1', CommonSchema.String, start=False)
-        mh.subscribe(topo, 'T1', CommonSchema.String, start=True)
-        mh.subscribe(topo, 'T1', CommonSchema.String, start=time.time())
-        mh.subscribe(topo, 'T1', CommonSchema.String, start=datetime.datetime.now())
-
-    def test_start_bad(self):
-        topo = Topology()
-        self.assertRaises(TypeError, mh.subscribe, topo, 'T1', CommonSchema.String, start=3)
-        self.assertRaises(TypeError, mh.subscribe, topo, 'T1', CommonSchema.String, start='now')
-
 ## Using a uuid to avoid concurrent test runs interferring 
 ## with each other
 class JsonData(object):
@@ -73,6 +63,11 @@ class StringData(object):
         for i in range(self.count):
             yield self.prefix + '_' + str(i)
 
+def add_mh_toolkit(topo):
+    streamsx.spl.toolkit.add_toolkit(topo,
+        os.path.expanduser('~/toolkits/com.ibm.streamsx.messagehub'))
+
+
 class TestMH(TestCase):
     def setUp(self):
         Tester.setup_streaming_analytics(self, force_remote_build=True)
@@ -80,6 +75,7 @@ class TestMH(TestCase):
     def test_json(self):
         n = 104
         topo = Topology()
+        add_mh_toolkit(topo)
         uid = str(uuid.uuid4())
         s = topo.source(JsonData(uid, n)).as_json()
         mh.publish(s, 'MH_TEST')
@@ -96,6 +92,7 @@ class TestMH(TestCase):
     def test_string(self):
         n = 107
         topo = Topology()
+        add_mh_toolkit(topo)
         uid = str(uuid.uuid4())
         s = topo.source(StringData(uid, n)).as_string()
         mh.publish(s, 'MH_TEST')
@@ -108,86 +105,3 @@ class TestMH(TestCase):
         tester.contents(r, expected)
         tester.tuple_count(r, n)
         tester.test(self.test_ctxtype, self.test_config)
-
-    def test_end_beginning(self):
-        for start in [False, True]:
-            with self.subTest(start=start):
-                # Pre-populate with some data.
-                n1 = 58
-                topo = Topology()
-                uid1 = str(uuid.uuid4())
-                s1 = topo.source(StringData(uid1, n1, False)).as_string()
-                mh.publish(s1, 'MH_TEST')
-                tester = Tester(topo)
-                tester.tuple_count(s1, n1)
-                tester.test(self.test_ctxtype, self.test_config)
-        
-                n2 = 43
-                topo = Topology()
-                uid2 = str(uuid.uuid4())
-                s2 = topo.source(StringData(uid2, n2)).as_string()
-                mh.publish(s2, 'MH_TEST')
-        
-                r = mh.subscribe(topo, 'MH_TEST', CommonSchema.String, start=start)
-                r = r.filter(lambda t : t.startswith(uid1) or t.startswith(uid2))
-
-                if start:
-                    expected = list(StringData(uid1, n1, False)())
-                    expected.extend(StringData(uid2, n2, False)())
-                    n = n1 + n2
-                else:
-                    expected = list(StringData(uid2, n2, False)())
-                    n = n2
-
-                tester = Tester(topo)
-                tester.contents(r, expected)
-                tester.tuple_count(r, n)
-                tester.test(self.test_ctxtype, self.test_config)
-
-    def test_start_time(self):
-        for start in [False, True]:
-            with self.subTest(start=start):
-                # Pre-populate with some data.
-                # that will not be picked up
-                n0 = 62
-                topo = Topology()
-                uid0 = str(uuid.uuid4())
-                s0 = topo.source(StringData(uid0, n0, False)).as_string()
-                mh.publish(s0, 'MH_TEST')
-                tester = Tester(topo)
-                tester.tuple_count(s0, n0)
-                tester.test(self.test_ctxtype, self.test_config)
-
-                # A start time after the messages published in set 0
-                if start:
-                    start = datetime.datetime.now()
-                else:
-                    start = time.time()
-
-                # Pre-populate with some data.
-                n1 = 53
-                topo = Topology()
-                uid1 = str(uuid.uuid4())
-                s1 = topo.source(StringData(uid1, n1, False)).as_string()
-                mh.publish(s1, 'MH_TEST')
-                tester = Tester(topo)
-                tester.tuple_count(s1, n1)
-                tester.test(self.test_ctxtype, self.test_config)
-        
-                n2 = 49
-                topo = Topology()
-                uid2 = str(uuid.uuid4())
-                s2 = topo.source(StringData(uid2, n2)).as_string()
-                mh.publish(s2, 'MH_TEST')
-        
-                r = mh.subscribe(topo, 'MH_TEST', CommonSchema.String, start=start)
-                r = r.filter(lambda t : t.startswith(uid0) or t.startswith(uid1) or t.startswith(uid2))
-                expected = list(StringData(uid1, n1, False)())
-                expected.extend(StringData(uid2, n2, False)())
-                n = n1 + n2
-
-                tester = Tester(topo)
-                tester.contents(r, expected)
-                tester.tuple_count(r, n)
-                tester.test(self.test_ctxtype, self.test_config)
-

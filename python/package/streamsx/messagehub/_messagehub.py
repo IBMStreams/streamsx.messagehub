@@ -8,23 +8,17 @@ import streamsx.spl.op
 import streamsx.spl.types
 from streamsx.topology.schema import CommonSchema
 
-def subscribe(topology, topic, schema, start=False, credentials=None, name=None):
+def subscribe(topology, topic, schema, group=None, credentials=None, name=None):
     """Subscribe to messages from Message Hub for a topic.
 
     Adds a Message Hub consumer that subscribes to a topic
     and converts each message to a stream tuple.
 
-    Starting position for reading messages from the topic is set by the `start` parameter.
-
-    * When `start` evaluates to false messages are read from the end of the topic's queue.
-    * When `start` is equal to `True` messages are read from the start of the topic's queue.
-    * When `start` is an ``float`` or ``datetime.datetime`` the value is used as a timestamp and messages are read from the earliest offset whose timestamp is greater than or equal to the timestamp. For an ``float`` value it is taken as the number of seconds since the Unix 1970 epoch (for example a value from ``time.time()``.
-
     Args:
         topology(Topology): Topology that will contain the stream of messages.
         topic(str): Topic to subscribe messages from.
         schema(StreamSchema): Schema for returned stream.
-        start: Where to start reading messages.
+        group(str): Kafka consumer group identifier. When not specified it default to the job name with `topic` appended separated by an underscore.
         credentials(str): Name of the application configuration containing the credentials for Message Hub. When set to ``None`` the application configuration ``messagehub`` is used.
         name(str): Consumer name in the Streams context, defaults to a generated name.
 
@@ -38,22 +32,13 @@ def subscribe(topology, topic, schema, start=False, credentials=None, name=None)
     else:
         raise TypeError(schema)
 
-    start_pos = None
-    start_time = None
-    if start:
-        if isinstance(start, datetime.datetime):
-            start = start.timestamp()
+    if group is None:
+        group = streamsx.spl.op.Expression.expression('getJobName() + "_" + "' + str(topic) + '"')
 
-        if start is True:
-            start_pos = streamsx.spl.op.Expression.expression('Beginning')
-        elif isinstance(start, float):
-            start_pos = streamsx.spl.op.Expression.expression('Time')
-            start_time = streamsx.spl.types.int64(int(start * 1000.0))
-        else:
-            raise TypeError(type(start))
+    if name is None:
+        name = topic
 
-    _op = MessageHubConsumer(topology, schema=schema, outputMessageAttributeName=msg_attr_name, appConfigName=credentials, topic=topic, startPosition=start_pos, startTime=start_time, name=name)
-    print("MHCONS",  _op.params)
+    _op = _MessageHubConsumer(topology, schema=schema, outputMessageAttributeName=msg_attr_name, appConfigName=credentials, topic=topic, groupId=group, name=name)
     return _op.stream
 
 def publish(stream, topic, credentials=None, name=None):
@@ -75,11 +60,11 @@ def publish(stream, topic, credentials=None, name=None):
     else:
         raise TypeError(schema)
 
-    _op = MessageHubProducer(stream, appConfigName=credentials, topic=topic)
+    _op = _MessageHubProducer(stream, appConfigName=credentials, topic=topic)
     _op.params['messageAttribute'] = _op.attribute(stream, msg_attr)
     
-class MessageHubConsumer(streamsx.spl.op.Source):
-    def __init__(self, topology, schema, vmArg=None, appConfigName=None, clientId=None, messageHubCredentialsFile=None, outputKeyAttributeName=None, outputMessageAttributeName=None, outputTimestampAttributeName=None, outputOffsetAttributeName=None, outputPartitionAttributeName=None, outputTopicAttributeName=None, partition=None, propertiesFile=None, startPosition=None, startTime=None, topic=None, triggerCount=None, userLib=None, name=None):
+class _MessageHubConsumer(streamsx.spl.op.Source):
+    def __init__(self, topology, schema, vmArg=None, appConfigName=None, clientId=None, messageHubCredentialsFile=None, outputKeyAttributeName=None, outputMessageAttributeName=None, outputTimestampAttributeName=None, outputOffsetAttributeName=None, outputPartitionAttributeName=None, outputTopicAttributeName=None, partition=None, propertiesFile=None, startPosition=None, startTime=None, topic=None, triggerCount=None, userLib=None, consistentRegionAssignmentMode=None, groupId=None, name=None):
         kind="com.ibm.streamsx.messagehub::MessageHubConsumer"
         inputs=None
         schemas=schema
@@ -118,11 +103,13 @@ class MessageHubConsumer(streamsx.spl.op.Source):
             params['triggerCount'] = triggerCount
         if userLib is not None:
             params['userLib'] = userLib
-        super(MessageHubConsumer, self).__init__(topology,kind,schemas,params,name)
+        if groupId is not None:
+            params['groupId'] = groupId
+        super(_MessageHubConsumer, self).__init__(topology,kind,schemas,params,name)
 
 
 
-class MessageHubProducer(streamsx.spl.op.Sink):
+class _MessageHubProducer(streamsx.spl.op.Sink):
     def __init__(self, stream, vmArg=None, appConfigName=None, keyAttribute=None, messageAttribute=None, messageHubCredentialsFile=None, partitionAttribute=None, propertiesFile=None, timestampAttribute=None, topicAttribute=None, topic=None, userLib=None, name=None):
         topology = stream.topology
         kind="com.ibm.streamsx.messagehub::MessageHubProducer"
@@ -149,4 +136,4 @@ class MessageHubProducer(streamsx.spl.op.Sink):
             params['topic'] = topic
         if userLib is not None:
             params['userLib'] = userLib
-        super(MessageHubProducer, self).__init__(kind,stream,params,name)
+        super(_MessageHubProducer, self).__init__(kind,stream,params,name)

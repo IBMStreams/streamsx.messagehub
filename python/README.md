@@ -31,3 +31,9 @@ The documentation is also setup at `readthedocs.io` under the account: `IBMStrea
 Documentation links:
 * http://streamsxmessagehub.readthedocs.io/en/pypackage
 
+```
+pip install 'git+https://github.com/IBMStreams/streamsx.messagehub.git@pypackage#subdirectory=python/package'
+```
+
+
+
