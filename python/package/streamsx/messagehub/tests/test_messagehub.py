@@ -22,6 +22,10 @@ import uuid
 ## Message Hub has:
 ##
 ##    topic MH_TEST with one partition (1 hour retention)
+##
+##
+## Locally the toolkit exists at and is at least 1.5.1
+## $HOME/toolkits/com.ibm.streamsx.messagehub
 
 class TestSubscribeParams(TestCase):
     def test_schemas_ok(self):
