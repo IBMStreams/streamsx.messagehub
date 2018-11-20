@@ -64,7 +64,7 @@ def publish(stream, topic, credentials=None, name=None):
     _op.params['messageAttribute'] = _op.attribute(stream, msg_attr)
     
 class _MessageHubConsumer(streamsx.spl.op.Source):
-    def __init__(self, topology, schema, vmArg=None, appConfigName=None, clientId=None, messageHubCredentialsFile=None, outputKeyAttributeName=None, outputMessageAttributeName=None, outputTimestampAttributeName=None, outputOffsetAttributeName=None, outputPartitionAttributeName=None, outputTopicAttributeName=None, partition=None, propertiesFile=None, startPosition=None, startTime=None, topic=None, triggerCount=None, userLib=None, consistentRegionAssignmentMode=None, groupId=None, name=None):
+    def __init__(self, topology, schema, vmArg=None, appConfigName=None, clientId=None, messageHubCredentialsFile=None, outputKeyAttributeName=None, outputMessageAttributeName=None, outputTimestampAttributeName=None, outputOffsetAttributeName=None, outputPartitionAttributeName=None, outputTopicAttributeName=None, partition=None, propertiesFile=None, startPosition=None, startTime=None, topic=None, triggerCount=None, userLib=None, groupId=None, name=None):
         kind="com.ibm.streamsx.messagehub::MessageHubConsumer"
         inputs=None
         schemas=schema
