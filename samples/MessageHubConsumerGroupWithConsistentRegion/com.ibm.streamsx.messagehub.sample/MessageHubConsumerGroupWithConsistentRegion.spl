@@ -76,6 +76,5 @@ composite MessageHubConsumerGroupWithConsistentRegion {
 //                messageAttribute: message;    // 'message' is default value
                 partitionAttribute: targetPartition;
                 messageHubCredentialsFile: "etc/messagehub.json";
-                propertiesFile : "etc/producer.properties";   // additonal Kafka properties for the producer
         }
 }
