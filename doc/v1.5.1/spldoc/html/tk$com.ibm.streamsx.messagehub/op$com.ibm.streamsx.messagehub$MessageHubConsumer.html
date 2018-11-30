@@ -22,7 +22,7 @@
 <div class="body refbody">
 <div class="section">
 <p class="p">
-<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 1.6.0</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; MessageHubConsumer</p>
+<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 1.5.1</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; MessageHubConsumer</p>
 
 </div>
 
@@ -533,36 +533,6 @@
 
 </tr>
 
-<tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e522 ">
-<p class="p">metric.reporters
-</p>
-
-</td>
-
-<td class="entry" colspan="1" valign="top" headers="d4275e528 ">
-<p class="p">added to provided reporters: <tt class="ph tt">com.ibm.streamsx.kafka.clients.consumer.ConsumerMetricsReporter</tt>
-</p>
-
-</td>
-
-</tr>
-
-<tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e522 ">
-<p class="p">metrics.sample.window.ms
-</p>
-
-</td>
-
-<td class="entry" colspan="1" valign="top" headers="d4275e528 ">
-<p class="p">adjusted to <tt class="ph tt">10000</tt>
-</p>
-
-</td>
-
-</tr>
-
 </tbody>
 
 </table>
@@ -588,13 +558,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d4275e778">
+<th class="entry" colspan="1" valign="top" id="d4275e741">
 <p class="p">Deserializer
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d4275e784">
+<th class="entry" colspan="1" valign="top" id="d4275e747">
 <p class="p">SPL Types
 </p>
 
@@ -606,13 +576,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e778 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e741 ">
 <p class="p">org.apache.kafka.common.serialization.StringDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e784 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e747 ">
 <p class="p">rstring
 </p>
 
@@ -621,13 +591,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e778 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e741 ">
 <p class="p">org.apache.kafka.common.serialization.IntegerDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e784 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e747 ">
 <p class="p">int32, uint32
 </p>
 
@@ -636,13 +606,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e778 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e741 ">
 <p class="p">org.apache.kafka.common.serialization.LongDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e784 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e747 ">
 <p class="p">int64, uint64
 </p>
 
@@ -651,13 +621,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e778 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e741 ">
 <p class="p">org.apache.kafka.common.serialization.FloatDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e784 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e747 ">
 <p class="p">float32
 </p>
 
@@ -666,13 +636,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e778 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e741 ">
 <p class="p">org.apache.kafka.common.serialization.DoubleDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e784 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e747 ">
 <p class="p">float64
 </p>
 
@@ -681,13 +651,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e778 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e741 ">
 <p class="p">org.apache.kafka.common.serialization.ByteArrayDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e784 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e747 ">
 <p class="p">blob
 </p>
 
@@ -710,162 +680,6 @@
 
 </div>
 
-<div class="section"><h2 class="title sectiontitle">Following metrics created by the Kafka consumer client are exposed as custom metrics:
-</h2>
-
-<div class="p">
-
-<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all">
-
-
-<thead class="thead" align="left">
-<tr class="row">
-<th class="entry" colspan="1" valign="top" id="d4275e924">
-<p class="p">Custom Metric
-</p>
-
-</th>
-
-<th class="entry" colspan="1" valign="top" id="d4275e930">
-<p class="p">Description
-</p>
-
-</th>
-
-</tr>
-
-</thead>
-
-<tbody class="tbody">
-<tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e924 ">
-<p class="p">connection-count
-</p>
-
-</td>
-
-<td class="entry" colspan="1" valign="top" headers="d4275e930 ">
-<p class="p">The current number of active connections.
-</p>
-
-</td>
-
-</tr>
-
-<tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e924 ">
-<p class="p">incoming-byte-rate
-</p>
-
-</td>
-
-<td class="entry" colspan="1" valign="top" headers="d4275e930 ">
-<p class="p">The number of bytes read off all sockets per second
-</p>
-
-</td>
-
-</tr>
-
-<tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e924 ">
-<p class="p"><em class="ph i">topic</em>-<em class="ph i">partition</em>:records-lag
-</p>
-
-</td>
-
-<td class="entry" colspan="1" valign="top" headers="d4275e930 ">
-<p class="p">The latest lag of the partition
-</p>
-
-</td>
-
-</tr>
-
-<tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e924 ">
-<p class="p">records-lag-max
-</p>
-
-</td>
-
-<td class="entry" colspan="1" valign="top" headers="d4275e930 ">
-<p class="p">The maximum lag in terms of number of records for any partition in this window
-</p>
-
-</td>
-
-</tr>
-
-<tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e924 ">
-<p class="p">fetch-size-avg
-</p>
-
-</td>
-
-<td class="entry" colspan="1" valign="top" headers="d4275e930 ">
-<p class="p">The average number of bytes fetched per request
-</p>
-
-</td>
-
-</tr>
-
-<tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e924 ">
-<p class="p"><em class="ph i">topic</em>:fetch-size-avg
-</p>
-
-</td>
-
-<td class="entry" colspan="1" valign="top" headers="d4275e930 ">
-<p class="p">The average number of bytes fetched per request for a topic
-</p>
-
-</td>
-
-</tr>
-
-<tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e924 ">
-<p class="p">commit-rate
-</p>
-
-</td>
-
-<td class="entry" colspan="1" valign="top" headers="d4275e930 ">
-<p class="p">The number of commit calls per second
-</p>
-
-</td>
-
-</tr>
-
-<tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e924 ">
-<p class="p">commit-latency-avg
-</p>
-
-</td>
-
-<td class="entry" colspan="1" valign="top" headers="d4275e930 ">
-<p class="p">The average time taken for a commit request
-</p>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-</div>
-
-</div>
-
-</div>
-
 <div class="section"><h2 class="title sectiontitle">Kafka's Group Management
 </h2>
 
@@ -877,7 +691,7 @@
 
 <div class="p">
 <ul class="ul">
-<li class="li"> A <tt class="ph tt">group.id</tt> consumer property must be given. The group-ID defines which operators belong to a consumer group. When no group-ID is given, group management will not be in place.The <tt class="ph tt">group.id</tt> can be specified via property file, app configuration, or the <strong class="ph b">groupId</strong> parameter.</li>
+<li class="li"> A <tt class="ph tt">group.id</tt> consumer property must be given. The group-ID defines which operators belong to a consumer group. When no group-ID is given, group management will not be in place.The <tt class="ph tt">group.id</tt> can be specified via property file, app option, or the <strong class="ph b">groupId</strong> parameter.</li>
 
 <li class="li"> The operator must not be configured with the optional input port.</li>
 
@@ -916,13 +730,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d4275e1197">
+<th class="entry" colspan="1" valign="top" id="d4275e992">
 <p class="p">metric name
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d4275e1203">
+<th class="entry" colspan="1" valign="top" id="d4275e998">
 <p class="p">description
 </p>
 
@@ -934,13 +748,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e1197 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e992 ">
 <p class="p">isGroupManagementActive
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e1203 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e998 ">
 <p class="p"><tt class="ph tt">1</tt> indicates that group management is active, <tt class="ph tt">0</tt> indicates that group management is inactive.
 </p>
 
@@ -949,13 +763,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e1197 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e992 ">
 <p class="p">nPartitionRebalances
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e1203 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e998 ">
 <p class="p">Number of partition assignment rebalances for each consumer operator. <strong class="ph b">The metric is only visible when group management is active.</strong>
 </p>
 
@@ -1034,13 +848,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d4275e1366">
+<th class="entry" colspan="1" valign="top" id="d4275e1161">
 <p class="p">metric name
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d4275e1372">
+<th class="entry" colspan="1" valign="top" id="d4275e1167">
 <p class="p">description
 </p>
 
@@ -1052,13 +866,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e1366 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e1161 ">
 <p class="p">drainTimeMillis
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e1372 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e1167 ">
 <p class="p">drain duration of the last drain in milliseconds
 </p>
 
@@ -1067,13 +881,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d4275e1366 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e1161 ">
 <p class="p">drainTimeMillisMax
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d4275e1372 ">
+<td class="entry" colspan="1" valign="top" headers="d4275e1167 ">
 <p class="p">maximum drain duration in milliseconds
 </p>
 
