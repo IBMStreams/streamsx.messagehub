@@ -25,7 +25,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
     private boolean appConfigRequired = false;
 
     @Parameter(optional = true, name="messageHubCredentialsFile", description="Specifies the name of the file that contains "
-            + "the complete Message Hub credentials JSON. If not specified, this parameter will "
+            + "the complete Event Streams service credentials in JSON format. If not specified, this parameter will "
             + "attempt to load the credentials from the file `etc/messagehub.json`. A relative path is always "
             + "interpreted as relative to the *application directory* of the Streams application.")
     public void setMessageHubCredsFile(String messageHubCredsFile) {
@@ -37,7 +37,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
     protected void loadProperties() throws Exception {
         final KafkaOperatorProperties credsFileProps = MessageHubOperatorUtil.loadMessageHubCredsFromFile(getOperatorContext(), convertToAbsolutePath (messageHubCredsFile));
         if (credsFileProps == null || credsFileProps.isEmpty()) {
-            logger.info ("Could not read Message Hub credentials from properties file; requiring an App Config.");
+            logger.info ("Could not read service credentials from properties file; requiring an App Config.");
             appConfigRequired  = true;
         }
         else {
@@ -55,7 +55,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
         final String appCfgName = appConfigName == null? MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_APP_CONFIG_NAME: appConfigName;
         final KafkaOperatorProperties appCfgProps = MessageHubOperatorUtil.loadMessageHubCredsFromAppConfig(getOperatorContext(), appCfgName);
         if (appConfigRequired && (appCfgProps == null || appCfgProps.isEmpty())) {
-            final String msg = "Message Hub credentials not found in properties file nor in an Application Configuration";
+            final String msg = "Service credentials not found in properties file nor in an Application Configuration";
             logger.error(msg);
             throw new RuntimeException(msg);
         }
@@ -79,10 +79,10 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
     }
 
     public static final String DESC = ""
-            + "The **MessageHubProducer** operator is used to consume records from the IBM Cloud Message Hub service. "
+            + "The **MessageHubProducer** operator is used to consume records from the IBM Event Streams cloud service. "
             + "The operator has been designed to make connectivity to the service as simple as possible. "
             + "This is achieved in a number of different ways, from having default values for the **appConfigName** parameter "
-            + "to allowing the user to copy/paste the raw Message Hub Credentials JSON into either an application configuration "
+            + "to allowing the user to copy/paste the raw service credentials JSON into either an application configuration "
             + "property or a file.\\n"
             + "\\n"
             + "The following table lists the default values that have been set by this operator for a couple of parameters: \\n"
@@ -92,7 +92,8 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
             + "\\n"
             + "# Setup\\n"
             + "\\n"
-            + "This section outlines different options for enabling the **MessageHubProducer** operator to connet to IBM Cloud Message Hub. "
+            + "This section outlines different options for enabling the **MessageHubProducer** operator to connet to "
+            + "the IBM Event Streams cloud service. "
             + "Any of the following options can be used to configure the operator for connecting to IBM Cloud. \\n"
             + "\\n"
             + SplDoc.SAVE_CREDENTIALS_IN_APP_CONFIG_PROPERTY
@@ -104,7 +105,6 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
             + "# Additional Operator Details\\n"
             + "\\n"
             + "# Kafka Properties\\n"
-            
             + "\\n"
             + "The operator implements Kafka's Producer API. As a result, it supports all "
             + "Kafka properties that are supported by the underlying API. The producer properties "
@@ -146,8 +146,8 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
             + KafkaSplDoc.CHECKPOINTING_CONFIG
             + "\\n"
             + KafkaSplDoc.PRODUCER_CONSISTENT_REGION_SUPPORT
-            + "For the Event Streams cloud service, a plan that contains Kafka broker version 0.11 or higher, must "
-            + "be selected to use transactions for message delivery."
+            + "\\n"
+            + "**Transactional message delivery is now supported by all plans of the Event Streams cloud service.**"
             + "\\n"
             + "\\n"
             + "# Error Handling\\n"

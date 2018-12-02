@@ -1,12 +1,12 @@
 /**
- * This SPL namespace contains the operators to connect with an instance of the IBM Message Hub cloud service.
+ * This SPL namespace contains the operators to connect with an instance of the IBM Event Streams cloud service.
  * These operators are based on the operators of the streamsx.kafka toolkit. It is recommended that users 
  * review the Kafka Toolkit documentation for additional information on supported functionality. 
  * The Kafka Toolkit documentation can be found here: [https://ibmstreams.github.io/streamsx.kafka/|Kafka Toolkit] 
  * 
  * + Setup of the operators
  * 
- * When you create an instance of the IBM Message Hub service, you must also create credentials to use the servcie.
+ * When you create an instance of the IBM Event Streams service, you must also create credentials to use the servcie.
  * These credentials are given in JSON format. This piece of information is required to setup the operators 
  * to connect to the service instance.
  * 
@@ -14,18 +14,18 @@
  *
  * # Save Credentials in Application Configuration Property
  *
- * With this option, users can copy their Message Hub Credentials JSON from the Message Hub service 
+ * With this option, users can copy their Event Streams Credentials JSON from the Event Streams service 
  * and store it in an application configuration property named `messagehub.creds`. 
  * When the operator starts, it will look for that property and extract the information needed to connect.
  * The following steps outline how this can be done:
  * 
  * 1. Create an application configuration with the name **messagehub**.
  * 1. Create a property in the messagehub application configuration with the name `messagehub.creds`.
- * 1. The value of the property must be the raw Message Hub Credentials JSON.
+ * 1. The value of the property must be the raw Event Streams Credentials JSON.
  * 1. The operator will automatically look for an application configuration named messagehub and will extract the information needed to connect. Users only need to specify the topic(s) that they wish to consume messages from (set via the topic parameter).
  * 
  * **NOTE 1:** Users can specify a different application configuration name by setting the **appConfigName** parameter.
- * The operator will still look for a property with the name `messagehub.creds` containing the Message Hub Credentials JSON.
+ * The operator will still look for a property with the name `messagehub.creds` containing the Event Streams Credentials JSON.
  * 
  * **NOTE 2:** Users can add generic Kafka properties, for example `client.id`, to the application configuration.
  * To make the operator use these Kafka properties, the **appConfigName** parameter must be specified even if the default
@@ -36,15 +36,15 @@
  * 
  * # Save Credentials in a File
  * 
- * With this option, users can copy their Message Hub credentials JSON from the Message Hub service and store it in a
+ * With this option, users can copy their Event Streams credentials JSON from the Event Streams service and store it in a
  * file called `messagehub.json`. When the operator starts up it will read the credentials from that file and extract
  * the information needed to connect. The following steps outline how this can be done:
  * 
  * 1. Create a file with the name `messagehub.json` in the <application_directory>/etc/ directory.
- * 1. Paste the Message Hub Credentials JSON into this file and save it.
+ * 1. Paste the Event Streams Credentials JSON into this file and save it.
  * 1. The operator will automatically look for the file <application_directory>/etc/messagehub.json and will extract the information needed to connect. Users only need to specify the topic(s) that they wish to consume messages from (set via the topic parameter).
  * 
- * **NOTE:** Users can use the **messageHubCredentialsFile** parameter to specify a different file containing the Message Hub Credentials in JSON format.
+ * **NOTE:** Users can use the **messageHubCredentialsFile** parameter to specify a different file containing the Event Streams Credentials in JSON format.
  * 
  * When both, a credentials file and an application configuration is specified, also when the credentials are stored 
  * with the default file name `messagehub.json`, the application configuration is ignored.
@@ -91,6 +91,14 @@
  * properties, which have not been setup by application configuration or configuration file.
  * To achieve this, submit the Streams application with **application trace level INFO** or more verbose.
  * Then the properties are traced into the PE trace. Authentication information is hidden.
+ *
+ * + Tracing Kafka performance metrics
+ * 
+ * For testing and tuning it might be desirable to see and observe performance metrics of the Kafka 
+ * consumer or Kafka Producer client. When the **application trace level** is at **INFO** 
+ * (or at a more verbose level), the operators write every two seconds the most 
+ * important performance metrics into the trace file. These can be used to tune the 
+ * Kafka consumer or producer by applying specific Kafka configs.
  */
 
 namespace com.ibm.streamsx.messagehub;

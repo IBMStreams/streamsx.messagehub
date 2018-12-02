@@ -64,7 +64,7 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
     private boolean appConfigRequired = false;
 
     @Parameter(optional = true, name="messageHubCredentialsFile", description="Specifies the name of the file that contains "
-            + "the complete Message Hub credentials JSON. If not specified, this parameter will "
+            + "the complete Event Streams service credentials in JSON format. If not specified, this parameter will "
             + "attempt to load the credentials from the file `etc/messagehub.json`. A relative path is always "
             + "interpreted as relative to the *application directory* of the Streams application.")
     public void setMessageHubCredsFile(String messageHubCredsFile) {
@@ -75,7 +75,7 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
     protected void loadProperties() throws Exception {
         final KafkaOperatorProperties credsFileProps = MessageHubOperatorUtil.loadMessageHubCredsFromFile(getOperatorContext(), convertToAbsolutePath (messageHubCredsFile));
         if (credsFileProps == null || credsFileProps.isEmpty()) {
-            logger.info ("Could not read Message Hub credentials from properties file; requiring an App Config.");
+            logger.info ("Could not read service credentials from properties file; requiring an App Config.");
             appConfigRequired  = true;
         }
         else {
@@ -93,7 +93,7 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
         final String appCfgName = appConfigName == null? MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_APP_CONFIG_NAME: appConfigName;
         final KafkaOperatorProperties appCfgProps = MessageHubOperatorUtil.loadMessageHubCredsFromAppConfig(getOperatorContext(), appCfgName);
         if (appConfigRequired && (appCfgProps == null || appCfgProps.isEmpty())) {
-            final String msg = "Message Hub credentials not found in properties file nor in an Application Configuration";
+            final String msg = "Service credentials not found in properties file nor in an Application Configuration";
             logger.error(msg);
             throw new RuntimeException(msg);
         }
@@ -118,14 +118,14 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
     }
 
     public static final String DESC = ""
-            + "The **MessageHubConsumer** operator is used to consume records from the IBM Cloud Message Hub service. "
+            + "The **MessageHubConsumer** operator is used to consume records from the IBM Event Streams cloud service. "
             + ""
             + "The standard use patterns for the MessageHubConsumer operator are described in the "
             + "[https://ibmstreams.github.io/streamsx.messagehub/docs/user/overview/|overview] of the user documentation.\\n"
             + "\\n"
             + "The operator has been designed to make connectivity to the service as simple as possible. "
             + "This is achieved in a number of different ways, from having default values for the **appConfigName** parameter "
-            + "to allowing the user to copy/paste the raw Message Hub Credentials JSON into either an application configuration "
+            + "to allowing the user to copy/paste the raw service credentials JSON into either an application configuration "
             + "property or a file.\\n"
             + "\\n"
             + "The following table lists the default values that have been set by this operator for a couple of parameters: \\n"
@@ -135,7 +135,8 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
             + "\\n"
             + "# Setup\\n"
             + "\\n"
-            + "This section outlines different options for enabling the **MessageHubConsumer** operator to connet to IBM Cloud Message Hub. "
+            + "This section outlines different options for enabling the **MessageHubConsumer** operator to connet to "
+            + "the IBM Event Streams cloud service. "
             + "Any of the following options can be used to configure the operator for connecting to IBM Cloud. \\n"
             + "\\n"
             + SplDoc.SAVE_CREDENTIALS_IN_APP_CONFIG_PROPERTY

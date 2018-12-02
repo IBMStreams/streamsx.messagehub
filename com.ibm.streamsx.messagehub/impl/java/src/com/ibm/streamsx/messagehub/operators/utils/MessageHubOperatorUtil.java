@@ -50,7 +50,7 @@ public class MessageHubOperatorUtil {
             properties.putAllIfNotPresent(messageHubProperties);
         }
         else {
-            logger.warn ("App Config '" + appConfigName + "' has no key '" + DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME + "' where the Message Hub credentials in JSON format are expected.");
+            logger.warn ("App Config '" + appConfigName + "' has no key '" + DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME + "' where the Event Streams credentials in JSON format are expected.");
         }
         return properties;
     }
@@ -59,11 +59,11 @@ public class MessageHubOperatorUtil {
             throws Exception {
         logger.info("Attempting to load properties file from: " + messageHubCredsFile);
         if (!messageHubCredsFile.exists() || !messageHubCredsFile.isFile()) {
-            logger.info("Message Hub credentials file does not exist or is not a file: " + messageHubCredsFile.getAbsolutePath()); //$NON-NLS-1$
+            logger.info("Event Streams credentials file does not exist or is not a file: " + messageHubCredsFile.getAbsolutePath()); //$NON-NLS-1$
             return null;
         }
         if (messageHubCredsFile.length() > Integer.MAX_VALUE) {
-            logger.error (MessageFormat.format ("Message Hub credentials file {0} has a suspcious length: {1}. Ignoring this file.", messageHubCredsFile.getAbsolutePath(), messageHubCredsFile.length())); //$NON-NLS-1$
+            logger.error (MessageFormat.format ("Event Streams credentials file {0} has a suspcious length: {1}. Ignoring this file.", messageHubCredsFile.getAbsolutePath(), messageHubCredsFile.length())); //$NON-NLS-1$
             return null;
         }
 
@@ -83,11 +83,11 @@ public class MessageHubOperatorUtil {
             return loadFromMessageHubCreds(context, creds);
         }
         catch (FileNotFoundException fnf) {
-            logger.info("Message Hub credentials file does not exist: " + messageHubCredsFile.getAbsolutePath()); //$NON-NLS-1$
+            logger.info("Event Streams credentials file does not exist: " + messageHubCredsFile.getAbsolutePath()); //$NON-NLS-1$
             return null;
         }
         catch (IOException ioe) {
-            logger.error (MessageFormat.format ("Message Hub credentials file {0} could not be read: {1}.", messageHubCredsFile.getAbsoluteFile(), ioe.getLocalizedMessage()));
+            logger.error (MessageFormat.format ("Event Streams credentials file {0} could not be read: {1}.", messageHubCredsFile.getAbsoluteFile(), ioe.getLocalizedMessage()));
             throw ioe;
         }
         finally {
@@ -106,8 +106,8 @@ public class MessageHubOperatorUtil {
         if (credentials == null || credentials.trim().isEmpty()) {
             return null;
         }
-        logger.info ("Parsing Message Hub creds: ** NOT LOGGED **");
-        logger.trace ("Message Hub creds: " + credentials);  // this exposes sensitive information
+        logger.info ("Parsing Event Streams creds: ** NOT LOGGED **");
+        logger.trace ("Event Streams creds: " + credentials);  // this exposes sensitive information
         KafkaOperatorProperties properties = new KafkaOperatorProperties();
         Gson gson = new Gson();
         MessageHubCredentials messageHubCreds;
@@ -128,7 +128,7 @@ public class MessageHubOperatorUtil {
         properties.put(JaasUtil.SASL_JAAS_PROPERTY, value);
 
         // for debugging purpose, trace the messagehub username
-        logger.info("message hub instance user = " + messageHubCreds.getUser());
+        logger.info("Event Streams instance user = " + messageHubCreds.getUser());
         // add SSL properties
         properties.put("security.protocol", "SASL_SSL"); //$NON-NLS-1$ //$NON-NLS-2$
         properties.put("sasl.mechanism", "PLAIN"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -141,7 +141,7 @@ public class MessageHubOperatorUtil {
         KafkaOperatorProperties logProps = new KafkaOperatorProperties();
         logProps.putAll(properties);
         if (logProps.containsKey(JaasUtil.SASL_JAAS_PROPERTY)) logProps.put (JaasUtil.SASL_JAAS_PROPERTY, "**********");
-        logger.info ("Properties from Message Hub credentials: " + logProps); //$NON-NLS-1$
+        logger.info ("Properties from Event Streams credentials: " + logProps); //$NON-NLS-1$
         return properties;
     }
 }
