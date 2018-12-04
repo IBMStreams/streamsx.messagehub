@@ -11,6 +11,15 @@
  * to connect to the service instance.
  * 
  * Any of the following options can be used to configure the operator for connecting to IBM Cloud.
+ * 
+ * * save the credentials in an application configuration - this is the best way to protect your sensitive data
+ * * save the credentials in a file, which is bundled with the Streams application bundle
+ * * specify the credentials as **credentials** operator parameter. Any SPL rstring expression can be specified as operator parameter, for example `getSubmissionTimeValue("credentials");`.
+ * 
+ * The priority of the above options is
+ * 1. **credentials** operator parameter (both file and application config are ignored)
+ * 1. credentials stored in a file, also when the default filename `messagehub.json` is used (application config is ignored)
+ * 1. application configuration
  *
  * # Save Credentials in Application Configuration Property
  *
@@ -46,8 +55,11 @@
  * 
  * **NOTE:** Users can use the **messageHubCredentialsFile** parameter to specify a different file containing the Event Streams Credentials in JSON format.
  * 
- * When both, a credentials file and an application configuration is specified, also when the credentials are stored 
- * with the default file name `messagehub.json`, the application configuration is ignored.
+ * 
+ * # Use the `credentials` operator parameter
+ * 
+ * With this option, any SPL expression that returns an `rstring` can be used to specify the service credentials. For example, 
+ * you can write and use an SPL function, which reads the credentials JSON from a key value store.
  * 
  * 
  * **The following Kafka properties are setup by the operators by default:**
@@ -97,7 +109,7 @@
  * For testing and tuning it might be desirable to see and observe performance metrics of the Kafka 
  * consumer or Kafka Producer client. When the **application trace level** is at **INFO** 
  * (or at a more verbose level), the operators write every two seconds the most 
- * important performance metrics into the trace file. These can be used to tune the 
+ * important performance metrics into the trace file. These metrics can be used to tune the 
  * Kafka consumer or producer by applying specific Kafka configs.
  */
 

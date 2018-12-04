@@ -29,8 +29,34 @@ public class SplDoc {
             + "| ssl.endpoint.identification.algorithm | HTTPS |\\n"
             + "---\\n";
 
+    public static final String CREDENTIALS_PARAM = ""
+            + "**1. Use the `credentials` operator parameter**\\n"
+            + "\\n"
+            + "This option allows you to use any SPL expression that returns an rstring to specify the service credentials. "
+            + "As an example, you can write and use an SPL function that retrieves the credentials JSON from a key-value-store.\\n"
+            + "\\n"
+            + "**Note:** When the **credentials** parameter is specified, credentials which are stored in a file or "
+            + "application configuration are ignored. You can specify additional Kafka configs in a property file or "
+            + "application configuration, but then you must specify the name of the property file or application configuration "
+            + "with the **propertiesFile** or **appConfigName** parameter.\\n";
+
+    public static final String SAVE_CREDENTIALS_IN_FILE = ""
+            + "**2. Save Credentials in a File**\\n"
+            + "\\n"
+            + "With this option, users can copy their credentials JSON from the Event Streams service and store it in a "
+            + "file called `messagehub.json`. When the operator starts up it will read the credentials from that file and "
+            + "extract the information needed to connect. The following steps outline how this can be done: \\n"
+            + "\\n"
+            + " 1. Create a file called `messagehub.json` in the `<application_directory>/etc/` directory. \\n"
+            + " 2. Paste the Event Streams credentials JSON into this file and save it. \\n"
+            + " 3. The operator will automatically look for the file `<application_directory>/etc/messagehub.json` and "
+            + "will extract the information needed to connect.\\n"
+            + "\\n"
+            + "**NOTE:** Users can use the **messageHubCredentialsFile** parameter to specify a different file containing "
+            + "the Event Streams service credentials JSON.\\n";
+    
     public static final String SAVE_CREDENTIALS_IN_APP_CONFIG_PROPERTY= ""
-            + "**Save Credentials in Application Configuration Property**\\n"
+            + "**3. Save Credentials in an Application Configuration Property**\\n"
             + "\\n"
             + "With this option, users can copy their service credentials JSON from the Event Streams service and "
             + "store it in an application configuration property called `messagehub.creds`. When the operator starts, "
@@ -54,21 +80,6 @@ public class SplDoc {
             + "`messagehub` is used. Looking at the other way round, when the default application configuration name "
             + "`messagehub` is used, but not specified as **appConfigName** parameter value, only the service credentials "
             + "are used from the application config.\\n";
-
-    public static final String SAVE_CREDENTIALS_IN_FILE = ""
-            + "**Save Credentials in File**\\n"
-            + "\\n"
-            + "With this option, users can copy their credentials JSON from the Event Streams service and store it in a "
-            + "file called `messagehub.json`. When the operator starts up it will read the credentials from that file and "
-            + "extract the information needed to connect. The following steps outline how this can be done: \\n"
-            + "\\n"
-            + " 1. Create a file called `messagehub.json` in the `<application_directory>/etc/` directory. \\n"
-            + " 2. Paste the Event Streams credentials JSON into this file and save it. \\n"
-            + " 3. The operator will automatically look for the file `<application_directory>/etc/messagehub.json` and "
-            + "will extract the information needed to connect.\\n"
-            + "\\n"
-            + "**NOTE:** Users can use the **messageHubCredentialsFile** parameter to specify a different file containing "
-            + "the Event Streams service credentials JSON.\\n";
 
     public static final String DEFAULT_CREDENTIAL_PARAMETERS = "" 
             + "---\\n"

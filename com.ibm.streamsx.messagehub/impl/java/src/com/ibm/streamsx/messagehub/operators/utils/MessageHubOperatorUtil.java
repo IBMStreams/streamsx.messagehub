@@ -46,7 +46,7 @@ public class MessageHubOperatorUtil {
         if (appConfig.containsKey(DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME)) {
             String credentials = appConfig.get(DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME);
             logger.trace("Creds from app config property: " + credentials); //$NON-NLS-1$
-            KafkaOperatorProperties messageHubProperties = loadFromMessageHubCreds(context, credentials);
+            KafkaOperatorProperties messageHubProperties = loadFromMessageHubCreds(credentials);
             properties.putAllIfNotPresent(messageHubProperties);
         }
         else {
@@ -55,7 +55,7 @@ public class MessageHubOperatorUtil {
         return properties;
     }
 
-    public static KafkaOperatorProperties loadMessageHubCredsFromFile(OperatorContext context, File messageHubCredsFile)
+    public static KafkaOperatorProperties loadMessageHubCredsFromFile(File messageHubCredsFile)
             throws Exception {
         logger.info("Attempting to load properties file from: " + messageHubCredsFile);
         if (!messageHubCredsFile.exists() || !messageHubCredsFile.isFile()) {
@@ -80,7 +80,7 @@ public class MessageHubOperatorUtil {
                 logger.warn ("Credential file " + messageHubCredsFile + " exists, but is empty");
                 return null;
             }
-            return loadFromMessageHubCreds(context, creds);
+            return loadFromMessageHubCreds(creds);
         }
         catch (FileNotFoundException fnf) {
             logger.info("Event Streams credentials file does not exist: " + messageHubCredsFile.getAbsolutePath()); //$NON-NLS-1$
@@ -102,7 +102,13 @@ public class MessageHubOperatorUtil {
         }
     }
 
-    public static KafkaOperatorProperties loadFromMessageHubCreds(OperatorContext context, String credentials) {
+    /**
+     * Creates Kafka properties from a credentials JSON string
+     * @param credentials the credentials as JSON
+     * @return A new KafkaOperatorProperties instance that contains the properties
+     *         derived from the credentials and others required to connect with the cloud service.
+     */
+    public static KafkaOperatorProperties loadFromMessageHubCreds (String credentials) {
         if (credentials == null || credentials.trim().isEmpty()) {
             return null;
         }
