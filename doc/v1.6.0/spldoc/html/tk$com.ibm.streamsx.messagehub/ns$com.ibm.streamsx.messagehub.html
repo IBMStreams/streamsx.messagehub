@@ -22,13 +22,13 @@
 <div class="body refbody">
 <div class="section">
 <p class="p">
-<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 1.7.0</a> &gt; com.ibm.streamsx.messagehub</p>
+<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 1.6.0</a> &gt; com.ibm.streamsx.messagehub</p>
 
 </div>
 
 <div class="section">
 
-<p class="p">This SPL namespace contains the operators to connect with an instance of the IBM Event Streams cloud service. These operators are based on the operators of the streamsx.kafka toolkit. It is recommended that users  review the Kafka Toolkit documentation for additional information on supported functionality.  The Kafka Toolkit documentation can be found here: <a class="xref" href="https://ibmstreams.github.io/streamsx.kafka/">Kafka Toolkit</a> 
+<p class="p">This SPL namespace contains the operators to connect with an instance of the IBM Message Hub cloud service. These operators are based on the operators of the streamsx.kafka toolkit. It is recommended that users  review the Kafka Toolkit documentation for additional information on supported functionality.  The Kafka Toolkit documentation can be found here: <a class="xref" href="https://ibmstreams.github.io/streamsx.kafka/">Kafka Toolkit</a> 
 </p>
 
   <dl class="dl"><dt class="dt dlterm"><a class="xref" href="ns$com.ibm.streamsx.messagehub$1.html">Setup of the operators</a>
@@ -43,21 +43,15 @@
 </dd>
 </dl>
 
-  <dl class="dl"><dt class="dt dlterm"><a class="xref" href="ns$com.ibm.streamsx.messagehub$3.html">Tracing Kafka performance metrics</a>
-</dt>
-<dd class="dd">
-</dd>
-</dl>
-
 </div>
 
 <div class="section"><h2 class="title sectiontitle splhead-1">Operators</h2>
   
 <ul class="sl simple">
-<li class="sli"><strong class="ph b"><a class="xref" href="op$com.ibm.streamsx.messagehub$MessageHubConsumer.html">MessageHubConsumer</a></strong>: The <strong class="ph b">MessageHubConsumer</strong> operator is used to consume records from the IBM Event Streams cloud service.
+<li class="sli"><strong class="ph b"><a class="xref" href="op$com.ibm.streamsx.messagehub$MessageHubConsumer.html">MessageHubConsumer</a></strong>: The <strong class="ph b">MessageHubConsumer</strong> operator is used to consume records from the IBM Cloud Message Hub service.
 </li>
 
-<li class="sli"><strong class="ph b"><a class="xref" href="op$com.ibm.streamsx.messagehub$MessageHubProducer.html">MessageHubProducer</a></strong>: The <strong class="ph b">MessageHubProducer</strong> operator is used to consume records from the IBM Event Streams cloud service.
+<li class="sli"><strong class="ph b"><a class="xref" href="op$com.ibm.streamsx.messagehub$MessageHubProducer.html">MessageHubProducer</a></strong>: The <strong class="ph b">MessageHubProducer</strong> operator is used to consume records from the IBM Cloud Message Hub service.
 </li>
 
 </ul>
@@ -77,25 +71,6 @@
 </li>
 
 <li class="sli"><strong class="ph b"><a class="xref" href="spl$com.ibm.streamsx.messagehub$Functions.html#spldoc_compilationunit__function__createMessageRemoveTopicPartition.rstring.int32">createMessageRemoveTopicPartition(rstring, int32)</a></strong>: Creates the JSON message to remove a single topic-partition from the operator.
-</li>
-
-</ul>
-
-</div>
-
-<div class="section"><h2 class="title sectiontitle splhead-1">Types</h2>
-  
-<ul class="sl simple">
-<li class="sli"><strong class="ph b"><a class="xref" href="spl$com.ibm.streamsx.messagehub$Types.html#spldoc_compilationunit__composite_type__MessageType.BlobMessage">MessageType.BlobMessage</a></strong>: This type represents a message with <tt class="ph tt">message</tt> attribute of type <tt class="ph tt">blob</tt> and <tt class="ph tt">key</tt> attribute with SPL type <tt class="ph tt">rstring</tt>.
-</li>
-
-<li class="sli"><strong class="ph b"><a class="xref" href="spl$com.ibm.streamsx.messagehub$Types.html#spldoc_compilationunit__composite_type__MessageType.ConsumerMessageMetadata">MessageType.ConsumerMessageMetadata</a></strong>: This type represents the meta data of a received message.
-</li>
-
-<li class="sli"><strong class="ph b"><a class="xref" href="spl$com.ibm.streamsx.messagehub$Types.html#spldoc_compilationunit__composite_type__MessageType.StringMessage">MessageType.StringMessage</a></strong>: This type represents a message with <tt class="ph tt">message</tt> and <tt class="ph tt">key</tt> attribute, both being <tt class="ph tt">rstring</tt>.
-</li>
-
-<li class="sli"><strong class="ph b"><a class="xref" href="spl$com.ibm.streamsx.messagehub$Types.html#spldoc_compilationunit__composite_type__MessageType.TopicPartition">MessageType.TopicPartition</a></strong>: This type represents a topic and a partition number.
 </li>
 
 </ul>
