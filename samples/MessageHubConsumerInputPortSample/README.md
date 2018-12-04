@@ -8,8 +8,8 @@ In order to successfully run this sample, the following steps must be taken:
 
  1. In the application directory, create a folder named `etc` if not present
  1. Within the `etc/` folder, create a file called `messagehub.json`
- 1. Paste the Message Hub Service Credentials JSON into this file and save it
- 1. Create the topics `t1` and `t2` with two partitions each in your Message Hub service instance. When the topics already exist, it is recommended to remove and recreate them.
+ 1. Paste the Event Streams Service Credentials JSON into this file and save it
+ 1. Create the topics `t1` and `t2` with two partitions each in your Event Streams service instance. When the topics already exist, it is recommended to remove and recreate them.
  1. Rebuild the application and launch
 
 ## Build

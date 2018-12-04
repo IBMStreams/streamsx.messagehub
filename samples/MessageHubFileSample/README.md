@@ -1,6 +1,7 @@
-# Message Hub File Sample
+# Event Streams File Sample
 
-This sample demonstrates how to create an application that connects to Message Hub by retrieving the Message Hub Service Credentials from a file packaged with the application. 
+This sample demonstrates how to create an application that connects to an IBM Event Streams service instance 
+by retrieving the service Credentials from a file packaged with the application. 
 
 ## Setup
 In order to successfully run this sample, the following steps must be taken:
