@@ -4,11 +4,34 @@
  <info:identity>
    <info:name>com.ibm.streamsx.messagehub</info:name>
    <info:description>
-This toolkit integrates IBM Streams with the IBM Event Streams or IBM Message Hub cloud service. 
+# Overview
+
+This toolkit integrates IBM Streams with the IBM Event Streams cloud service. 
 This toolkit is a specialized version of the [https://github.com/IBMStreams/streamsx.kafka|Kafka-Toolkit], 
 which simplifies the setup for connecting to the cloud service.
+
+# Additional information
+
++ What's new and what has changed
+
+This is an overview of changes for major and minor version upgrades. For details see the Releases in public Github.
+
+++ What's new in version 1.7.0
+
+* New **credentials** operator parameter for raw service credentials in JSON for the operators
+* The default value for the **commitCount** parameter of the MessageHubConsumer has changed from 500 to 2000.
+* SPL types for standard messages have been added to the toolkit
+
+++ What's new in version 1.6.0
+
+* The MessageHubProducer exposes many performance metrics of the producer client as operator metrics
+* The most important producer configs have default values, which result in higher reliability and throughput. These are `retries`, `compression.type`, `linger.ms`, `batch.size`, and `max.in.flight.requests.per.connection`.
+* New operator parameter **guaranteeOrdering** for the MessageHubProducer, which guarantees that the sequence in a topic partition is the same as the order of tuples in case of retries.
+* Queue control for the MessageHubProducer operator to stabilize the maximum queue time and to avoid timeouts sending records
+* The MessageHubConsumer operator exposes some performance metrics of the consumer client as operator metrics, like the lag for each topic partition.
+
    </info:description>
-   <info:version>1.6.0</info:version>
+   <info:version>1.7.0</info:version>
    <info:requiredProductVersion>4.2.0.0</info:requiredProductVersion>
  </info:identity>
  <info:dependencies/>

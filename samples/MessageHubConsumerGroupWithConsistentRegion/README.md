@@ -1,4 +1,4 @@
-# MessageHubConsumerGroupWithConsistentRegion
+# Event Streams Consumer Group in a Consistent Region
 
 This sample demonstrates how to use the MessageHubConsumer operator in a Kafka consumer group within a Consistent Region.
 In this configuration, the Streams application benefits from both Kafka consumer groups and the consistent region
@@ -32,7 +32,7 @@ instance.checkpointRepositoryConfiguration={ "replicas" : 1, "shards" : 1, "repl
 ```
 Use the command `streamtool getproperty -a | grep checkpoint` and `streamtool getdomainproperty -a | grep checkpoint` to see the current values.
 
-In the Kafka broker, a *partitioned* topic with name `testtopic` and four partitions must be created. If a different topic name is used, the name 
+In the Event Streams service, a *partitioned* topic with name `testtopic` and four partitions must be created. If a different topic name is used, the name 
 must be configured as `$topic` composite parameter in the main composite. 
 The Kafka message producer in this example distributes the messages round-robin to the partitions. The number of partitions must be configured for
 the producer `nPartitions` composite parameter.
