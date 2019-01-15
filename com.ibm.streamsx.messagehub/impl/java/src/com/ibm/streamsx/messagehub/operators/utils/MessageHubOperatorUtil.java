@@ -45,7 +45,7 @@ public class MessageHubOperatorUtil {
         }
         if (appConfig.containsKey(DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME)) {
             String credentials = appConfig.get(DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME);
-            logger.trace("Creds from app config property: " + credentials); //$NON-NLS-1$
+            logger.info ("Creds from app config property: " + prepareCredsForLogging (credentials)); //$NON-NLS-1$
             KafkaOperatorProperties messageHubProperties = loadFromMessageHubCreds(credentials);
             properties.putAllIfNotPresent(messageHubProperties);
         }
@@ -75,7 +75,7 @@ public class MessageHubOperatorUtil {
             /*int n = */reader.read (buffer);
             buffer.flip();
             String creds = buffer.toString();
-            logger.info ("creds = " + creds);
+            logger.info ("creds = " + prepareCredsForLogging(creds));
             if (creds == null || creds.trim().isEmpty()) {
                 logger.warn ("Credential file " + messageHubCredsFile + " exists, but is empty");
                 return null;
@@ -112,7 +112,7 @@ public class MessageHubOperatorUtil {
         if (credentials == null || credentials.trim().isEmpty()) {
             return null;
         }
-        logger.info ("Parsing Event Streams creds: ** NOT LOGGED **");
+        logger.info ("Parsing Event Streams creds: " + prepareCredsForLogging (credentials));
         logger.trace ("Event Streams creds: " + credentials);  // this exposes sensitive information
         KafkaOperatorProperties properties = new KafkaOperatorProperties();
         Gson gson = new Gson();
@@ -120,7 +120,7 @@ public class MessageHubOperatorUtil {
         try {
             messageHubCreds = gson.fromJson(credentials, MessageHubCredentials.class);
         } catch (JsonSyntaxException e) {
-            String msg = Messages.getString("INVALID_MESSAGEHUB_JSON_CREDS", credentials); //$NON-NLS-1$
+            String msg = Messages.getString("INVALID_MESSAGEHUB_JSON_CREDS", prepareCredsForLogging (credentials)); //$NON-NLS-1$
             logger.error(msg);
             throw new RuntimeException(msg, e);
         }
@@ -134,7 +134,7 @@ public class MessageHubOperatorUtil {
         properties.put(JaasUtil.SASL_JAAS_PROPERTY, value);
 
         // for debugging purpose, trace the messagehub username
-        logger.info("Event Streams instance user = " + messageHubCreds.getUser());
+        logger.debug ("Event Streams instance user = " + messageHubCreds.getUser());
         // add SSL properties
         properties.put("security.protocol", "SASL_SSL"); //$NON-NLS-1$ //$NON-NLS-2$
         properties.put("sasl.mechanism", "PLAIN"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -149,5 +149,26 @@ public class MessageHubOperatorUtil {
         if (logProps.containsKey(JaasUtil.SASL_JAAS_PROPERTY)) logProps.put (JaasUtil.SASL_JAAS_PROPERTY, "**********");
         logger.info ("Properties from Event Streams credentials: " + logProps); //$NON-NLS-1$
         return properties;
+    }
+
+    /**
+     * reduces the credentials to first and last two non-whitespace characters and length information.
+     * 
+     * @param credentials The credentials as raw string
+     * @return null if input is null, an empty String, whitespace information or reduced credentials
+     */
+    private static String prepareCredsForLogging (final String credentials) {
+        if (credentials == null) return null;
+        if (credentials.length() == 0) return "";
+        final String trimmedCreds = credentials.trim();
+        int n = credentials.length();
+        int nt = trimmedCreds.length();
+        if (nt == 0) return "(" + n + " whitespace characters)";
+        if (nt < 5) return credentials;
+        StringBuilder result = new StringBuilder(trimmedCreds.substring (0, 2));
+        result.append ("...")
+        .append (trimmedCreds.substring (nt -2))
+        .append (" (").append (n).append (" characters)");
+        return result.toString();
     }
 }
