@@ -159,9 +159,9 @@ public class MessageHubOperatorUtil {
      */
     private static String prepareCredsForLogging (final String credentials) {
         if (credentials == null) return null;
-        if (credentials.length() == 0) return "";
-        final String trimmedCreds = credentials.trim();
         int n = credentials.length();
+        if (n == 0) return "";
+        final String trimmedCreds = credentials.trim();
         int nt = trimmedCreds.length();
         if (nt == 0) return "(" + n + " whitespace characters)";
         if (nt < 5) return credentials;
