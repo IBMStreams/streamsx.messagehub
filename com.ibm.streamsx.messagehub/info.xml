@@ -6,8 +6,8 @@
    <info:description>
 # Overview
 
-This toolkit integrates IBM Streams with the IBM Event Streams cloud service. 
-This toolkit is a specialized version of the [https://github.com/IBMStreams/streamsx.kafka|Kafka-Toolkit], 
+This toolkit integrates IBM Streams with the IBM Event Streams cloud service.
+This toolkit is a specialized version of the [https://github.com/IBMStreams/streamsx.kafka|Kafka-Toolkit],
 which simplifies the setup for connecting to the cloud service.
 
 # Additional information
@@ -15,6 +15,10 @@ which simplifies the setup for connecting to the cloud service.
 + What's new and what has changed
 
 This is an overview of changes for major and minor version upgrades. For details see the Releases in public Github.
+
+++ What's new in version 1.7.4
+
+* Bug fix: Trace of cloud service credentials at INFO level
 
 ++ What's new in version 1.7.3
 
@@ -44,7 +48,7 @@ This is an overview of changes for major and minor version upgrades. For details
 * The MessageHubConsumer operator exposes some performance metrics of the consumer client as operator metrics, like the lag for each topic partition.
 
    </info:description>
-   <info:version>1.7.3</info:version>
+   <info:version>1.7.4</info:version>
    <info:requiredProductVersion>4.2.0.0</info:requiredProductVersion>
  </info:identity>
  <info:dependencies/>
