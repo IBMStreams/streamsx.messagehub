@@ -25,8 +25,8 @@ import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
             + "consuming messages once a tuple is received on this port. Each tuple received on this port will cause the operator to "
             + "seek to the offsets for the specified topic-partitions. This works as follows: "
             + "\\n"
-            + " * To seek to the beginning of a topic-partition, set the value of the offset to `-1.`\\n"
-            + " * To seek to the end of a topic-partition, set the value of the offset attribute to `-2.`\\n"
+            + " * To seek to the beginning of a topic-partition, set the value of the offset to `-2.`\\n"
+            + " * To seek to the end of a topic-partition, set the value of the offset attribute to `-1.`\\n"
             + " * Any other value will cause the operator to seek to that offset value. If that value does not exist, then the operator will use the "
             + "`auto.offset.reset` policy to determine where to begin reading messages from.\\n"
             + "\\n"
@@ -54,7 +54,7 @@ import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
             + " * `rstring removeTopicPartitionMessage(rstring topic, int32 partition);` \\n" 
             + "\\n"  
             + " * `rstring removeTopicPartitionMessage(list<tuple<rstring topic, int32 partition>> topicPartitionsToRemove);`", 
-            cardinality = 1, optional = true)})
+            cardinality = 1, optional = true, controlPort = true)})
 @OutputPorts({
     @OutputPortSet(description = "Port that produces tuples", cardinality = 1, optional = false, windowPunctuationOutputMode = WindowPunctuationOutputMode.Generating) })
 public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
