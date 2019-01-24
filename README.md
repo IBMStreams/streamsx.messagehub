@@ -5,7 +5,7 @@ A toolkit that simplifies integration between IBM Streams and the IBM Cloud Even
 
 ## Documentation
 
-- [Toolkit reference](https://ibmstreams.github.io/streamsx.messagehub/docs/user/SPLDoc/) for latest and older versions. The reference includes details on ways to configure the toolkit to connect to the Event Streams servcie.
+- [Toolkit reference](https://ibmstreams.github.io/streamsx.messagehub/docs/user/SPLDoc/) for latest and older versions. The reference includes details on ways to configure the toolkit to connect to the Event Streams service.
 - Standard use cases for Consumers and Partitions can be found on the [overview page of the user documentation](https://ibmstreams.github.io/streamsx.messagehub/docs/user/overview/):
 
 ## Build
