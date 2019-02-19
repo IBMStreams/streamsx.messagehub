@@ -53,7 +53,11 @@ import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
             + "\\n"
             + " * `rstring removeTopicPartitionMessage(rstring topic, int32 partition);` \\n" 
             + "\\n"  
-            + " * `rstring removeTopicPartitionMessage(list<tuple<rstring topic, int32 partition>> topicPartitionsToRemove);`", 
+            + " * `rstring removeTopicPartitionMessage(list<tuple<rstring topic, int32 partition>> topicPartitionsToRemove);`\\n"
+            + "\\n"
+            + "**Important Note:** This input port must not receive a final punctuation. Final markers are automatically "
+            + "forwarded causing downstream operators close their input ports. When this input port receives a final marker, "
+            + "it will stop fetching messages from event streams and stop submitting tuples.", 
             cardinality = 1, optional = true, controlPort = true)})
 @OutputPorts({
     @OutputPortSet(description = "Port that produces tuples", cardinality = 1, optional = false, windowPunctuationOutputMode = WindowPunctuationOutputMode.Generating) })
