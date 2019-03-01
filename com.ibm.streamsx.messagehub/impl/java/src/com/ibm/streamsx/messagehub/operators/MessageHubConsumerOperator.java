@@ -213,7 +213,7 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
             + "\\n"
             + KafkaSplDoc.CONSUMER_COMMITTING_OFFSETS
             + "\\n"
-            + KafkaSplDoc.CHECKPOINTING_CONFIG
+            + KafkaSplDoc.CONSUMER_CHECKPOINTING_CONFIG
             + "\\n"
             + KafkaSplDoc.CONSUMER_CONSISTENT_REGION_SUPPORT
             + "\\n"

@@ -14,11 +14,23 @@ which simplifies the setup for connecting to the cloud service.
 
 + What's new and what has changed
 
-This is an overview of changes for major and minor version upgrades. For details see the Releases in public Github.
+This is an overview of changes for major and minor version upgrades. For details see the [https://github.com/IBMStreams/streamsx.messagehub/releases|Releases in public Github].
+
+++ What's new in version 1.8.0
+
+* The MessageHubConsumer can subscribe dynamically to multiple topics by specifying a regular expression for the new **pattern** parameter. Assignment of partitions happens for matching topics at the time of periodic check. When someone creates a new topic with a name that matches, a rebalance will happen almost immediately and the consumers will start consuming from the new topic.
+
+* The control port of the MessageHubConsumer allows assignment with default fetch position. New SPL functions to generate the JSON string for the control port have been added.
+
+* MessageHubConsumer: Offsets can be committed after a *time period*, not only when a tuple count is reached. The new **commitPeriod** operator parameter lets you specify a time period in seconds for committing offsets of submitted tuples.
+
+* MessageHubConsumer: The time policy for offset commit is now the default policy when not in consistent region. The time policy avoids too high commit request rates, which can occur with count based policy and high tuple rates. The default commit interval is 5 seconds.
+
+* The operators can now be configured with a `config checkpoint` clause when used in an autonomous region. The MessageHubProducer operator simply ignores the config instead of throwing an error at compile time. The MessageHubConsumer operator can be configured with operator driven and periodic checkpointing. Checkpointing is in effect when the operator is configured with the optional input port. Then, the operator checkpoints or restores the assigned partitions and resumes fetching at last committed offset.
 
 ++ What's new in version 1.7.4
 
-* Bug fix: Trace of cloud service credentials at INFO level
+* Bug fix: Avoid tracing the cloud service credentials at INFO level
 
 ++ What's new in version 1.7.3
 
@@ -48,7 +60,7 @@ This is an overview of changes for major and minor version upgrades. For details
 * The MessageHubConsumer operator exposes some performance metrics of the consumer client as operator metrics, like the lag for each topic partition.
 
    </info:description>
-   <info:version>1.7.4</info:version>
+   <info:version>1.8.0</info:version>
    <info:requiredProductVersion>4.2.0.0</info:requiredProductVersion>
  </info:identity>
  <info:dependencies/>
