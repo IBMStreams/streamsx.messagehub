@@ -215,6 +215,8 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
             + "\\n"
             + KafkaSplDoc.CONSUMER_CHECKPOINTING_CONFIG
             + "\\n"
+            + KafkaSplDoc.CONSUMER_RESTART_BEHAVIOUR
+            + "\\n"
             + KafkaSplDoc.CONSUMER_CONSISTENT_REGION_SUPPORT
             + "\\n"
             + "# Error Handling\\n"
