@@ -25,8 +25,9 @@ import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
             + "consuming messages once a tuple is received on this port. Each tuple received on this port will cause the operator to "
             + "seek to the offsets for the specified topic-partitions. This works as follows: "
             + "\\n"
-            + " * To seek to the beginning of a topic-partition, set the value of the offset to `-1.`\\n"
-            + " * To seek to the end of a topic-partition, set the value of the offset attribute to `-2.`\\n"
+            + " * To seek to the beginning of a topic-partition, set the value of the offset to `-2.`\\n"
+            + " * To seek to the end of a topic-partition, set the value of the offset attribute to `-1.`\\n"
+            + " * To start fetching from the default position, omit the offset attribute or set the value of the offset to `-3`\\n"
             + " * Any other value will cause the operator to seek to that offset value. If that value does not exist, then the operator will use the "
             + "`auto.offset.reset` policy to determine where to begin reading messages from.\\n"
             + "\\n"
@@ -37,24 +38,29 @@ import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
             + "      \\\"action\\\" : \\\"ADD\\\" or \\\"REMOVE\\\",\\n" 
             + "      \\\"topicPartitionOffsets\\\" : [\\n" 
             + "        {\\n"
-            + "          \\\"topic\\\" : \\\"topic-name\\\",\\n"
-            + "          \\\"partition\\\" : <partition_number>,\\n" 
-            + "          \\\"offset\\\" : <offset_number>\\n" 
+            + "          \\\"topic\\\" : \\\"topic-name\\\"\\n"
+            + "          ,\\\"partition\\\" : <partition_number>\\n" 
+            + "          ,\\\"offset\\\" : <offset_number>             <--- the offset attribute is optional \\n" 
             + "        },\\n" 
             + "        ...\\n" 
             + "      ]\\n"  
             + "    }\\n"
             + "\\n"
-            + "The following convenience functions are available to aid in creating the messages: \\n"
+            + "The following types and convenience functions are available to aid in creating the messages: \\n"
             + "\\n"
-            + " * `rstring addTopicPartitionMessage(rstring topic, int32 partition, int64 offset);` \\n" 
+            + "* `type Control.TopicPartition = rstring topic, int32 partition;`\\n"
+            + "* `type Control.TopicPartitionOffset = rstring topic, int32 partition, int64 offset;`\\n"
+            + "* `rstring addTopicPartitionMessage (rstring topic, int32 partition, int64 offset);`\\n" 
+            + "* `rstring addTopicPartitionMessage (rstring topic, int32 partition);`\\n" 
+            + "* `rstring addTopicPartitionMessage (list<Control.TopicPartitionOffset> topicPartitionsToAdd);`\\n" 
+            + "* `rstring addTopicPartitionMessage (list<Control.TopicPartition> topicPartitionsToAdd);`\\n" 
+            + "* `rstring removeTopicPartitionMessage (rstring topic, int32 partition);`\\n" 
+            + "* `rstring removeTopicPartitionMessage (list<Control.TopicPartition> topicPartitionsToRemove);`\\n"
             + "\\n"
-            + " * `rstring addTopicPartitionMessage(list<tuple<rstring topic, int32 partition, int64 offset>> topicPartitionsToAdd);` \\n" 
-            + "\\n"
-            + " * `rstring removeTopicPartitionMessage(rstring topic, int32 partition);` \\n" 
-            + "\\n"  
-            + " * `rstring removeTopicPartitionMessage(list<tuple<rstring topic, int32 partition>> topicPartitionsToRemove);`", 
-            cardinality = 1, optional = true)})
+            + "**Important Note:** This input port must not receive a final punctuation. Final markers are automatically "
+            + "forwarded causing downstream operators close their input ports. When this input port receives a final marker, "
+            + "it will stop fetching messages from event streams and stop submitting tuples.", 
+            cardinality = 1, optional = true, controlPort = true)})
 @OutputPorts({
     @OutputPortSet(description = "Port that produces tuples", cardinality = 1, optional = false, windowPunctuationOutputMode = WindowPunctuationOutputMode.Generating) })
 public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
@@ -207,7 +213,9 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
             + "\\n"
             + KafkaSplDoc.CONSUMER_COMMITTING_OFFSETS
             + "\\n"
-            + KafkaSplDoc.CHECKPOINTING_CONFIG
+            + KafkaSplDoc.CONSUMER_CHECKPOINTING_CONFIG
+            + "\\n"
+            + KafkaSplDoc.CONSUMER_RESTART_BEHAVIOUR
             + "\\n"
             + KafkaSplDoc.CONSUMER_CONSISTENT_REGION_SUPPORT
             + "\\n"
