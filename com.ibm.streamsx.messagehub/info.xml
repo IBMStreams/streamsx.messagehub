@@ -16,6 +16,14 @@ which simplifies the setup for connecting to the cloud service.
 
 This is an overview of changes for major and minor version upgrades. For details see the [https://github.com/IBMStreams/streamsx.messagehub/releases|Releases in public Github].
 
+++ What's new in version 1.9.0
+
+* Upgrade of kafka-clients from version 1.0 to 2.1.1.  For the consumer and producer configuration, please consult the [https://kafka.apache.org/documentation/#consumerconfigs|Consumer Configs] or [https://kafka.apache.org/documentation/#producerconfigs|Producer Configs] section of the Apache Kafka 2.1 documentation.
+
+* The MessageHubProducer can now be flushed after a fixed number of tuples, new optional parameter **flush**.
+
+* Bug fix: MessageHubConsumer can create invalid checkpoint when group management is active. When Kafka's group management is used in a consistent region, the `maxConsecutiveResetAttempts` should be increased (default value is 5).
+
 ++ What's new in version 1.8.0
 
 * The MessageHubConsumer can subscribe dynamically to multiple topics by specifying a regular expression for the new **pattern** parameter. Assignment of partitions happens for matching topics at the time of periodic check. When someone creates a new topic with a name that matches, a rebalance will happen almost immediately and the consumers will start consuming from the new topic.
@@ -60,7 +68,7 @@ This is an overview of changes for major and minor version upgrades. For details
 * The MessageHubConsumer operator exposes some performance metrics of the consumer client as operator metrics, like the lag for each topic partition.
 
    </info:description>
-   <info:version>1.8.0</info:version>
+   <info:version>1.9.0</info:version>
    <info:requiredProductVersion>4.2.0.0</info:requiredProductVersion>
  </info:identity>
  <info:dependencies/>
