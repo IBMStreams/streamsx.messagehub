@@ -28,8 +28,6 @@ userdocs:
         url: /docs/user/SPLDoc
       - title: "Operator Design"
         url: /docs/user/OperatorDesign
-      - title: "Standard Consumer Use Patterns"
-        url: /docs/user/StandardConsumerUsePatternsWithPartitions
 
 # developer documentation links
 developerdocs:
