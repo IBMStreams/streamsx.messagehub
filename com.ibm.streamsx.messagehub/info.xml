@@ -16,6 +16,10 @@ which simplifies the setup for connecting to the cloud service.
 
 This is an overview of changes for major and minor version upgrades. For details see the [https://github.com/IBMStreams/streamsx.messagehub/releases|Releases in public Github].
 
+++ What's new in version 1.9.2
+
+* Bug fix: MessageHubConsumer encounters race condition due to changed behavior of Kafka consumer client 2.1 during partition re-balancing when used in consistent region
+
 ++ What's new in version 1.9.1
 
 * improved low memory detection for the consumer when records are queued in the consumer
@@ -74,7 +78,7 @@ This is an overview of changes for major and minor version upgrades. For details
 * The MessageHubConsumer operator exposes some performance metrics of the consumer client as operator metrics, like the lag for each topic partition.
 
    </info:description>
-   <info:version>1.9.1</info:version>
+   <info:version>1.9.2</info:version>
    <info:requiredProductVersion>4.2.0.0</info:requiredProductVersion>
  </info:identity>
  <info:dependencies/>
