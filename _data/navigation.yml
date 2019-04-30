@@ -26,6 +26,8 @@ userdocs:
         url: /docs/user/overview
       - title: "SPL Doc"
         url: /docs/user/SPLDoc
+      - title: "Kafka toolkit v1 versus v2"
+        url: /docs/user/kafka_toolkit_1_vs_2
       - title: "Operator Design"
         url: /docs/user/OperatorDesign
 
