@@ -1,7 +1,7 @@
 ---
-title: "Difference between Kafka toolkit v1.x and v2.x"
+title: "Difference between toolkit v1.x and v2.x"
 permalink: /docs/user/kafka_toolkit_1_vs_2/
-excerpt: "Difference between toolkit v1.x and v2.x"
+excerpt: "Difference between toolkit v1.x and v2.x - the incompatible changes"
 last_modified_at: 2019-04-30T12:37:48+01:00
 redirect_from:
    - /theme-setup/
