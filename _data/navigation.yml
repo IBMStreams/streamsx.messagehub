@@ -27,7 +27,7 @@ userdocs:
       - title: "SPL Doc"
         url: /docs/user/SPLDoc
       - title: "Incompatible changes in toolkit version 2.x"
-        url: /docs/user/kafka_toolkit_1_vs_2
+        url: /docs/user/difference_toolkit_v1_vs_v2
       - title: "Operator Design"
         url: /docs/user/OperatorDesign
 
