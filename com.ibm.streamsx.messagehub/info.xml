@@ -18,24 +18,24 @@ This is an overview of changes for major and minor version upgrades. For details
 
 ++ What's new in version 2.0.0
 
-+++ New Features
+# New Features
 
-**Changes when the operator is not part of a consistent region**
+The toolkit has enhancements for the MessageHubConsumer operator when it is used in an autonomous region (i.e. not part of a consistent region):
 
-* MessageHubConsumer: The operator can now participate in a consumer group with **startPosition** parameter values `Beginning`, `End`, and `Time`.
-* MessageHubConsumer: After re-launch, the operator does not overwrite the initial fetch offset to what the **startPosition** parameter is.
+* The MessageHubConsumer operator can now participate in a consumer group with **startPosition** parameter values `Beginning`, `End`, and `Time`.
+* After re-launch of the PE, the MessageHubConsumer operator does not overwrite the initial fetch offset to what the **startPosition** parameter is.
 
 To achieve this new startPosition handling, the application must include a `JobControlPlane` operator when startPosition is not `Default`.
-Details of the changes, including sample code, can be found in the [https://ibmstreams.github.io/streamsx.messagehub/docs/user/difference_toolkit_v1_vs_v2/|Toolkit documentation on Github].
 
-+++ Incompatible changes, which may break existing applications
+# Incompatible changes, which may break existing applications
 
 The behavior of the **MessageHubConsumer** operator changes when
 
-1. the operator is *not* used in a consistent region, and
-2. the **startPosition** parameter is used with `Beginning`, `End`, `Time`, or `Offset`.
+1. The operator is *not* used in a consistent region, and
+2. The **startPosition** parameter is used with `Beginning`, `End`, `Time`, or `Offset`.
 
-In all other cases the behavior of the MessageHubConsumer is unchanged.
+In all other cases the behavior of the MessageHubConsumer is unchanged. Details of the changes, including sample code, can be found in the 
+[https://ibmstreams.github.io/streamsx.messagehub/docs/user/difference_toolkit_v1_vs_v2/|Toolkit documentation on Github].
 
 Previous versions of the MessageHubConsumer operator did *not* enable group management in autonomous regions, with **startPosition** different from `Default`,
 even when a group-ID was configured. Since toolkit version 2.0, group management is enabled with all **startPosition** values except `Offset`.
