@@ -20,6 +20,7 @@ import com.ibm.streams.operator.OperatorContext;
 import com.ibm.streamsx.kafka.i18n.Messages;
 import com.ibm.streamsx.kafka.properties.JaasUtil;
 import com.ibm.streamsx.kafka.properties.KafkaOperatorProperties;
+import com.ibm.streamsx.messagehub.credentials.InvalidCredentialsException;
 import com.ibm.streamsx.messagehub.credentials.MessageHubCredentials;
 
 public class MessageHubOperatorUtil {
@@ -75,12 +76,12 @@ public class MessageHubOperatorUtil {
             /*int n = */reader.read (buffer);
             buffer.flip();
             String creds = buffer.toString();
-            logger.info ("creds = " + prepareCredsForLogging(creds));
             if (creds == null || creds.trim().isEmpty()) {
                 logger.warn ("Credential file " + messageHubCredsFile + " exists, but is empty");
                 return null;
             }
-            return loadFromMessageHubCreds(creds);
+            logger.info ("creds = " + prepareCredsForLogging(creds));
+            return loadFromMessageHubCreds (creds);
         }
         catch (FileNotFoundException fnf) {
             logger.info("Event Streams credentials file does not exist: " + messageHubCredsFile.getAbsolutePath()); //$NON-NLS-1$
@@ -119,10 +120,15 @@ public class MessageHubOperatorUtil {
         MessageHubCredentials messageHubCreds;
         try {
             messageHubCreds = gson.fromJson(credentials, MessageHubCredentials.class);
+            if (messageHubCreds == null) {
+                throw new InvalidCredentialsException ("The credentials JSON could not be parsed.");
+            }
+            // throws InvalidCredentialsException:
+            messageHubCreds.validate();
         } catch (JsonSyntaxException e) {
             String msg = Messages.getString("INVALID_MESSAGEHUB_JSON_CREDS", prepareCredsForLogging (credentials)); //$NON-NLS-1$
-            logger.error(msg);
-            throw new RuntimeException(msg, e);
+            logger.error (msg);
+            throw new InvalidCredentialsException (msg, e);
         }
 
         // add bootstrap servers
