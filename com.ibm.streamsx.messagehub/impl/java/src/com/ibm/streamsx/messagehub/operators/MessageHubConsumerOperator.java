@@ -1,7 +1,12 @@
 package com.ibm.streamsx.messagehub.operators;
 
+import java.util.Map;
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 
+import com.ibm.streams.operator.OperatorContext.ContextCheck;
+import com.ibm.streams.operator.compile.OperatorContextChecker;
 import com.ibm.streams.operator.model.Icons;
 import com.ibm.streams.operator.model.InputPortSet;
 import com.ibm.streams.operator.model.InputPorts;
@@ -13,8 +18,7 @@ import com.ibm.streams.operator.model.Parameter;
 import com.ibm.streams.operator.model.PrimitiveOperator;
 import com.ibm.streamsx.kafka.operators.AbstractKafkaConsumerOperator;
 import com.ibm.streamsx.kafka.operators.KafkaSplDoc;
-import com.ibm.streamsx.kafka.properties.KafkaOperatorProperties;
-import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
+import com.ibm.streamsx.messagehub.operators.utils.ServiceCredentialsUtil;
 
 @PrimitiveOperator(name = "MessageHubConsumer", namespace = "com.ibm.streamsx.messagehub", description=MessageHubConsumerOperator.DESC)
 @Icons(location16 = "icons/MessageHubConsumer_16.png", location32 = "icons/MessageHubConsumer_32.png")
@@ -66,79 +70,64 @@ import com.ibm.streamsx.messagehub.operators.utils.MessageHubOperatorUtil;
 public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
     private static final Logger logger = Logger.getLogger(MessageHubConsumerOperator.class);
 
-    private String messageHubCredsFile = MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_CREDS_FILE_PATH;
+    private String credentialsFile = null;
     private String credentials = null;
-    private boolean appConfigRequired = false;
+    private ServiceCredentialsUtil credentialsUtil = null;
 
-    @Parameter (optional = true, name = "credentials", description = "Specifies the credentials of the Event Streams cloud service instance in JSON. "
-            + "This parameter takes priority over a credentials file and credentials specified as property in an application configuration.")
+    @Parameter (optional = true, name = "credentials", description = SplDoc.PARAM_CREDENTIALS)
     public void setCredentials (String credentials) {
         this.credentials = credentials;
     }
 
-    @Parameter(optional = true, name="messageHubCredentialsFile", description="Specifies the name of the file that contains "
-            + "the complete Event Streams service credentials in JSON format. If not specified, this parameter will "
-            + "attempt to load the credentials from the file `etc/messagehub.json`. A relative path is always "
-            + "interpreted as relative to the *application directory* of the Streams application.\\n"
-            + "\\n"
-            + "Credentials stored in a file take priority over credentials stored in an appclication configuration.")
-    public void setMessageHubCredsFile(String messageHubCredsFile) {
-        this.messageHubCredsFile = messageHubCredsFile;
+    @Parameter(optional = true, name = "messageHubCredentialsFile", description = SplDoc.PARAM_MESSAGE_HUB_CREDS_FILE_DEPRECATED)
+    public void setMessageHubCredsFile (String messageHubCredsFile) {
+        this.credentialsFile = messageHubCredsFile;
     }
+
+    @Parameter(optional = true, name="credentialsFile", description = SplDoc.PARAM_CREDS_FILE)
+    public void setCredsFile (String messageHubCredsFile) {
+        this.credentialsFile = messageHubCredsFile;
+    }
+
+
+    @ContextCheck (compile = true, runtime = false)
+    public static void checkCredentialsFileParamDeprecation (OperatorContextChecker checker) {
+        Set<String> paramNames = checker.getOperatorContext().getParameterNames();
+        if (paramNames.contains ("messageHubCredentialsFile")) {
+            System.err.println ("The parameter 'messageHubCredentialsFile' has been deprecated and may be removed in future versions. "
+                    + "Please use 'credentialsFile' instead.");
+            checker.checkExcludedParameters ("messageHubCredentialsFile", "credentialsFile");
+        }
+    }
+
 
     @Override
     protected void loadProperties() throws Exception {
-        KafkaOperatorProperties credsProps = MessageHubOperatorUtil.loadFromMessageHubCreds (this.credentials);
-        if (credsProps != null) {
-            getKafkaProperties().putAllIfNotPresent (credsProps);
-            logger.info ("kafka properties derived from the 'credentials' parameter value: " + credsProps.keySet());
+        if (this.credentialsUtil == null) {
+            this.credentialsUtil = new ServiceCredentialsUtil (this, this.credentials, this.appConfigName, this.credentialsFile, getKafkaProperties());
         }
-        else {
-            // no credentials parameter specified; try load from file
-            credsProps = MessageHubOperatorUtil.loadMessageHubCredsFromFile(convertToAbsolutePath (messageHubCredsFile));
-            if (credsProps != null && !credsProps.isEmpty()) {
-                getKafkaProperties().putAllIfNotPresent(credsProps);
-                logger.info ("kafka properties derived from the content of the credentials file " + messageHubCredsFile 
-                        + ": " + credsProps.keySet());
-            }
-            else {
-                logger.info ("Could not read service credentials from properties file; requiring an App Config.");
-                appConfigRequired  = true;
-            }
-        }
+        credentialsUtil.loadPropertiesFromParameterOrFile();
         // collect Kafka properties
         // super.loadProperties reads 1. from properties file, 2. from app config (where the overwritten method is invoked)
         super.loadProperties();
     }
 
+
     @Override
     protected void loadFromAppConfig() throws Exception {
-        final String appCfgName = appConfigName == null? MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_APP_CONFIG_NAME: appConfigName;
-        final KafkaOperatorProperties appCfgProps = MessageHubOperatorUtil.loadMessageHubCredsFromAppConfig(getOperatorContext(), appCfgName);
-        if (appConfigRequired && (appCfgProps == null || appCfgProps.isEmpty())) {
-            final String msg = "Service credentials not found in properties file nor in an Application Configuration";
-            logger.error(msg);
-            throw new RuntimeException(msg);
+        if (this.credentialsUtil == null) {
+            this.credentialsUtil = new ServiceCredentialsUtil (this, this.credentials, this.appConfigName, this.credentialsFile, getKafkaProperties());
         }
-        logger.info ("kafka properties derived from App Config " + appCfgName + " (" 
-                + MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME + "): "
-                + appCfgProps.keySet());
-
-        // When we are here, we might have read the properties derived from a JSON credentials file. In this case 'appConfigRequired' is false.
-        // Then we put them only if not yet present.
-        // If we have not read a JSON credentials file, we might already have read Kafka properties from a properties file.
-        // To give the properties derived from the JSON credentials precedence,
-        // we must put them, regardless of what is already present in the properties.
-        if (appConfigRequired) {
-            getKafkaProperties().putAll(appCfgProps);
-        }
-        else {
-            getKafkaProperties().putAllIfNotPresent(appCfgProps);
-        }
-        // load more (Kafka) properties from the app config, but remove 'messagehub.creds'
+        Map <String, String> appCfgAndPropName = credentialsUtil.loadFromAppConfigCredentials();
+        
+        // load more (Kafka) properties from the app config, but remove the key where we have found the credentials
         super.loadFromAppConfig();
-        getKafkaProperties().remove (MessageHubOperatorUtil.DEFAULT_MESSAGE_HUB_CREDS_PROPERTY_NAME);
+        for (String propName: appCfgAndPropName.values()) {
+            logger.info ("removing " + propName + " from Kafka properties");
+            getKafkaProperties().remove (propName);
+        }
     }
+
 
     public static final String DESC = ""
             + "The **MessageHubConsumer** operator is used to consume records from the IBM Event Streams cloud service. "
@@ -158,7 +147,7 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
             + "\\n"
             + "# Setup\\n"
             + "\\n"
-            + "This section outlines different options for enabling the **MessageHubConsumer** operator to connet to "
+            + "This section outlines different options for enabling the **MessageHubConsumer** operator to connect to "
             + "the IBM Event Streams cloud service. "
             + "Any of the following options can be used to configure the operator for connecting to IBM Cloud. \\n"
             + "\\n"
@@ -168,7 +157,7 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
             + "\\n"
             + "The priority of the above options is\\n"
             + "1. **credentials** operator parameter (both file and application config are ignored)\\n"
-            + "1. credentials stored in a file, also when the default filename `messagehub.json` is used (application config is ignored)\\n"
+            + "1. credentials stored in a file, also when the default filename `etc/eventstreams.json` or the deprecated default `etc/messagehub.json` is used (application config is ignored)\\n"
             + "1. application configuration\\n"
             + "\\n"
             + SplDoc.CREDENTIALS_PARAM

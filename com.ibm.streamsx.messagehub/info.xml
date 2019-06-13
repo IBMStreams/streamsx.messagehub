@@ -25,7 +25,18 @@ The toolkit has enhancements for the MessageHubConsumer operator when it is used
 * The MessageHubConsumer operator can now participate in a consumer group with **startPosition** parameter values `Beginning`, `End`, and `Time`.
 * After re-launch of the PE, the MessageHubConsumer operator does not overwrite the initial fetch offset to what the **startPosition** parameter is.
 
-To achieve this new startPosition handling, the application must include a `JobControlPlane` operator when startPosition is not `Default`.
+For the new startPosition handling, the application must include a `JobControlPlane` operator when startPosition is not `Default`.
+
+# Deprecations
+
+The toolkit version 2.x deprecates following items:
+
+* The **messageHubCredentialsFile** parameter. Please use the **credentialsFile** parameter instead
+* The default filename `etc/messagehub.json` for service credentials. Please use `etc/eventstreams.json` when you want to use a default filename.
+* The default name `messagehub` for an application configuration. Please use `eventstreams` as name for the application configuration when you want to use a default.
+* The property name `messagehub.creds` within an application configuration. Please name the property for the Event Streams credentials `eventstreams.creds`.
+
+The deprecated items are still supported by this toolkit version, but may be removed in next major toolkit version 3.0.
 
 # Incompatible changes, which may break existing applications
 
@@ -126,7 +137,7 @@ continues fetching at the last committed offset.
 * The MessageHubConsumer operator exposes some performance metrics of the consumer client as operator metrics, like the lag for each topic partition.
 
    </info:description>
-   <info:version>2.0.0.__dev__</info:version>
+   <info:version>2.0.0</info:version>
    <info:requiredProductVersion>4.2.0.0</info:requiredProductVersion>
  </info:identity>
  <info:dependencies/>

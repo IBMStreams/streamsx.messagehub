@@ -80,7 +80,7 @@ public class MessageHubFileParamTest extends AbstractMessageHubTest {
         Map<String, Object> params = new HashMap<String, Object>();
 
         params.put("topic", Constants.TOPIC_TEST);
-        params.put("messageHubCredentialsFile", MESSAGEHUB_CREDS_FILE_PATH);
+        params.put("credentialsFile", MESSAGEHUB_CREDS_FILE_PATH);
 
         return params;
     }

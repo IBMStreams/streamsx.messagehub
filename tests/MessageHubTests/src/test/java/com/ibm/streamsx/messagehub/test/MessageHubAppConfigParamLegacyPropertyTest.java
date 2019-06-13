@@ -26,13 +26,13 @@ import com.ibm.streamsx.topology.spl.SPLStreams;
 import com.ibm.streamsx.topology.tester.Condition;
 import com.ibm.streamsx.topology.tester.Tester;
 
-public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
+public class MessageHubAppConfigParamLegacyPropertyTest extends AbstractMessageHubTest {
 
-    private static final String TEST_NAME = "MessageHubAppConfigParamTest";
-    private static final String APPCONFIG_NAME = "userAppConfig1";
-    private static final String APPCONFIG_PROP_NAME = "eventstreams.creds";
+    private static final String TEST_NAME = "MessageHubAppConfigParamLegacyPropertyTest";
+    private static final String APPCONFIG_NAME = "userAppConfig2";
+    private static final String APPCONFIG_PROP_NAME = "messagehub.creds";
 
-    public MessageHubAppConfigParamTest() throws Exception {
+    public MessageHubAppConfigParamLegacyPropertyTest() throws Exception {
         super(TEST_NAME);
     }
 
@@ -71,7 +71,7 @@ public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
     }
 
     @Test
-    public void messageHubAppConfigParamTest() throws Exception {
+    public void messageHubAppConfigParamLegacyPropertyTest() throws Exception {
         Topology topo = getTopology();
 
         // create the producer (produces tuples after a short delay)
