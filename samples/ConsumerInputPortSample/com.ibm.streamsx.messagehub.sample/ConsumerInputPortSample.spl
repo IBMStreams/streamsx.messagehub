@@ -1,0 +1,85 @@
+namespace com.ibm.streamsx.messagehub.sample ;
+
+use com.ibm.streamsx.messagehub::* ;
+
+composite ConsumerInputPortSample
+{
+    graph
+        (stream<rstring jsonString> TopicPartitionUpdateStream) as TopicPartitionUpdater = Custom() {
+            logic
+                onProcess: {
+                    block(10f);
+                    
+                    // assign to topic/partition 't1/0', and start reading at offset 40 
+                    rstring addSingleTopicMessage = createMessageAddTopicPartition("t1", 0, 40l);
+                    submit({ jsonString = addSingleTopicMessage }, TopicPartitionUpdateStream);
+                    block(5f);
+                    
+                    // assign to topic/partition 't1/1', start reading from the end and assign to 't2/1' starting at offset 40
+                    // Note, that negative offsets different from -1 and -2 are invalid.
+                    rstring addMultipleTopicMessage =
+                        createMessageAddTopicPartition([ { topic = "t1", partition = 1, offset = - 2l },
+                                                         { topic = "t2", partition = 1, offset = 40l } ]);
+                    submit({ jsonString = addMultipleTopicMessage }, TopicPartitionUpdateStream) ;
+                    block(5f);
+                    
+                    // stop consuming from topic/partition 't2/1'
+                    rstring removeSingleTopicMessage = createMessageRemoveTopicPartition("t2", 1) ;
+                    submit({ jsonString = removeSingleTopicMessage }, TopicPartitionUpdateStream) ;
+                    block(5f) ;
+                    
+                    // stop consuming from 't1/0' and 't1/1'
+                    rstring removeMultipleTopicsMessage =
+                        createMessageRemoveTopicPartition([ { topic = "t1", partition = 0 },
+                                                            { topic = "t1", partition = 1 } ]) ;
+                    submit({ jsonString = removeMultipleTopicsMessage }, TopicPartitionUpdateStream) ;
+                    
+                    // now nothing is consumed anymore.
+                    while(! isShutdown()) {
+                    // do nothing!
+                    }
+                }
+        }
+
+        (stream<int64 messageTimestamp, rstring key, rstring message,
+            rstring topic, int32 partition, int64 offset> MessageOutStream) as
+            KafkaConsumerOp = MessageHubConsumer (TopicPartitionUpdateStream) {
+            param
+                credentialsFile: "etc/eventstreams.json";
+        }
+
+        () as PrintOp = Custom(MessageOutStream as inputStream) {
+            logic
+                onTuple inputStream: {
+                    println(inputStream) ;
+                }
+        }
+        
+        // ================ producer that continuously populates the topics t1 and t2
+        stream <int32 partitionNo, rstring key, rstring message> Data1 = Beacon() {
+            param
+                period: 0.1;
+                iterations: 2000;
+            output Data1: partitionNo = (int32)IterationCount() %2, key = "key", message = "t1 message no. " + (rstring)IterationCount();
+        }
+        
+        () as ProducerT1 = MessageHubProducer (Data1) {
+            param
+                credentialsFile: "etc/eventstreams.json";
+                partitionAttribute: partitionNo;
+                topic: "t1";
+        } 
+        stream <int32 partitionNo, rstring key, rstring message> Data2 = Beacon() {
+            param
+                period: 0.1;
+                iterations: 2000;
+            output Data2: partitionNo = (int32)IterationCount() %2, key = "key", message = "t2 message no. " + (rstring)IterationCount();
+        }
+        
+        () as ProducerT2 = MessageHubProducer (Data2) {
+            param
+                credentialsFile: "etc/eventstreams.json";
+                partitionAttribute: partitionNo;
+                topic: "t2";
+        } 
+}
