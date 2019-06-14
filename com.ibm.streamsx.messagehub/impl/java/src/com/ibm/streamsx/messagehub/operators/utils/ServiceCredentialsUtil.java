@@ -46,6 +46,8 @@ public class ServiceCredentialsUtil {
      * @param appConfigName       name of an application configuration
      * @param credentialsFilename filename of JSON credentials file
      * @param operatorKafkaProps  A reference to the KafkaOperatorProperties of the operator
+     *                            The properties are modified by {@link #loadPropertiesFromParameterOrFile()}
+     *                            and {@link #loadFromAppConfigCredentials()}.
      */
     public ServiceCredentialsUtil (AbstractKafkaOperator operator, String credentials, String appConfigName,
             String credentialsFilename, KafkaOperatorProperties operatorKafkaProps) {
@@ -56,16 +58,25 @@ public class ServiceCredentialsUtil {
         this.operatorKafkaProps = operatorKafkaProps;
     }
 
-    protected File convertToAbsolutePath(String filePath) {
-        File f = new File(filePath);
+    /**
+     * Prefixes the given path name with the PEs application directory if the path is not absolute
+     * @param pathname the pathname to convert to an absolute path
+     * @return An absolute File
+     */
+    protected File convertToAbsolutePath (String pathname) {
+        File f = new File (pathname);
         if (!f.isAbsolute()) {
             File appDir = operator.getOperatorContext().getPE().getApplicationDirectory();
-            TRACE.info ("extending relative path '" + filePath + "' by the '" + appDir + "' directory");
-            f = new File(appDir, filePath);
+            TRACE.info ("extending relative path '" + pathname + "' by the '" + appDir + "' directory");
+            f = new File (appDir, pathname);
         }
         return f;
     }
 
+    /**
+     * Loads Kafka properties derived from (1.) credentials given as plain string or (2.) credentials file.
+     * @throws Exception
+     */
     public void loadPropertiesFromParameterOrFile() throws Exception {
         KafkaOperatorProperties credsProps = loadPropertiesFromCredsString (this.credentials);
         if (credsProps != null) {

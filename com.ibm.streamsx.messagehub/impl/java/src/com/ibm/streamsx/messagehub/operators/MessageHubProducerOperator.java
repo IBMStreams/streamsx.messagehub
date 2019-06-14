@@ -25,7 +25,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
 
     private static final Logger logger = Logger.getLogger(MessageHubProducerOperator.class);
 
-    private String credentialsFile = null;
+    private String credentialsFilename = null;
     private String credentials = null;
     private ServiceCredentialsUtil credentialsUtil = null;
 
@@ -35,13 +35,13 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
     }
 
     @Parameter(optional = true, name = "messageHubCredentialsFile", description = SplDoc.PARAM_MESSAGE_HUB_CREDS_FILE_DEPRECATED)
-    public void setMessageHubCredsFile (String messageHubCredsFile) {
-        this.credentialsFile = messageHubCredsFile;
+    public void setMessageHubCredsFile (String filename) {
+        this.credentialsFilename = filename;
     }
 
     @Parameter(optional = true, name = "credentialsFile", description = SplDoc.PARAM_CREDS_FILE)
-    public void setCredsFile (String messageHubCredsFile) {
-        this.credentialsFile = messageHubCredsFile;
+    public void setCredsFile (String filename) {
+        this.credentialsFilename = filename;
     }
 
 
@@ -59,7 +59,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
     @Override
     protected void loadProperties() throws Exception {
         if (this.credentialsUtil == null) {
-            this.credentialsUtil = new ServiceCredentialsUtil (this, this.credentials, this.appConfigName, this.credentialsFile, getKafkaProperties());
+            this.credentialsUtil = new ServiceCredentialsUtil (this, this.credentials, this.appConfigName, this.credentialsFilename, getKafkaProperties());
         }
         credentialsUtil.loadPropertiesFromParameterOrFile();
         // collect Kafka properties
@@ -71,7 +71,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
     @Override
     protected void loadFromAppConfig() throws Exception {
         if (this.credentialsUtil == null) {
-            this.credentialsUtil = new ServiceCredentialsUtil (this, this.credentials, this.appConfigName, this.credentialsFile, getKafkaProperties());
+            this.credentialsUtil = new ServiceCredentialsUtil (this, this.credentials, this.appConfigName, this.credentialsFilename, getKafkaProperties());
         }
         Map <String, String> appCfgAndPropName = credentialsUtil.loadFromAppConfigCredentials();
         
