@@ -22,7 +22,7 @@
 <div class="body refbody">
 <div class="section">
 <p class="p">
-<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 1.9.3</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; MessageHubProducer</p>
+<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 2.0.0</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; MessageHubProducer</p>
 
 </div>
 
@@ -46,19 +46,19 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d15114e69">
+<th class="entry" colspan="1" valign="top" id="d15916e69">
 <p class="p">Parameter
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d15114e75">
+<th class="entry" colspan="1" valign="top" id="d15916e75">
 <p class="p">Default Value
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d15114e81">
+<th class="entry" colspan="1" valign="top" id="d15916e81">
 <p class="p">Description
 </p>
 
@@ -70,20 +70,23 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e69 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e69 ">
 <p class="p"><strong class="ph b">appConfigName</strong>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e75 ">
-<p class="p"><tt class="ph tt">messagehub</tt>
+<td class="entry" colspan="1" valign="top" headers="d15916e75 ">
+<p class="p"><tt class="ph tt">eventstreams</tt>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e81 ">
-<p class="p">Users can choose to place the raw Event Streams credentials JSON in a property called <tt class="ph tt">messagehub.creds</tt> in an application configuration called <tt class="ph tt">messagehub</tt>. The operator will extract the information needed to connect to Event Streams.
+<td class="entry" colspan="1" valign="top" headers="d15916e81 ">
+<p class="p">Users can choose to place the raw Event Streams credentials JSON in a property called <tt class="ph tt">eventstreams.creds</tt> in an application configuration called <tt class="ph tt">eventstreams</tt>. The operator will extract the information needed to connect to Event Streams.
+</p>
+
+<p class="p">The old default values <tt class="ph tt">messagehub</tt> for the <strong class="ph b">appConfigName</strong> parameter as well as the property name <tt class="ph tt">messagehub.creds</tt> are deprecated. The support for these legacy values may be removed in next major toolkit version.
 </p>
 
 </td>
@@ -91,20 +94,41 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e69 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e69 ">
+<p class="p"><strong class="ph b">credentialsFile</strong>
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d15916e75 ">
+<p class="p"><tt class="ph tt">etc/eventstreams.json</tt>
+</p>
+
+</td>
+
+<td class="entry" colspan="1" valign="top" headers="d15916e81 ">
+<p class="p">Users can paste the raw Event Streams credentials JSON into a file pointed to by this parameter. The operator will extract the information needed to connect to Event Streams. By default, the operator will look for a file called <tt class="ph tt">etc/eventstreams.json</tt>.
+</p>
+
+</td>
+
+</tr>
+
+<tr class="row">
+<td class="entry" colspan="1" valign="top" headers="d15916e69 ">
 <p class="p"><strong class="ph b">messageHubCredentialsFile</strong>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e75 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e75 ">
 <p class="p"><tt class="ph tt">etc/messagehub.json</tt>
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e81 ">
-<p class="p">Users can paste the raw Event Streams credentials JSON into a file pointed to by this parameter. The operator will extract the information needed to connect to Event Streams. By default, the operator will look for a file called <tt class="ph tt">etc/messagehub.json</tt>.
+<td class="entry" colspan="1" valign="top" headers="d15916e81 ">
+<p class="p">This parameter has been deprecated. Please use the <strong class="ph b">credentialsFile</strong> parameter instead. This parameter and the support for <tt class="ph tt">etc/messagehub.json</tt> as default file name may be removed in next major toolkit version.
 </p>
 
 </td>
@@ -123,7 +147,7 @@
 <div class="section"><h2 class="title sectiontitle">Setup
 </h2>
 
-<p class="p">This section outlines different options for enabling the <strong class="ph b">MessageHubProducer</strong> operator to connet to the IBM Event Streams cloud service. Any of the following options can be used to configure the operator for connecting to IBM Cloud. 
+<p class="p">This section outlines different options for enabling the <strong class="ph b">MessageHubProducer</strong> operator to connect to the IBM Event Streams cloud service. Any of the following options can be used to configure the operator for connecting to IBM Cloud. 
 </p>
 
 <div class="p">
@@ -142,7 +166,7 @@
 <ol class="ol">
 <li class="li"> <strong class="ph b">credentials</strong> operator parameter (both file and application config are ignored)</li>
 
-<li class="li"> credentials stored in a file, also when the default filename <tt class="ph tt">messagehub.json</tt> is used (application config is ignored)</li>
+<li class="li"> credentials stored in a file, also when the default filename <tt class="ph tt">etc/eventstreams.json</tt> or the deprecated default <tt class="ph tt">etc/messagehub.json</tt> is used (application config is ignored)</li>
 
 <li class="li"> application configuration</li>
 
@@ -162,51 +186,49 @@
 <p class="p"><strong class="ph b">2. Save Credentials in a File</strong>
 </p>
 
-<p class="p">With this option, users can copy their credentials JSON from the Event Streams service and store it in a file called <tt class="ph tt">messagehub.json</tt>. When the operator starts up it will read the credentials from that file and extract the information needed to connect. The following steps outline how this can be done: 
+<p class="p">With this option, users can copy their credentials JSON from the Event Streams service and store it in a file called <tt class="ph tt">eventstreams.json</tt>. When the operator starts up it will read the credentials from that file and extract the information needed to connect. The following steps outline how this can be done: 
 </p>
 
 <div class="p">
 <ol class="ol">
-<li class="li"> Create a file called <tt class="ph tt">messagehub.json</tt> in the <tt class="ph tt">&lt;application_directory&gt;/etc/</tt> directory. </li>
+<li class="li"> Create a file called <tt class="ph tt">eventstreams.json</tt> in the <tt class="ph tt">&lt;application_directory&gt;/etc/</tt> directory. </li>
 
 <li class="li"> Paste the Event Streams credentials JSON into this file and save it. </li>
 
-<li class="li"> The operator will automatically look for the file <tt class="ph tt">&lt;application_directory&gt;/etc/messagehub.json</tt> and will extract the information needed to connect.</li>
+<li class="li"> The operator will automatically look for the file <tt class="ph tt">&lt;application_directory&gt;/etc/eventstreams.json</tt> and will extract the information needed to connect.</li>
 
 </ol>
 
 </div>
 
-<p class="p"><strong class="ph b">NOTE:</strong> Users can use the <strong class="ph b">messageHubCredentialsFile</strong> parameter to specify a different file containing the Event Streams service credentials JSON.
+<p class="p"><strong class="ph b">NOTE 1:</strong> Users can use the <strong class="ph b">credentialsFile</strong> parameter to specify a different file containing the Event Streams service credentials JSON. <strong class="ph b">NOTE 2:</strong> The default file name <tt class="ph tt">etc/messagehub.json</tt> from the 1.x toolkit versions is still supported, but deprecated.
 </p>
 
 <p class="p"><strong class="ph b">3. Save Credentials in an Application Configuration Property</strong>
 </p>
 
-<p class="p">With this option, users can copy their service credentials JSON from the Event Streams service and store it in an application configuration property called <tt class="ph tt">messagehub.creds</tt>. When the operator starts, it will look for that property and extract the information needed to connect. The following steps outline how this can be done: 
+<p class="p">With this option, users can copy their service credentials JSON from the Event Streams service and store it in an application configuration property called <tt class="ph tt">eventstreams.creds</tt>. When the operator starts, it will look for this property and extract the information needed to connect. The following steps outline how this can be done: 
 </p>
 
 <div class="p">
 <ol class="ol">
-<li class="li"> Create an application configuration called <tt class="ph tt">messagehub</tt>.</li>
+<li class="li"> Create an application configuration called <tt class="ph tt">eventstreams</tt>.</li>
 
-<li class="li"> Create a property in the <tt class="ph tt">messagehub</tt> application configuration with <em class="ph i">name</em> <tt class="ph tt">messagehub.creds</tt>.
-<ul class="ul">
-<li class="li"> The <em class="ph i">value</em> of the property should be the raw service credentials JSON of the Event Streams service instance.</li>
+<li class="li"> Create a property in the <tt class="ph tt">eventstreams</tt> application configuration with <em class="ph i">name</em> <tt class="ph tt">eventstreams.creds</tt>.  The <em class="ph i">value</em> of the property should be the raw service credentials JSON of the Event Streams service instance.</li>
 
-</ul>
-</li>
-
-<li class="li"> The operator will automatically look for an application configuration named <tt class="ph tt">messagehub</tt> and will extract the information needed to connect. Users only need to specify the topic(s) that they wish to consume messages from (set via the <strong class="ph b">topic</strong> parameter).</li>
+<li class="li"> The operator will automatically look for an application configuration named <tt class="ph tt">eventstreams</tt> and will extract the information needed to connect.</li>
 
 </ol>
 
 </div>
 
-<p class="p"><strong class="ph b">NOTE 1:</strong> Users can specify a different application configuration name by setting the <strong class="ph b">appConfigName</strong> parameter. The operator will still look for a property called <tt class="ph tt">messagehub.creds</tt> containing the Event Streams service credentials in JSON format. 
+<p class="p"><strong class="ph b">NOTE 1:</strong> Users can specify a different application configuration name by setting the <strong class="ph b">appConfigName</strong> parameter. The operator will still look for a property called <tt class="ph tt">eventstreams.creds</tt> containing the Event Streams service credentials in JSON format. 
 </p>
 
-<p class="p"><strong class="ph b">NOTE 2:</strong> Users can add generic Kafka properties, for example client.id, to the application configuration that already contains the service credentials. To make the operator use these Kafka properties, the <strong class="ph b">appConfigName</strong> parameter must be specified even if the default application configuration name <tt class="ph tt">messagehub</tt> is used. Looking at the other way round, when the default application configuration name <tt class="ph tt">messagehub</tt> is used, but not specified as <strong class="ph b">appConfigName</strong> parameter value, only the service credentials are used from the application config.
+<p class="p"><strong class="ph b">NOTE 2:</strong> Users can add generic Kafka properties, for example <tt class="ph tt">metadata.max.age.ms</tt>, or <tt class="ph tt">client.dns.lookup</tt>, to the same application configuration, which contains the service credentials. To make the operator use these Kafka properties, the <strong class="ph b">appConfigName</strong> parameter must be specified even if the default application configuration name <tt class="ph tt">eventstreams</tt> is used. Looking at the other way round, when the default application configuration name <tt class="ph tt">eventstreams</tt> is used, but not specified as <strong class="ph b">appConfigName</strong> parameter value, only the service credentials are used from this application configuration.
+</p>
+
+<p class="p"><strong class="ph b">NOTE 3:</strong> The default application configuration name <tt class="ph tt">messagehub</tt> and the property name <tt class="ph tt">messagehub.creds</tt> from the 1.x toolkit versions is still supported, but deprecated.
 </p>
 
 <p class="p">Users only need to specify the topic that they wish to produce messages to (set via the <strong class="ph b">topic</strong> parameter).
@@ -237,13 +259,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d15114e410">
+<th class="entry" colspan="1" valign="top" id="d15916e473">
 <p class="p">property name
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d15114e416">
+<th class="entry" colspan="1" valign="top" id="d15916e479">
 <p class="p">value
 </p>
 
@@ -255,13 +277,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e410 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e473 ">
 <p class="p">bootstrap.servers
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e416 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e479 ">
 <p class="p"><em class="ph i">parsed from the service credentials</em>
 </p>
 
@@ -270,13 +292,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e410 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e473 ">
 <p class="p">sasl.jaas.config
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e416 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e479 ">
 <p class="p">org.apache.kafka.common.security.plain.PlainLoginModule required serviceName="kafka" username="<em class="ph i">username</em>" password="<em class="ph i">password</em>";
 </p>
 
@@ -285,13 +307,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e410 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e473 ">
 <p class="p">security.protocol
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e416 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e479 ">
 <p class="p">SASL_SSL
 </p>
 
@@ -300,13 +322,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e410 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e473 ">
 <p class="p">sasl.mechanism
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e416 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e479 ">
 <p class="p">PLAIN
 </p>
 
@@ -315,13 +337,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e410 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e473 ">
 <p class="p">ssl.protocol
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e416 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e479 ">
 <p class="p">TLSv1.2
 </p>
 
@@ -330,13 +352,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e410 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e473 ">
 <p class="p">ssl.truststore.type
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e416 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e479 ">
 <p class="p">JKS
 </p>
 
@@ -345,13 +367,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e410 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e473 ">
 <p class="p">ssl.enabled.protocols
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e416 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e479 ">
 <p class="p">TLSv1.2
 </p>
 
@@ -360,13 +382,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e410 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e473 ">
 <p class="p">ssl.endpoint.identification.algorithm
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e416 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e479 ">
 <p class="p">HTTPS
 </p>
 
@@ -396,13 +418,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d15114e582">
+<th class="entry" colspan="1" valign="top" id="d15916e645">
 <p class="p">Property name
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d15114e588">
+<th class="entry" colspan="1" valign="top" id="d15916e651">
 <p class="p">Default Value
 </p>
 
@@ -414,13 +436,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e582 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e645 ">
 <p class="p">client.id
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e588 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e651 ">
 <p class="p">Generated ID in the form: <tt class="ph tt">C-J&lt;JobId&gt;-&lt;operator name&gt;</tt>
 </p>
 
@@ -429,13 +451,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e582 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e645 ">
 <p class="p">key.serializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e588 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e651 ">
 <p class="p">See <strong class="ph b">Automatic Serialization</strong> section below
 </p>
 
@@ -444,13 +466,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e582 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e645 ">
 <p class="p">value.serializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e588 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e651 ">
 <p class="p">See <strong class="ph b">Automatic Serialization</strong> section below
 </p>
 
@@ -459,13 +481,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e582 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e645 ">
 <p class="p">acks
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e588 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e651 ">
 <p class="p">Controls the durability of records that are sent. Adjusted to <tt class="ph tt">all</tt> when in consistent region, and <strong class="ph b">consistentRegionPolicy</strong> parameter is <tt class="ph tt">Transactional</tt>, otherwise <tt class="ph tt">acks</tt> is unchanged. The value <tt class="ph tt">0</tt> (fire and forget) is not recommended.
 </p>
 
@@ -474,13 +496,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e582 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e645 ">
 <p class="p">retries
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e588 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e651 ">
 <p class="p">When <tt class="ph tt">0</tt> is provided as <strong class="ph b">retries</strong> and <strong class="ph b">consistentRegionPolicy</strong> parameter is <tt class="ph tt">Transactional</tt> <strong class="ph b">retries</strong> is adjusted to <tt class="ph tt">1</tt>.
 </p>
 
@@ -489,13 +511,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e582 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e645 ">
 <p class="p">linger.ms
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e588 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e651 ">
 <p class="p"><tt class="ph tt">100</tt>
 </p>
 
@@ -504,13 +526,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e582 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e645 ">
 <p class="p">batch.size
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e588 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e651 ">
 <p class="p"><tt class="ph tt">32768</tt>
 </p>
 
@@ -519,13 +541,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e582 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e645 ">
 <p class="p">max.in.flight.requests.per.connection
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e588 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e651 ">
 <p class="p"><tt class="ph tt">1</tt> when <strong class="ph b">guaranteeOrdering</strong> parameter is <tt class="ph tt">true</tt>, limited to <tt class="ph tt">5</tt> when provided and <strong class="ph b">consistentRegionPolicy</strong> parameter is <tt class="ph tt">Transactional</tt>, or <tt class="ph tt">10</tt> in all other cases.
 </p>
 
@@ -534,13 +556,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e582 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e645 ">
 <p class="p">enable.idempotence
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e588 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e651 ">
 <p class="p"><tt class="ph tt">true</tt> only when in consistent region and <strong class="ph b">consistentRegionPolicy</strong> parameter is set to <tt class="ph tt">Transactional</tt>.
 </p>
 
@@ -549,13 +571,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e582 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e645 ">
 <p class="p">transactional.id
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e588 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e651 ">
 <p class="p">Randomly generated ID in the form: <tt class="ph tt">tid-&lt;random_string&gt;</tt> only when in consistent region and <strong class="ph b">consistentRegionPolicy</strong> parameter is set to <tt class="ph tt">Transactional</tt>.
 </p>
 
@@ -564,13 +586,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e582 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e645 ">
 <p class="p">transaction.timeout.ms
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e588 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e651 ">
 <p class="p">adjusted to a minimum of <tt class="ph tt">drain timeout + 120000 milliseconds</tt>, but not greater than <tt class="ph tt">900000</tt>. Adjusted only when in consistent region and <strong class="ph b">consistentRegionPolicy</strong> parameter is set to <tt class="ph tt">Transactional</tt>.
 </p>
 
@@ -579,13 +601,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e582 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e645 ">
 <p class="p">metric.reporters
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e588 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e651 ">
 <p class="p">added to provided reporters: <tt class="ph tt">com.ibm.streamsx.kafka.clients.producer.ProducerMetricsReporter</tt>
 </p>
 
@@ -594,13 +616,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e582 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e645 ">
 <p class="p">metrics.sample.window.ms
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e588 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e651 ">
 <p class="p">adjusted to <tt class="ph tt">10000</tt>
 </p>
 
@@ -641,13 +663,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d15114e946">
+<th class="entry" colspan="1" valign="top" id="d15916e1009">
 <p class="p">Serializer
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d15114e952">
+<th class="entry" colspan="1" valign="top" id="d15916e1015">
 <p class="p">SPL Types
 </p>
 
@@ -659,13 +681,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e946 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1009 ">
 <p class="p">org.apache.kafka.common.serialization.StringSerializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e952 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1015 ">
 <p class="p">rstring
 </p>
 
@@ -674,13 +696,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e946 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1009 ">
 <p class="p">org.apache.kafka.common.serialization.IntegerSerializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e952 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1015 ">
 <p class="p">int32, uint32
 </p>
 
@@ -689,13 +711,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e946 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1009 ">
 <p class="p">org.apache.kafka.common.serialization.LongSerializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e952 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1015 ">
 <p class="p">int64, uint64
 </p>
 
@@ -704,13 +726,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e946 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1009 ">
 <p class="p">org.apache.kafka.common.serialization.FloatSerializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e952 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1015 ">
 <p class="p">float32
 </p>
 
@@ -719,13 +741,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e946 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1009 ">
 <p class="p">org.apache.kafka.common.serialization.DoubleSerializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e952 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1015 ">
 <p class="p">float64
 </p>
 
@@ -734,13 +756,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e946 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1009 ">
 <p class="p">org.apache.kafka.common.serialization.ByteArraySerializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e952 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1015 ">
 <p class="p">blob
 </p>
 
@@ -767,13 +789,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d15114e1077">
+<th class="entry" colspan="1" valign="top" id="d15916e1140">
 <p class="p">Custom Metric
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d15114e1083">
+<th class="entry" colspan="1" valign="top" id="d15916e1146">
 <p class="p">Description
 </p>
 
@@ -785,13 +807,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">connection-count
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The current number of active connections.
 </p>
 
@@ -800,13 +822,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">compression-rate-avg
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The average compression rate of record batches (as percentage, 100 means no compression).
 </p>
 
@@ -815,13 +837,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p"><em class="ph i">topic</em>:compression-rate
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The average compression rate of record batches for a topic (as percentage, 100 means no compression).
 </p>
 
@@ -830,13 +852,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">record-queue-time-avg
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The average time in ms record batches spent in the send buffer.
 </p>
 
@@ -845,13 +867,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">record-queue-time-max
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The maximum time in ms record batches spent in the send buffer.
 </p>
 
@@ -860,13 +882,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">record-send-rate
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The average number of records sent per second.
 </p>
 
@@ -875,13 +897,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">record-retry-total
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The total number of retried record sends
 </p>
 
@@ -890,13 +912,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p"><em class="ph i">topic</em>:record-send-total
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The total number of records sent for a topic.
 </p>
 
@@ -905,13 +927,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p"><em class="ph i">topic</em>:record-retry-total
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The total number of retried record sends for a topic
 </p>
 
@@ -920,13 +942,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p"><em class="ph i">topic</em>:record-error-total
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The total number of record sends that resulted in errors for a topic
 </p>
 
@@ -935,13 +957,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">records-per-request-avg
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The average number of records per request.
 </p>
 
@@ -950,13 +972,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">requests-in-flight
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The current number of in-flight requests awaiting a response.
 </p>
 
@@ -965,13 +987,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">request-rate
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The number of requests sent per second
 </p>
 
@@ -980,13 +1002,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">request-size-avg
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The average size of requests sent.
 </p>
 
@@ -995,13 +1017,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">request-latency-avg
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The average request latency in ms
 </p>
 
@@ -1010,13 +1032,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">request-latency-max
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The maximum request latency in ms
 </p>
 
@@ -1025,13 +1047,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">batch-size-avg
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The average number of bytes sent per partition per-request.
 </p>
 
@@ -1040,13 +1062,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">outgoing-byte-rate
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The number of outgoing bytes sent to all servers per second
 </p>
 
@@ -1055,13 +1077,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">bufferpool-wait-time-total
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The total time an appender waits for space allocation in nanoseconds.
 </p>
 
@@ -1070,13 +1092,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d15114e1077 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1140 ">
 <p class="p">buffer-available-bytes
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d15114e1083 ">
+<td class="entry" colspan="1" valign="top" headers="d15916e1146 ">
 <p class="p">The total amount of buffer memory that is not being used (either unallocated or in the free list).
 </p>
 
@@ -1169,9 +1191,9 @@
  
   <dt class="dt dlterm">Parameters</dt>
 
-  <dd class="dd">This operator supports 15 parameters.
+  <dd class="dd">This operator supports 16 parameters.
 <p class="p"> Optional: 
-<a class="xref" href="#spldoc_operator__parameter__appConfigName">appConfigName</a>, <a class="xref" href="#spldoc_operator__parameter__clientId">clientId</a>, <a class="xref" href="#spldoc_operator__parameter__consistentRegionPolicy">consistentRegionPolicy</a>, <a class="xref" href="#spldoc_operator__parameter__credentials">credentials</a>, <a class="xref" href="#spldoc_operator__parameter__flush">flush</a>, <a class="xref" href="#spldoc_operator__parameter__guaranteeOrdering">guaranteeOrdering</a>, <a class="xref" href="#spldoc_operator__parameter__keyAttribute">keyAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageAttribute">messageAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredentialsFile">messageHubCredentialsFile</a>, <a class="xref" href="#spldoc_operator__parameter__partitionAttribute">partitionAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__timestampAttribute">timestampAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__topicAttribute">topicAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
+<a class="xref" href="#spldoc_operator__parameter__appConfigName">appConfigName</a>, <a class="xref" href="#spldoc_operator__parameter__clientId">clientId</a>, <a class="xref" href="#spldoc_operator__parameter__consistentRegionPolicy">consistentRegionPolicy</a>, <a class="xref" href="#spldoc_operator__parameter__credentials">credentials</a>, <a class="xref" href="#spldoc_operator__parameter__credentialsFile">credentialsFile</a>, <a class="xref" href="#spldoc_operator__parameter__flush">flush</a>, <a class="xref" href="#spldoc_operator__parameter__guaranteeOrdering">guaranteeOrdering</a>, <a class="xref" href="#spldoc_operator__parameter__keyAttribute">keyAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageAttribute">messageAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredentialsFile">messageHubCredentialsFile</a>, <a class="xref" href="#spldoc_operator__parameter__partitionAttribute">partitionAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__timestampAttribute">timestampAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__topicAttribute">topicAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
 
 </p>
 </dd>
@@ -1243,9 +1265,9 @@
 
 <div class="section">
 <p class="p splhead-1"><strong class="ph b"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters">Parameters</a></strong></p>
-This operator supports 15 parameters.
+This operator supports 16 parameters.
 <p class="p"> Optional: 
-<a class="xref" href="#spldoc_operator__parameter__appConfigName">appConfigName</a>, <a class="xref" href="#spldoc_operator__parameter__clientId">clientId</a>, <a class="xref" href="#spldoc_operator__parameter__consistentRegionPolicy">consistentRegionPolicy</a>, <a class="xref" href="#spldoc_operator__parameter__credentials">credentials</a>, <a class="xref" href="#spldoc_operator__parameter__flush">flush</a>, <a class="xref" href="#spldoc_operator__parameter__guaranteeOrdering">guaranteeOrdering</a>, <a class="xref" href="#spldoc_operator__parameter__keyAttribute">keyAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageAttribute">messageAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredentialsFile">messageHubCredentialsFile</a>, <a class="xref" href="#spldoc_operator__parameter__partitionAttribute">partitionAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__timestampAttribute">timestampAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__topicAttribute">topicAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
+<a class="xref" href="#spldoc_operator__parameter__appConfigName">appConfigName</a>, <a class="xref" href="#spldoc_operator__parameter__clientId">clientId</a>, <a class="xref" href="#spldoc_operator__parameter__consistentRegionPolicy">consistentRegionPolicy</a>, <a class="xref" href="#spldoc_operator__parameter__credentials">credentials</a>, <a class="xref" href="#spldoc_operator__parameter__credentialsFile">credentialsFile</a>, <a class="xref" href="#spldoc_operator__parameter__flush">flush</a>, <a class="xref" href="#spldoc_operator__parameter__guaranteeOrdering">guaranteeOrdering</a>, <a class="xref" href="#spldoc_operator__parameter__keyAttribute">keyAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageAttribute">messageAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__messageHubCredentialsFile">messageHubCredentialsFile</a>, <a class="xref" href="#spldoc_operator__parameter__partitionAttribute">partitionAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__propertiesFile">propertiesFile</a>, <a class="xref" href="#spldoc_operator__parameter__timestampAttribute">timestampAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__topic">topic</a>, <a class="xref" href="#spldoc_operator__parameter__topicAttribute">topicAttribute</a>, <a class="xref" href="#spldoc_operator__parameter__userLib">userLib</a>
 
 </p>
 <dl class="dl">
@@ -1368,6 +1390,40 @@ This operator supports 15 parameters.
 
 <dd class="dd">
 <p class="p">Specifies the credentials of the Event Streams cloud service instance in JSON. This parameter takes priority over a credentials file and credentials specified as property in an application configuration.
+</p>
+<dl class="dl">
+
+ <dt class="dt dlterm">Properties </dt>
+
+ <dd class="dd">
+  <ul class="sl simple">
+  <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__type">Type</a>: rstring
+  </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__cardinality">Cardinality</a>: 1
+     </li>
+
+     <li class="sli"><a class="xref" href="../references/OperatorModel.html#spldoc_reference_operator_model__parameters__parameter__optional">Optional</a>: true
+     </li>
+
+  </ul>
+
+ </dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt class="dt dlterm"><a name="spldoc_operator__parameter__credentialsFile"><!-- --></a><tt class="ph tt">credentialsFile</tt></dt>
+
+<dd class="dd">
+<p class="p">Specifies the name of the file that contains the complete Event Streams service credentials in JSON format. If not specified, this parameter will attempt to load the credentials from the file <tt class="ph tt">etc/eventstreams.json</tt> or <tt class="ph tt">etc/messagehub.json</tt> for backwardcompatibility. A relative path is always interpreted as relative to the <em class="ph i">application directory</em> of the Streams application.
+</p>
+
+<p class="p">Credentials stored in a file take priority over credentials stored in an appclication configuration.This parameter deprecates the <strong class="ph b">messageHubCredentialsFile</strong> parameter.
 </p>
 <dl class="dl">
 
@@ -1531,7 +1587,10 @@ This operator supports 15 parameters.
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__messageHubCredentialsFile"><!-- --></a><tt class="ph tt">messageHubCredentialsFile</tt></dt>
 
 <dd class="dd">
-<p class="p">Specifies the name of the file that contains the complete Event Streams service credentials in JSON format. If not specified, this parameter will attempt to load the credentials from the file <tt class="ph tt">etc/messagehub.json</tt>. A relative path is always interpreted as relative to the <em class="ph i">application directory</em> of the Streams application.
+<p class="p"><strong class="ph b">This parameter has been deprecated.</strong> Please use <strong class="ph b">credentialsFile</strong> instead.
+</p>
+
+<p class="p">Specifies the name of the file that contains the complete Event Streams service credentials in JSON format. If not specified, this parameter will attempt to load the credentials from the file <tt class="ph tt">etc/eventstreams.json</tt> or <tt class="ph tt">etc/messagehub.json</tt> for backward compatibility. A relative path is always interpreted as relative to the <em class="ph i">application directory</em> of the Streams application.
 </p>
 
 <p class="p">Credentials stored in a file take priority over credentials stored in an appclication configuration.

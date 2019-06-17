@@ -22,13 +22,13 @@
 <div class="body refbody">
 <div class="section">
 <p class="p">
-<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 1.9.3</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; Setup of the operators</p>
+<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 2.0.0</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; Setup of the operators</p>
 
 </div>
 
 
 <div class="section">
-<p class="p">When you create an instance of the IBM Event Streams service, you must also create credentials to use the servcie. These credentials are given in JSON format. This piece of information is required to setup the operators  to connect to the service instance.
+<p class="p">When you create an instance of the IBM Event Streams service, you must also create credentials to use the service. These credentials are given in JSON format. This piece of information is required to setup the operators  to connect to the service instance.
 </p>
 
 <p class="p">Any of the following options can be used to configure the operator for connecting to IBM Cloud.
@@ -50,7 +50,7 @@
 <ol class="ol">
 <li class="li"> <strong class="ph b">credentials</strong> operator parameter (both file and application config are ignored)</li>
 
-<li class="li"> credentials stored in a file, also when the default filename <tt class="ph tt">messagehub.json</tt> is used (application config is ignored)</li>
+<li class="li"> credentials stored in a file, also when the default filename <tt class="ph tt">eventstreams.json</tt> is used (application config is ignored)</li>
 
 <li class="li"> application configuration</li>
 
@@ -63,27 +63,27 @@
 <div class="section"><h2 class="title sectiontitle">Save Credentials in Application Configuration Property
 </h2>
 
-<p class="p">With this option, users can copy their Event Streams Credentials JSON from the Event Streams service  and store it in an application configuration property named <tt class="ph tt">messagehub.creds</tt>.  When the operator starts, it will look for that property and extract the information needed to connect. The following steps outline how this can be done:
+<p class="p">With this option, users can copy their Event Streams Credentials JSON from the Event Streams service  and store it in an application configuration property named <tt class="ph tt">eventstreams.creds</tt>.  When the operator starts, it will look for that property and extract the information needed to connect. The following steps outline how this can be done:
 </p>
 
 <div class="p">
 <ol class="ol">
-<li class="li"> Create an application configuration with the name <strong class="ph b">messagehub</strong>.</li>
+<li class="li"> Create an application configuration with the name <strong class="ph b">eventstreams</strong>.</li>
 
-<li class="li"> Create a property in the messagehub application configuration with the name <tt class="ph tt">messagehub.creds</tt>.</li>
+<li class="li"> Create a property in the eventstreams application configuration with the name <tt class="ph tt">eventstreams.creds</tt>.</li>
 
 <li class="li"> The value of the property must be the raw Event Streams Credentials JSON.</li>
 
-<li class="li"> The operator will automatically look for an application configuration named messagehub and will extract the information needed to connect. Users only need to specify the topic(s) that they wish to consume messages from (set via the topic parameter).</li>
+<li class="li"> The operator will automatically look for an application configuration named eventstreams and will extract the information needed to connect.</li>
 
 </ol>
 
 </div>
 
-<p class="p"><strong class="ph b">NOTE 1:</strong> Users can specify a different application configuration name by setting the <strong class="ph b">appConfigName</strong> parameter. The operator will still look for a property with the name <tt class="ph tt">messagehub.creds</tt> containing the Event Streams Credentials JSON.
+<p class="p"><strong class="ph b">NOTE 1:</strong> Users can specify a different application configuration name by setting the <strong class="ph b">appConfigName</strong> parameter. The operator will still look for a property with the name <tt class="ph tt">eventstreams.creds</tt> containing the Event Streams Credentials JSON.
 </p>
 
-<p class="p"><strong class="ph b">NOTE 2:</strong> Users can add generic Kafka properties, for example <tt class="ph tt">client.id</tt>, to the application configuration. To make the operator use these Kafka properties, the <strong class="ph b">appConfigName</strong> parameter must be specified even if the default application configuration name <tt class="ph tt">messagehub</tt> is used. Looking at the other way round, when the default application configuration name <tt class="ph tt">messagehub</tt> is used, but <em class="ph i">not</em> specified as <strong class="ph b">appConfigName</strong> parameter value,  only the service credentials are used from the application config.
+<p class="p"><strong class="ph b">NOTE 2:</strong> Users can add generic Kafka properties, for example <tt class="ph tt">metadata.max.age.ms</tt>, to the application configuration. To make the operator use these Kafka properties, the <strong class="ph b">appConfigName</strong> parameter must be specified even if the default application configuration name <tt class="ph tt">eventstreams</tt> is used. Looking at the other way round, when the default application configuration name <tt class="ph tt">eventstreams</tt> is used, but <em class="ph i">not</em> specified as <strong class="ph b">appConfigName</strong> parameter value,  only the service credentials are used from the application configuration.
 </p>
 
 </div>
@@ -91,22 +91,22 @@
 <div class="section"><h2 class="title sectiontitle">Save Credentials in a File
 </h2>
 
-<p class="p">With this option, users can copy their Event Streams credentials JSON from the Event Streams service and store it in a file called <tt class="ph tt">messagehub.json</tt>. When the operator starts up it will read the credentials from that file and extract the information needed to connect. The following steps outline how this can be done:
+<p class="p">With this option, users can copy their Event Streams credentials JSON from the Event Streams service and store it in a file called <tt class="ph tt">eventstreams.json</tt>. When the operator starts up it will read the credentials from that file and extract the information needed to connect. The following steps outline how this can be done:
 </p>
 
 <div class="p">
 <ol class="ol">
-<li class="li"> Create a file with the name <tt class="ph tt">messagehub.json</tt> in the &lt;application_directory&gt;/etc/ directory.</li>
+<li class="li"> Create a file with the name <tt class="ph tt">eventstreams.json</tt> in the &lt;application_directory&gt;/etc/ directory.</li>
 
 <li class="li"> Paste the Event Streams Credentials JSON into this file and save it.</li>
 
-<li class="li"> The operator will automatically look for the file &lt;application_directory&gt;/etc/messagehub.json and will extract the information needed to connect. Users only need to specify the topic(s) that they wish to consume messages from (set via the topic parameter).</li>
+<li class="li"> The operator will automatically look for the file &lt;application_directory&gt;/etc/eventstreams.json and will extract the information needed to connect. Users only need to specify the topic(s) that they wish to consume messages from (set via the topic parameter).</li>
 
 </ol>
 
 </div>
 
-<p class="p"><strong class="ph b">NOTE:</strong> Users can use the <strong class="ph b">messageHubCredentialsFile</strong> parameter to specify a different file containing the Event Streams Credentials in JSON format.
+<p class="p"><strong class="ph b">NOTE:</strong> Users can use the <strong class="ph b">credentialsFile</strong> parameter to specify a different file containing the Event Streams Credentials in JSON format.
 </p>
 
 </div>
@@ -117,7 +117,7 @@
 <p class="p">With this option, any SPL expression that returns an <tt class="ph tt">rstring</tt> can be used to specify the service credentials. For example,  you can write and use an SPL function, which reads the credentials JSON from a key value store.
 </p>
 
-<p class="p"><strong class="ph b">The following Kafka properties are setup by the operators by default:</strong>
+<p class="p"><strong class="ph b">The following Kafka properties are setup by the operators by default as recommended by Event Streams:</strong>
 </p>
 
 <div class="p">
