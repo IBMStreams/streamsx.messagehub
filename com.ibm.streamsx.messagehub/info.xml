@@ -16,6 +16,60 @@ which simplifies the setup for connecting to the cloud service.
 
 This is an overview of changes for major and minor version upgrades. For details see the [https://github.com/IBMStreams/streamsx.messagehub/releases|Releases in public Github].
 
+++ What's new in version 2.0.0
+
+# New Features
+
+* The included Kafka client has been upgraded from version 2.1.1 to version 2.2.1. This is the latest Kafka client recommended by Event Streams.
+
+The toolkit has enhancements for the MessageHubConsumer operator when it is used in an autonomous region (i.e. not part of a consistent region):
+
+* The MessageHubConsumer operator can now participate in a consumer group with **startPosition** parameter values `Beginning`, `End`, and `Time`.
+* After re-launch of the PE, the MessageHubConsumer operator does not overwrite the initial fetch offset to what the **startPosition** parameter is.
+
+For the new startPosition handling, the application must include a `JobControlPlane` operator when startPosition is not `Default`.
+
+# Deprecations
+
+The toolkit version 2.x deprecates following items:
+
+* The **messageHubCredentialsFile** parameter. Please use the **credentialsFile** parameter instead
+* The default filename `etc/messagehub.json` for service credentials. Please use `etc/eventstreams.json` when you want to use a default filename.
+* The default name `messagehub` for an application configuration. Please use `eventstreams` as name for the application configuration when you want to use a default.
+* The property name `messagehub.creds` within an application configuration. Please name the property for the Event Streams credentials `eventstreams.creds`.
+
+The deprecated items are still supported by this toolkit version, but may be removed in next major toolkit version 3.0.
+
+# Incompatible changes, which may break existing applications
+
+The behavior of the **MessageHubConsumer** operator changes when
+
+1. The operator is *not* used in a consistent region, and
+2. The **startPosition** parameter is used with `Beginning`, `End`, `Time`, or `Offset`.
+
+In all other cases the behavior of the MessageHubConsumer is unchanged. Details of the changes, including sample code, can be found in the 
+[https://ibmstreams.github.io/streamsx.messagehub/docs/user/difference_toolkit_v1_vs_v2/|Toolkit documentation on Github].
+
+Previous versions of the MessageHubConsumer operator did *not* enable group management in autonomous regions, with **startPosition** different from `Default`,
+even when a group-ID was configured. Since toolkit version 2.0, group management is enabled with all **startPosition** values except `Offset`.
+
+The conditions for a consumer operator to be part of a consumer group
+are now identical for consistent and autonomous region:
+
+  1. A group identifier must be specified
+  2. The operator must not have a control input port
+  3. The **partitions** parameter must not be used
+
+Correct handling of the initial start position requires always a **JobControlPlane** operator in the application graph, also when
+consistent region is not used. Without a **JobControlPlane** in the application graph, the Consumer operator will fail to initialize
+when **startPosition** is used and is not `Default`.
+
+Since toolkit version 2.0, the **startPosition** has effect only when the consumer operator is initially launched at job submission.
+When the consumer's PE is re-launched or when new PEs are launched after changing the width of a parallel region, the fetch position
+is *not reset* to what **startPosition** is - in opposite to previous versions. More precisely, the fetch position is now only then reset
+for a topic partition, when the consumer has not yet committed offsets for the partition. In all other cases, the consumer
+continues fetching at the last committed offset.
+
 ++ What's new in version 1.9.3
 
 * This version of the toolkit is based on the [https://github.com/IBMStreams/streamsx.kafka/releases/tag/v1.9.4|streamsx.kafka toolkit version 1.9.4].
@@ -85,7 +139,7 @@ This is an overview of changes for major and minor version upgrades. For details
 * The MessageHubConsumer operator exposes some performance metrics of the consumer client as operator metrics, like the lag for each topic partition.
 
    </info:description>
-   <info:version>1.9.3</info:version>
+   <info:version>2.0.0</info:version>
    <info:requiredProductVersion>4.2.0.0</info:requiredProductVersion>
  </info:identity>
  <info:dependencies/>

@@ -29,6 +29,8 @@ import com.ibm.streamsx.topology.tester.Tester;
 public class MessageHubDefaultAppConfigTest extends AbstractMessageHubTest {
 
     private static final String TEST_NAME = "MessageHubDefaultAppConfigTest";
+    private static final String APPCONFIG_NAME = "eventstreams";
+    private static final String APPCONFIG_PROP_NAME = "eventstreams.creds";
 
     public MessageHubDefaultAppConfigTest() throws Exception {
         super(TEST_NAME);
@@ -37,14 +39,14 @@ public class MessageHubDefaultAppConfigTest extends AbstractMessageHubTest {
     @Before
     public void setup() throws Exception {
         String creds = new String(Files.readAllBytes(Paths.get("etc/messagehub.json")));
-        creds = "messagehub.creds=" + creds.replace("=", "&#61;");
+        creds = APPCONFIG_PROP_NAME + "=" + creds.replace("=", "&#61;");
 
-        ProcessBuilder pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "rmappconfig", "--noprompt", "messagehub");
+        ProcessBuilder pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "rmappconfig", "--noprompt", APPCONFIG_NAME);
         pb.inheritIO();
         Process p = pb.start();
         p.waitFor(25, TimeUnit.SECONDS);
 
-        pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "mkappconfig", "--property", creds, "messagehub");
+        pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "mkappconfig", "--property", creds, APPCONFIG_NAME);
         pb.inheritIO();
         p = pb.start();
         Thread.sleep(5000);
@@ -57,7 +59,7 @@ public class MessageHubDefaultAppConfigTest extends AbstractMessageHubTest {
 
     @After
     public void cleanup() throws Exception {
-        ProcessBuilder pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "rmappconfig", "--noprompt", "messagehub");
+        ProcessBuilder pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "rmappconfig", "--noprompt", APPCONFIG_NAME);
         pb.inheritIO();
         Process p = pb.start();
 

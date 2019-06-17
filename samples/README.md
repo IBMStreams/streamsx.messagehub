@@ -1,13 +1,12 @@
 # Message Hub Toolkit Samples
 
-The following samples demonstrate different configurations to enable fast connectivity to Message Hub.
+The following samples demonstrate different configurations to enable fast connectivity to Event Streams.
 
- * [MessageHubFileSample](MessageHubFileSample) - Demonstrates how to use the Message Hub operators in an SPL application where the Message Hub credentials to be stored in a file.
- * [MessageHubAppConfigSample](MessageHubAppConfigSample) - Demonstrates how to use the Message Hub operators in an SPL application where the Message Hub credentials are available in an application configuration.
- * [MessageHubCredentialsParamSample](MessageHubCredentialsParamSample) - Demonstrates how to use the **credentials** parameter to use the raw credentials as operator parameter
+ * [CredentialsFileSample](CredentialsFileSample) - Demonstrates how to use the operators in an SPL application where the Event Streams credentials to be stored in a file.
+ * [AppConfigSample](AppConfigSample) - Demonstrates how to use the operators in an SPL application where the Event Streams credentials are available in an application configuration.
+ * [CredentialsParamSample](CredentialsParamSample) - Demonstrates how to use the **credentials** parameter to use the raw credentials as operator parameter
 
 The following samples demonstrate different use cases
 
- * [MessageHubConsumerGroupWithConsistentRegion](MessageHubConsumerGroupWithConsistentRegion) - How to use a consumer group in a consistent region
- * [MessageHubConsumerInputPortSample](MessageHubConsumerInputPortSample) - How to use the consumer operator with the optional input port
- 
+ * [ConsumerGroupWithConsistentRegion](ConsumerGroupWithConsistentRegion) - How to use a consumer group in a consistent region
+ * [ConsumerInputPortSample](ConsumerInputPortSample) - How to use the consumer operator with the optional input port

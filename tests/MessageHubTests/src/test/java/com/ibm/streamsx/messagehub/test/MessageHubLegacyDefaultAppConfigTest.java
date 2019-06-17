@@ -26,13 +26,13 @@ import com.ibm.streamsx.topology.spl.SPLStreams;
 import com.ibm.streamsx.topology.tester.Condition;
 import com.ibm.streamsx.topology.tester.Tester;
 
-public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
+public class MessageHubLegacyDefaultAppConfigTest extends AbstractMessageHubTest {
 
-    private static final String TEST_NAME = "MessageHubAppConfigParamTest";
-    private static final String APPCONFIG_NAME = "userAppConfig1";
-    private static final String APPCONFIG_PROP_NAME = "eventstreams.creds";
+    private static final String TEST_NAME = "MessageHubLegacyDefaultAppConfigTest";
+    private static final String APPCONFIG_NAME = "messagehub";
+    private static final String APPCONFIG_PROP_NAME = "messagehub.creds";
 
-    public MessageHubAppConfigParamTest() throws Exception {
+    public MessageHubLegacyDefaultAppConfigTest() throws Exception {
         super(TEST_NAME);
     }
 
@@ -49,8 +49,8 @@ public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
         pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "mkappconfig", "--property", creds, APPCONFIG_NAME);
         pb.inheritIO();
         p = pb.start();
+        Thread.sleep(5000);
         p.waitFor(25, TimeUnit.SECONDS);
-
         if(p.exitValue() != 0) {
             System.out.println(p.exitValue());
             Assert.fail("Creating app config failed! Test cancelled!");
@@ -62,7 +62,7 @@ public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
         ProcessBuilder pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "rmappconfig", "--noprompt", APPCONFIG_NAME);
         pb.inheritIO();
         Process p = pb.start();
-        Thread.sleep(5000);
+
         p.waitFor(25, TimeUnit.SECONDS);
         if(p.exitValue() != 0) {
             System.out.println(p.exitValue());
@@ -71,7 +71,7 @@ public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
     }
 
     @Test
-    public void messageHubAppConfigParamTest() throws Exception {
+    public void messageHubLegacyDefaultAppConfigTest() throws Exception {
         Topology topo = getTopology();
 
         // create the producer (produces tuples after a short delay)
@@ -82,7 +82,7 @@ public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
 
         // create the consumer
         SPLStream consumerStream = SPL.invokeSource(topo, Constants.MessageHubConsumerOp, getKafkaParams(), MessageHubSPLStreamsUtils.STRING_SCHEMA);
-        SPLStream msgStream = SPLStreams.stringToSPLStream(consumerStream.convert(t -> t.getString("message")));
+        SPLStream msgStream = SPLStreams.stringToSPLStream (consumerStream.convert(t -> t.getString("message")));
 
         // test the output of the consumer
         StreamsContext<?> context = StreamsContextFactory.getStreamsContext(Type.DISTRIBUTED_TESTER);
@@ -102,7 +102,6 @@ public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
         Map<String, Object> params = new HashMap<String, Object>();
 
         params.put("topic", Constants.TOPIC_TEST);
-        params.put("appConfigName", APPCONFIG_NAME);
 
         return params;
     }
