@@ -20,6 +20,8 @@ This is an overview of changes for major and minor version upgrades. For details
 
 # New Features
 
+* The included Kafka client has been upgraded from version 2.1.1 to version 2.2.1. This is the latest Kafka client recommended by Event Streams.
+
 The toolkit has enhancements for the MessageHubConsumer operator when it is used in an autonomous region (i.e. not part of a consistent region):
 
 * The MessageHubConsumer operator can now participate in a consumer group with **startPosition** parameter values `Beginning`, `End`, and `Time`.
