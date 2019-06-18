@@ -139,7 +139,7 @@ continues fetching at the last committed offset.
 * The MessageHubConsumer operator exposes some performance metrics of the consumer client as operator metrics, like the lag for each topic partition.
 
    </info:description>
-   <info:version>2.0.0</info:version>
+   <info:version>2.0.1</info:version>
    <info:requiredProductVersion>4.2.0.0</info:requiredProductVersion>
  </info:identity>
  <info:dependencies/>

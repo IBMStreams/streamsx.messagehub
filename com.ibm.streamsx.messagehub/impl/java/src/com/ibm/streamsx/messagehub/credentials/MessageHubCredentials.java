@@ -12,9 +12,6 @@ public class MessageHubCredentials implements Serializable {
     @SerializedName("api_key")
     private String apiKey;
 
-    @SerializedName("kafka_rest_url")
-    private String kafkaRestUrl;
-
     @SerializedName("user")
     private String user;
 
@@ -32,12 +29,6 @@ public class MessageHubCredentials implements Serializable {
         return apiKey;
     }
 
-    /**
-     * @return the kafkaRestUrl (JSON: 'kafka_rest_url')
-     */
-    public String getKafkaRestUrl() {
-        return kafkaRestUrl;
-    }
     /**
      * @return the user (JSON: 'user')
      */
@@ -64,7 +55,6 @@ public class MessageHubCredentials implements Serializable {
      * @throws InvalidCredentialsException
      */
     public void validate() throws InvalidCredentialsException {
-        if (kafkaRestUrl == null) throw new InvalidCredentialsException ("'kafka_rest_url' could not be parsed from JSON.");
         if (apiKey == null) throw new InvalidCredentialsException ("'api_key' could not be parsed from JSON.");
         if (user == null) throw new InvalidCredentialsException ("'user' could not be parsed from JSON.");
         if (password == null) throw new InvalidCredentialsException ("'password' could not be parsed from JSON.");
