@@ -16,6 +16,10 @@ which simplifies the setup for connecting to the cloud service.
 
 This is an overview of changes for major and minor version upgrades. For details see the [https://github.com/IBMStreams/streamsx.messagehub/releases|Releases in public Github].
 
+++ What's new in version 2.0.2
+
+* This release is based on the streamsx.kafka bugfix release v2.0.1, which fixes reset failure with checkpoint sequence ID greater than 999.
+
 ++ What's new in version 2.0.0
 
 # New Features
@@ -139,7 +143,7 @@ continues fetching at the last committed offset.
 * The MessageHubConsumer operator exposes some performance metrics of the consumer client as operator metrics, like the lag for each topic partition.
 
    </info:description>
-   <info:version>2.0.1</info:version>
+   <info:version>2.0.2</info:version>
    <info:requiredProductVersion>4.2.0.0</info:requiredProductVersion>
  </info:identity>
  <info:dependencies/>
