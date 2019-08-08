@@ -11,16 +11,22 @@ sidebar:
 {% include toc %}
 {%include editme %}
 
-### v2.0.1 (latest)
+### v2.0.x (latest)
 
 [Toolkit Documentation (SPLDoc)](/streamsx.messagehub/doc/spldoc/html/)
 
 
 ### Toolkit documentation for previous versions
 
+#### v2.0.1
+
+Do not use version 2.0.1 of the toolkit. Use at least version 2.0.2 instead.
+
+[Toolkit Documentation (SPLDoc)](/streamsx.messagehub/doc/v2.0.1/spldoc/html/)
+
 #### v2.0.0
 
-Do not use version 2.0.0 of the toolkit. Use at least version 2.0.1 instead.
+Do not use version 2.0.0 of the toolkit. Use at least version 2.0.2 instead.
 
 [Toolkit Documentation (SPLDoc)](/streamsx.messagehub/doc/v2.0.0/spldoc/html/)
 
