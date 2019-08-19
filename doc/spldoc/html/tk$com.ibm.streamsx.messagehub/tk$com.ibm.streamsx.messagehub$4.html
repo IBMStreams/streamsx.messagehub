@@ -7,38 +7,125 @@
 <meta name="copyright" content="(C) Copyright 2005"/>
 <meta name="DC.rights.owner" content="(C) Copyright 2005"/>
 <meta name="DC.Type" content="reference"/>
-<meta name="DC.Title" content="What's new in version 1.9.3"/>
+<meta name="DC.Title" content="What's new in version 2.0.0"/>
 <meta name="DC.Format" content="XHTML"/>
 <meta name="DC.Identifier" content="spldoc_page"/>
 <link rel="stylesheet" type="text/css" href="../../html/commonltr.css"/>
 <link rel="stylesheet" type="text/css" href="../../html/spldoc.css"/>
-<title>What's new in version 1.9.3</title>
+<title>What's new in version 2.0.0</title>
 </head>
 <body id="spldoc_page">
 
 
-<h1 class="title topictitle1">What's new in version 1.9.3</h1>
+<h1 class="title topictitle1">What's new in version 2.0.0</h1>
 
 <div class="body refbody">
 <div class="section">
 <p class="p">
-<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 2.0.2</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub$1.html">What's new and what has changed</a> &gt; What's new in version 1.9.3</p>
+<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 2.1.0</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub$1.html">What's new and what has changed</a> &gt; What's new in version 2.0.0</p>
 
 </div>
 
 
 <div class="section">
+</div>
+
+<div class="section"><h2 class="title sectiontitle">New Features
+</h2>
+
 <div class="p">
 <ul class="ul">
-<li class="li"> This version of the toolkit is based on the <a class="xref" href="https://github.com/IBMStreams/streamsx.kafka/releases/tag/v1.9.4">streamsx.kafka toolkit version 1.9.4</a>.</li>
-
-<li class="li"> Bug fix: Support for resetToInitialState when checkpointing in an autonomous region is configured</li>
-
-<li class="li"> Changed offset commit failure handling of the consumer when in consistent region: Commit failures do no longer restart the PE</li>
+<li class="li"> The included Kafka client has been upgraded from version 2.1.1 to version 2.2.1. This is the latest Kafka client recommended by Event Streams.</li>
 
 </ul>
 
 </div>
+
+<p class="p">The toolkit has enhancements for the MessageHubConsumer operator when it is used in an autonomous region (i.e. not part of a consistent region):
+</p>
+
+<div class="p">
+<ul class="ul">
+<li class="li"> The MessageHubConsumer operator can now participate in a consumer group with <strong class="ph b">startPosition</strong> parameter values <tt class="ph tt">Beginning</tt>, <tt class="ph tt">End</tt>, and <tt class="ph tt">Time</tt>.</li>
+
+<li class="li"> After re-launch of the PE, the MessageHubConsumer operator does not overwrite the initial fetch offset to what the <strong class="ph b">startPosition</strong> parameter is.</li>
+
+</ul>
+
+</div>
+
+<p class="p">For the new startPosition handling, the application must include a <tt class="ph tt">JobControlPlane</tt> operator when startPosition is not <tt class="ph tt">Default</tt>.
+</p>
+
+</div>
+
+<div class="section"><h2 class="title sectiontitle">Deprecations
+</h2>
+
+<p class="p">The toolkit version 2.x deprecates following items:
+</p>
+
+<div class="p">
+<ul class="ul">
+<li class="li"> The <strong class="ph b">messageHubCredentialsFile</strong> parameter. Please use the <strong class="ph b">credentialsFile</strong> parameter instead</li>
+
+<li class="li"> The default filename <tt class="ph tt">etc/messagehub.json</tt> for service credentials. Please use <tt class="ph tt">etc/eventstreams.json</tt> when you want to use a default filename.</li>
+
+<li class="li"> The default name <tt class="ph tt">messagehub</tt> for an application configuration. Please use <tt class="ph tt">eventstreams</tt> as name for the application configuration when you want to use a default.</li>
+
+<li class="li"> The property name <tt class="ph tt">messagehub.creds</tt> within an application configuration. Please name the property for the Event Streams credentials <tt class="ph tt">eventstreams.creds</tt>.</li>
+
+</ul>
+
+</div>
+
+<p class="p">The deprecated items are still supported by this toolkit version, but may be removed in next major toolkit version 3.0.
+</p>
+
+</div>
+
+<div class="section"><h2 class="title sectiontitle">Incompatible changes, which may break existing applications
+</h2>
+
+<p class="p">The behavior of the <strong class="ph b">MessageHubConsumer</strong> operator changes when
+</p>
+
+<div class="p">
+<ol class="ol">
+<li class="li"> The operator is <em class="ph i">not</em> used in a consistent region, and</li>
+
+<li class="li"> The <strong class="ph b">startPosition</strong> parameter is used with <tt class="ph tt">Beginning</tt>, <tt class="ph tt">End</tt>, <tt class="ph tt">Time</tt>, or <tt class="ph tt">Offset</tt>.</li>
+
+</ol>
+
+</div>
+
+<p class="p">In all other cases the behavior of the MessageHubConsumer is unchanged. Details of the changes, including sample code, can be found in the  <a class="xref" href="https://ibmstreams.github.io/streamsx.messagehub/docs/user/difference_toolkit_v1_vs_v2/">Toolkit documentation on Github</a>.
+</p>
+
+<p class="p">Previous versions of the MessageHubConsumer operator did <em class="ph i">not</em> enable group management in autonomous regions, with <strong class="ph b">startPosition</strong> different from <tt class="ph tt">Default</tt>, even when a group-ID was configured. Since toolkit version 2.0, group management is enabled with all <strong class="ph b">startPosition</strong> values except <tt class="ph tt">Offset</tt>.
+</p>
+
+<p class="p">The conditions for a consumer operator to be part of a consumer group are now identical for consistent and autonomous region:
+</p>
+
+<div class="p">
+<ol class="ol">
+<li class="li"> A group identifier must be specified</li>
+
+<li class="li"> The operator must not have a control input port</li>
+
+<li class="li"> The <strong class="ph b">partitions</strong> parameter must not be used</li>
+
+</ol>
+
+</div>
+
+<p class="p">Correct handling of the initial start position requires always a <strong class="ph b">JobControlPlane</strong> operator in the application graph, also when consistent region is not used. Without a <strong class="ph b">JobControlPlane</strong> in the application graph, the Consumer operator will fail to initialize when <strong class="ph b">startPosition</strong> is used and is not <tt class="ph tt">Default</tt>.
+</p>
+
+<p class="p">Since toolkit version 2.0, the <strong class="ph b">startPosition</strong> has effect only when the consumer operator is initially launched at job submission. When the consumer's PE is re-launched or when new PEs are launched after changing the width of a parallel region, the fetch position is <em class="ph i">not reset</em> to what <strong class="ph b">startPosition</strong> is - in opposite to previous versions. More precisely, the fetch position is now only then reset for a topic partition, when the consumer has not yet committed offsets for the partition. In all other cases, the consumer continues fetching at the last committed offset.
+</p>
 
 </div>
 
