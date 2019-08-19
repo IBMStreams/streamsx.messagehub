@@ -16,6 +16,18 @@ which simplifies the setup for connecting to the cloud service.
 
 This is an overview of changes for major and minor version upgrades. For details see the [https://github.com/IBMStreams/streamsx.messagehub/releases|Releases in public Github].
 
+++ What's new in version 2.1.0
+
+This release is based on the streamsx.kafka toolkit version 2.1.0, which has following changes:
+
+* The following consumer and producer configurations are setup by the operators per default:
+  * client.dns.lookup = use_all_dns_ips
+  * reconnect.backoff.max.ms = 10000 (Kafka's default is 1000)
+  * reconnect.backoff.ms = 250 (Kafka's default is 50)
+  * retry.backoff.ms = 500 (Kafka's default is 100)
+* new optional operator parameter **sslDebug**
+* bug fixes, see the release note on [https://github.com/IBMStreams/streamsx.kafka/releases/tag/v2.1.0|Github]
+
 ++ What's new in version 2.0.2
 
 * This release is based on the streamsx.kafka bugfix release v2.0.1, which fixes reset failure with checkpoint sequence ID greater than 999.
@@ -143,7 +155,7 @@ continues fetching at the last committed offset.
 * The MessageHubConsumer operator exposes some performance metrics of the consumer client as operator metrics, like the lag for each topic partition.
 
    </info:description>
-   <info:version>2.0.2</info:version>
+   <info:version>2.1.0</info:version>
    <info:requiredProductVersion>4.2.0.0</info:requiredProductVersion>
  </info:identity>
  <info:dependencies/>
