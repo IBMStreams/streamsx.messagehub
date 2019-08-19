@@ -1,6 +1,6 @@
 # Message Hub Toolkit
 
-A toolkit that simplifies integration between IBM Streams and the IBM Cloud Event Streams service. 
+A toolkit that simplifies integration between IBM Streams and the IBM Cloud Event Streams service.
 
 
 ## Documentation
@@ -41,7 +41,7 @@ cd tests/MessageHubTests
 
 ## Samples
 
-Each sample contains a `build.gradle` file and a makefile. You can compile/build the samples by 
+Each sample contains a `build.gradle` file and a makefile. You can compile/build the samples by
 a) running `gradle build` from the sample directory if you have installed gradle,
 b) running `../../gradlew build` if you are in a cloned or forked git repository, or
 c) running `make` in all other cases.
