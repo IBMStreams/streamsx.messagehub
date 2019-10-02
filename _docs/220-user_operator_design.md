@@ -11,18 +11,18 @@ sidebar:
 {% include toc %}
 {%include editme %}
 
-This Message Hub toolkit contains two operators to enable faster connectivity to the IBM Cloud Message Hub service. These operators include:
+This toolkit contains two operators to enable faster connectivity to the IBM Event Streams cloud service. These operators include:
 
  * **MessageHubConsumer** - this operator is a wrapper around the `KafkaConsumer` operator ([design documentation](https://ibmstreams.github.io/streamsx.kafka/docs/user/KafkaConsumerDesign)).
  * **MessageHubProducer** - this operator is a wrapper around the `KafkaProducer` operator ([design documentation](https://ibmstreams.github.io/streamsx.kafka/docs/user/KafkaProducerDesign)).
 
-The goal of these operators is to make connectivity to the Message Hub service as simple as possible and with minimal setup from the user.
+The goal of these operators is to make connectivity to the IBM Event Streams service as simple as possible and with minimal setup from the user.
 
 To accomplish this goal, the operators provides the following functionality:
 
  * Sets a default value for the **appConfigName** parameter to `eventstreams`.
  * In addition to setting a default value for the **appConfigName** parameter, the operator looks for a special property
-   named `eventstreams.creds` in the application configuration. Users can store the entire Message Hub credentials JSON in this
+   named `eventstreams.creds` in the application configuration. Users can store the entire Event Streams credentials JSON in this
    property. The operator parses the JSON and automatically configures all of the necessary properties in order to connect to
    the Event Streams service.
  * A parameter called **credentialsFile** allows the user to store the Event Streams credentials JSON in a file
