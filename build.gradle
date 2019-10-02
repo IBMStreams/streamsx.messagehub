@@ -34,6 +34,7 @@ def release() {
 
 
     delete 'build/release/com.ibm.streamsx.messagehub/build'
+    delete 'build/release/com.ibm.streamsx.messagehub/bin'
     delete 'build/release/com.ibm.streamsx.messagehub/build.gradle'
     delete 'build/release/com.ibm.streamsx.messagehub/impl/java/src'
     delete 'build/release/com.ibm.streamsx.messagehub/impl/src'
@@ -73,7 +74,7 @@ task release {
     dependsOn ':com.ibm.streamsx.messagehub:build'
     dependsOn 'spldoc'
     finalizedBy archive
-}  
+}
 
 
 

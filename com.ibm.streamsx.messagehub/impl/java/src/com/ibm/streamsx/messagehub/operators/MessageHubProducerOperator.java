@@ -1,3 +1,16 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License"); 
+ * you may not use this except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.ibm.streamsx.messagehub.operators;
 
 import java.util.Map;
@@ -11,8 +24,11 @@ import com.ibm.streams.operator.model.Icons;
 import com.ibm.streams.operator.model.InputPortSet;
 import com.ibm.streams.operator.model.InputPorts;
 import com.ibm.streams.operator.model.Libraries;
+import com.ibm.streams.operator.model.OutputPortSet;
+import com.ibm.streams.operator.model.OutputPorts;
 import com.ibm.streams.operator.model.Parameter;
 import com.ibm.streams.operator.model.PrimitiveOperator;
+import com.ibm.streams.operator.model.OutputPortSet.WindowPunctuationOutputMode;
 import com.ibm.streamsx.kafka.operators.AbstractKafkaProducerOperator;
 import com.ibm.streamsx.kafka.operators.KafkaSplDoc;
 import com.ibm.streamsx.messagehub.operators.utils.ServiceCredentialsUtil;
@@ -20,7 +36,49 @@ import com.ibm.streamsx.messagehub.operators.utils.ServiceCredentialsUtil;
 @PrimitiveOperator(name = "MessageHubProducer", namespace = "com.ibm.streamsx.messagehub", description=MessageHubProducerOperator.DESC)
 @Icons(location16 = "icons/MessageHubProducer_16.png", location32 = "icons/MessageHubProducer_32.png")
 @Libraries({"opt/downloaded/*", "impl/lib/*"})
-@InputPorts({ @InputPortSet(description = "Port that consumes tuples", cardinality = 1, optional = false) })
+@InputPorts({ @InputPortSet(description = "Port that consumes tuples. Each tuple is written as a record to the configured topic(s).", cardinality = 1, optional = false) })
+@OutputPorts({
+    @OutputPortSet(description = "This port is an optional output port. Dependent on the "
+            + "**outputErrorsOnly** parameter, "
+            + "the output stream includes only tuples for input tuples that failed to get published on one or all "
+            + "of the specified topics, or it contains tuples corresponding to *all* input tuples, successfully produced "
+            + "ones and failed tuples.\\n"
+            + "\\n"
+            + "The output port is asynchronous to the input port of the operator. The sequence of the submitted tuples "
+            + "may also differ from the sequence of the input tuples. Window punctuations from the input stream are not forwarded.\\n"
+            + "\\n"
+            + "The schema of the output port must consist of one optional attribute of tuple type with the same schema "
+            + "as the input port and one optional attribute of type `rstring` or `ustring`, that takes a JSON formatted description "
+            + "of the occured error, or remains empty (zero length) for successfully produced tuples. "
+            + "Both attributes can have any names and can be declared in any sequence in the schema.\\n"
+            + "\\n"
+            + "**Example for declaring the output stream as error output:**\\n"
+            + "\\n"
+            + "    stream <Inp failedTuple, rstring failure> Errors = MessageHubProducer (Data as Inp) {\\n"
+            + "        ...\\n"
+            + "    }\\n"
+            + ""
+            + "**Example of the failure description**, which would go into the *failure* attribute above:\\n"
+            + "\\n"
+            + "    {\\n"
+            + "        \\\"failedTopics\\\":[\\\"topic1\\\"],\\n"
+            + "        \\\"lastExceptionType\\\":\\\"org.apache.kafka.common.errors.TopicAuthorizationException\\\",\\n"
+            + "        \\\"lastFailure\\\":\\\"Not authorized to access topics: [topic1]\\\"\\n"
+            + "    }\\n"
+            + ""
+            + "Please note that the generated JSON dows not contain line breaks as in the example above, where the JSON has "
+            + "been broken into multiple lines to better show its structure.\\n"
+            + "\\n"
+            + "**Example for declaring the output stream for both successfully produced input tuples and failures:**\\n"
+            + "\\n"
+            + "    // 'failure' attribute will have zero length for successfully produced input tuples\\n"
+            + "    stream <Inp inTuple, rstring failure> ProduceStatus = MessageHubProducer (Data as Inp) {\\n"
+            + "        param\\n"
+            + "            outputErrorsOnly: false;\\n"
+            + "        ...\\n"
+            + "    }\\n"
+            + "",
+            cardinality = 1, optional = true, windowPunctuationOutputMode = WindowPunctuationOutputMode.Free)})
 public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
 
     private static final Logger logger = Logger.getLogger(MessageHubProducerOperator.class);
@@ -171,8 +229,20 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
             + "# Error Handling\\n"
             + "\\n"
             + "Many exceptions thrown by the underlying Kafka API are considered fatal. In the event "
-            + "that Kafka throws an exception, the operator will restart. Some exceptions can be "
-            + "retried, such as those that occur due to network error. Users are encouraged "
-            + "to set the KafkaProducer `retries` property to a value greater than 0 to enable the producer's "
+            + "that Kafka throws a **retriable exception**, the operator behaves different when used in consistent region or not. "
+            + "When used in a consistent region, the operator initiates a reset of the consistent region. The reset processing will instantiate a new "
+            + "Kafka producer within the operator.\\n"
+            + "\\n"
+            + "When the operator is not used within a consistent region, the operator tries to recover internally "
+            + "by instantiating a new Kafka producer within the operator and resending all producer records, which are not yet acknowledged. "
+            + "Records that fail two producer generations are considered being finally failed. The corresponding tuple is counted in the "
+            + "custom metric `nFailedTuples`, and, if the operator is configured with an output port, an output tuple is submitted.\\n"
+            + "\\n"
+            + "In the event that Kafka throws a **non-retriable exception**, the tuple that caused the exception is counted in the "
+            + "custom metric `nFailedTuples`, and, if the operator is configured with an output port, an output tuple is submitted.\\n"
+            + "\\n"
+            + "Some exceptions can be "
+            + "retried by Kafka itself, such as those that occur due to network error. Therefore, it is not recommended "
+            + "to set the `retries` property to 0 to disable the producer's "
             + "retry mechanism.";
 }
