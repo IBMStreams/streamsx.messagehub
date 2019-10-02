@@ -11,7 +11,7 @@ sidebar:
 {% include toc %}
 {%include editme %}
 
-This toolkit contains two operators to enable faster connectivity to the IBM Event Streams cloud service. These operators include:
+This toolkit contains two operators to enable easier connectivity to the IBM Event Streams cloud service. These operators include:
 
  * **MessageHubConsumer** - this operator is a wrapper around the `KafkaConsumer` operator ([design documentation](https://ibmstreams.github.io/streamsx.kafka/docs/user/KafkaConsumerDesign)).
  * **MessageHubProducer** - this operator is a wrapper around the `KafkaProducer` operator ([design documentation](https://ibmstreams.github.io/streamsx.kafka/docs/user/KafkaProducerDesign)).
