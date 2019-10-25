@@ -38,6 +38,10 @@ Do not use version 2.0.0 of the toolkit. Use at least version 2.0.2 instead.
 
 [Toolkit Documentation (SPLDoc)](/streamsx.messagehub/doc/v2.0.0/spldoc/html/)
 
+#### v1.9.4
+
+[Toolkit Documentation (SPLDoc)](/streamsx.messagehub/doc/v1.9.4/spldoc/html/)
+
 #### v1.9.3
 
 [Toolkit Documentation (SPLDoc)](/streamsx.messagehub/doc/v1.9.3/spldoc/html/)
