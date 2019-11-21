@@ -92,25 +92,9 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
         this.credentials = credentials;
     }
 
-    @Parameter(optional = true, name = "messageHubCredentialsFile", description = SplDoc.PARAM_MESSAGE_HUB_CREDS_FILE_DEPRECATED)
-    public void setMessageHubCredsFile (String filename) {
-        this.credentialsFilename = filename;
-    }
-
     @Parameter(optional = true, name = "credentialsFile", description = SplDoc.PARAM_CREDS_FILE)
     public void setCredsFile (String filename) {
         this.credentialsFilename = filename;
-    }
-
-
-    @ContextCheck (compile = true, runtime = false)
-    public static void checkCredentialsFileParamDeprecation (OperatorContextChecker checker) {
-        Set<String> paramNames = checker.getOperatorContext().getParameterNames();
-        if (paramNames.contains ("messageHubCredentialsFile")) {
-            System.err.println ("The parameter 'messageHubCredentialsFile' has been deprecated and may be removed in future versions. "
-                    + "Please use 'credentialsFile' instead.");
-            checker.checkExcludedParameters ("messageHubCredentialsFile", "credentialsFile");
-        }
     }
 
 
@@ -166,7 +150,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
             + "\\n"
             + "The priority of the above options is\\n"
             + "1. **credentials** operator parameter (both file and application config are ignored)\\n"
-            + "1. credentials stored in a file, also when the default filename `etc/eventstreams.json` or the deprecated default `etc/messagehub.json` is used (application config is ignored)\\n"
+            + "1. credentials stored in a file, also when the default filename `etc/eventstreams.json` is used (application config is ignored)\\n"
             + "1. application configuration\\n"
             + "\\n"
             + SplDoc.CREDENTIALS_PARAM
@@ -208,7 +192,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
             + "\\n"
             + "Users can specify Kafka properties using Streams' application configurations. Information "
             + "on configuring application configurations can be found here: "
-            + "[https://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.1/com.ibm.streams.admin.doc/doc/"
+            + "[https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.admin.doc/doc/"
             + "creating-secure-app-configs.html|Creating application configuration objects to securely "
             + "store data]. Each property set in the application configuration "
             + "will be loaded as a Kafka property. For example, to specify the cipher suites for SSL that "

@@ -41,9 +41,9 @@ import com.ibm.streamsx.messagehub.credentials.MessageHubCredentials;
 
 public class ServiceCredentialsUtil {
 
-    private static final String[] DEFAULT_APP_CONFIG_NAMES = {"eventstreams", "messagehub"}; //$NON-NLS-1$
-    private static final String[] APP_CONFIG_PROPERTY_NAMES = {"eventstreams.creds", "messagehub.creds"}; //$NON-NLS-1$
-    private static final String[] DEFAULT_CREDENTIALS_FILE_PATHS = {"etc/eventstreams.json", "etc/messagehub.json"}; //$NON-NLS-1$
+    private static final String[] DEFAULT_APP_CONFIG_NAMES = {"eventstreams"}; //$NON-NLS-1$
+    private static final String[] APP_CONFIG_PROPERTY_NAMES = {"eventstreams.creds"}; //$NON-NLS-1$
+    private static final String[] DEFAULT_CREDENTIALS_FILE_PATHS = {"etc/eventstreams.json"}; //$NON-NLS-1$
     private static final Logger TRACE = Logger.getLogger(ServiceCredentialsUtil.class);
 
     private final AbstractKafkaOperator operator;

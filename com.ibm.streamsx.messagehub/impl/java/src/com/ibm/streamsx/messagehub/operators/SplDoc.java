@@ -106,18 +106,6 @@ public class SplDoc {
             + "---\\n";
 
 
-    public static final String PARAM_MESSAGE_HUB_CREDS_FILE_DEPRECATED = ""
-            + "**This parameter has been deprecated.** "
-            + "Please use **credentialsFile** instead.\\n"
-            + "\\n"
-            + "Specifies the name of the file that contains "
-            + "the complete Event Streams service credentials in JSON format. If not specified, this parameter will "
-            + "attempt to load the credentials from the file `etc/eventstreams.json` or `etc/messagehub.json` for backward "
-            + "compatibility. A relative path is always "
-            + "interpreted as relative to the *application directory* of the Streams application.\\n"
-            + "\\n"
-            + "Credentials stored in a file take priority over credentials stored in an appclication configuration.";
-
     public static final String PARAM_CREDS_FILE = ""
             + "Specifies the name of the file that contains "
             + "the complete Event Streams service credentials in JSON format. If not specified, this parameter will "

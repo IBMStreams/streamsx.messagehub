@@ -138,25 +138,9 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
         this.credentials = credentials;
     }
 
-    @Parameter(optional = true, name = "messageHubCredentialsFile", description = SplDoc.PARAM_MESSAGE_HUB_CREDS_FILE_DEPRECATED)
-    public void setMessageHubCredsFile (String filename) {
-        this.credentialsFilename = filename;
-    }
-
     @Parameter(optional = true, name="credentialsFile", description = SplDoc.PARAM_CREDS_FILE)
     public void setCredsFile (String filename) {
         this.credentialsFilename = filename;
-    }
-
-
-    @ContextCheck (compile = true, runtime = false)
-    public static void checkCredentialsFileParamDeprecation (OperatorContextChecker checker) {
-        Set<String> paramNames = checker.getOperatorContext().getParameterNames();
-        if (paramNames.contains ("messageHubCredentialsFile")) {
-            System.err.println ("The parameter 'messageHubCredentialsFile' has been deprecated and may be removed in future versions. "
-                    + "Please use 'credentialsFile' instead.");
-            checker.checkExcludedParameters ("messageHubCredentialsFile", "credentialsFile");
-        }
     }
 
 
