@@ -116,7 +116,7 @@ import com.ibm.streamsx.messagehub.operators.utils.ServiceCredentialsUtil;
             + "it will stop fetching Kafka messages and stop submitting tuples.", 
             cardinality = 1, optional = true, controlPort = true)})
 @OutputPorts({
-    @OutputPortSet(description = "Port that produces tuples", cardinality = 1, optional = false, windowPunctuationOutputMode = WindowPunctuationOutputMode.Generating) })
+    @OutputPortSet(description = "Port that produces tuples", cardinality = 1, optional = false, windowPunctuationOutputMode = WindowPunctuationOutputMode.Free) })
 public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
     private static final Logger logger = Logger.getLogger(MessageHubConsumerOperator.class);
 
