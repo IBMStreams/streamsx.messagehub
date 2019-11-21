@@ -62,9 +62,9 @@ public class SplDoc {
             + " 3. The operator will automatically look for the file `<application_directory>/etc/eventstreams.json` and "
             + "will extract the information needed to connect.\\n"
             + "\\n"
-            + "**NOTE 1:** Users can use the **credentialsFile** parameter to specify a different file containing "
+            + "**NOTE:** Users can use the **credentialsFile** parameter to specify a different file containing "
             + "the Event Streams service credentials JSON.\\n"
-            + "**NOTE 2:** The default file name `etc/messagehub.json` from the 1.x toolkit versions is still supported, but deprecated.\\n";
+            ;
 
     public static final String SAVE_CREDENTIALS_IN_APP_CONFIG_PROPERTY= ""
             + "**3. Save Credentials in an Application Configuration Property**\\n"
@@ -90,9 +90,7 @@ public class SplDoc {
             + "`eventstreams` is used. Looking at the other way round, when the default application configuration name "
             + "`eventstreams` is used, but not specified as **appConfigName** parameter value, only the service credentials "
             + "are used from this application configuration.\\n"
-            + "\\n"
-            + "**NOTE 3:** The default application configuration name `messagehub` and the property name `messagehub.creds` "
-            + "from the 1.x toolkit versions is still supported, but deprecated.\\n";
+            ;
 
     public static final String DEFAULT_CREDENTIAL_PARAMETERS = "" 
             + "---\\n"
@@ -101,17 +99,10 @@ public class SplDoc {
             + "| **appConfigName** | `eventstreams` | Users can choose to place the raw Event Streams credentials JSON in a property "
             + "called `eventstreams.creds` in an application configuration called `eventstreams`. "
             + "The operator will extract the information needed to connect to Event Streams. |\\n"
-            + "|   |   |   |\\n"
-            + "|   |   | The old default values `messagehub` for the **appConfigName** parameter as well as the property name `messagehub.creds` are deprecated. "
-            + "The support for these legacy values may be removed in next major toolkit version. |\\n"
             + "|---|\\n"
             + "| **credentialsFile** | `etc/eventstreams.json` | Users can paste the raw Event Streams credentials JSON into "
             + "a file pointed to by this parameter. The operator will extract the information needed to connect to Event Streams. "
             + "By default, the operator will look for a file called `etc/eventstreams.json`. |\\n"
-            + "|---|\\n"
-            + "| **messageHubCredentialsFile** | `etc/messagehub.json` | This parameter has been deprecated. "
-            + "Please use the **credentialsFile** parameter instead. This parameter and the support for `etc/messagehub.json` as "
-            + "default file name may be removed in next major toolkit version. |\\n"
             + "---\\n";
 
 
