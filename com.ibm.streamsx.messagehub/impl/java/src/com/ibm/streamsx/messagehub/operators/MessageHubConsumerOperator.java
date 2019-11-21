@@ -124,6 +124,15 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
     private String credentials = null;
     private ServiceCredentialsUtil credentialsUtil = null;
 
+    /**
+     * This method hides the parameter 'staticGroupMember' from the base class 
+     * as static group membership is not (yet) supported in event streams.
+     * @see com.ibm.streamsx.kafka.operators.AbstractKafkaConsumerOperator#setStaticGroupMember(boolean)
+     */
+    @Override
+    public void setStaticGroupMember (boolean staticGrpMember) {
+    }
+
     @Parameter (optional = true, name = "credentials", description = SplDoc.PARAM_CREDENTIALS)
     public void setCredentials (String credentials) {
         this.credentials = credentials;
