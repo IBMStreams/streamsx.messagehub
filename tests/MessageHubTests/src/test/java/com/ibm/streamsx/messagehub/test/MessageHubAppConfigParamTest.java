@@ -51,7 +51,7 @@ public class MessageHubAppConfigParamTest extends AbstractMessageHubTest {
 
     @Before
     public void setup() throws Exception {
-        String creds = new String(Files.readAllBytes(Paths.get("etc/messagehub.json")));
+        String creds = new String(Files.readAllBytes(Paths.get("etc/credentials.json")));
         creds = APPCONFIG_PROP_NAME + "=" + creds.replace("=", "&#61;");
 
         ProcessBuilder pb = new ProcessBuilder(System.getenv("STREAMS_INSTALL") + "/bin/streamtool", "rmappconfig", "--noprompt", APPCONFIG_NAME);

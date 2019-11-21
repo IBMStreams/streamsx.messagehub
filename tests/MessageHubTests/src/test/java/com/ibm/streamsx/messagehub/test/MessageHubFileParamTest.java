@@ -52,7 +52,7 @@ public class MessageHubFileParamTest extends AbstractMessageHubTest {
 
     @Before
     public void setup() throws Exception {
-        Files.copy (Paths.get ("etc/messagehub.json"), Paths.get (MESSAGEHUB_CREDS_FILE_PATH), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy (Paths.get ("etc/credentials.json"), Paths.get (MESSAGEHUB_CREDS_FILE_PATH), StandardCopyOption.REPLACE_EXISTING);
     }
 
     @After
