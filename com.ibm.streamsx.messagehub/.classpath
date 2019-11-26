@@ -29,7 +29,7 @@
 			<attribute name="javadoc_location" value="jar:file:/home/rolef/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.1/826a4f336b856f2d4077b396ecfe354765c43547/gson-2.8.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/rolef/.gradle/caches/modules-2/files-2.1/IBMStreams/streamsx.kafka/v3.0.0_beta/6b6e5cc41590a0202641b2810fca530616e953dd/streamsx.kafka-v3.0.0_beta.zip"/>
+	<classpathentry kind="lib" path="/home/rolef/.gradle/caches/modules-2/files-2.1/IBMStreams/streamsx.kafka/v3.0.0/47597d440b960809bbdaf1603378b524b114d568/streamsx.kafka-v3.0.0.zip"/>
 	<classpathentry sourcepath="/home/rolef/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.26/21c84cdf9da108216b5e402611d4af479b60cb8/slf4j-api-1.7.26-sources.jar" kind="lib" path="/home/rolef/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.26/77100a62c2e6f04b53977b9f541044d7d722693d/slf4j-api-1.7.26.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/home/rolef/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.26/83863db711c68b9d5542c5fa0cd801b7035281d7/slf4j-api-1.7.26-javadoc.jar!/"/>
@@ -66,6 +66,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/rolef/infosphereStreams/streams_install_dir_43/4.3.0.0/lib/com.ibm.streams.operator.jar"/>
-	<classpathentry kind="lib" path="/home/rolef/infosphereStreams/development/tk/streamsx.messagehub/com.ibm.streamsx.messagehub/opt/downloaded/com.ibm.streamsx.kafka-3.0.0._dev.jar"/>
-	<classpathentry kind="lib" path="/home/rolef/infosphereStreams/development/tk/streamsx.messagehub/com.ibm.streamsx.messagehub/opt/downloaded/com.ibm.streamsx.kafka-2.2.1.jar"/>
+	<classpathentry kind="lib" path="/home/rolef/infosphereStreams/development/tk/streamsx.messagehub/com.ibm.streamsx.messagehub/opt/downloaded/com.ibm.streamsx.kafka-3.0.0.jar"/>
 </classpath>
