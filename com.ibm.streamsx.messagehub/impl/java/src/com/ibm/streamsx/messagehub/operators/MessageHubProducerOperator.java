@@ -49,7 +49,7 @@ import com.ibm.streamsx.messagehub.operators.utils.ServiceCredentialsUtil;
             + "that takes a JSON formatted description "
             + "of the occured error, or remains *empty* for successfully produced tuples. Emptiness of the attribute means that the attribute contains a "
             + "string with zero length when declared as `rstring` or `ustring`, and an empty optional (optional without a value) when declared as optional. "
-            + "Both attributes can have any names and can be declared in any sequence in the schema.\\n"
+            + "Both attributes can have any names and can be declared in any order in the schema.\\n"
             + "\\n"
             + "**Example for declaring the output stream as error output:**\\n"
             + "\\n"
