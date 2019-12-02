@@ -14,21 +14,18 @@
 package com.ibm.streamsx.messagehub.operators;
 
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.ibm.streams.operator.OperatorContext.ContextCheck;
-import com.ibm.streams.operator.compile.OperatorContextChecker;
 import com.ibm.streams.operator.model.Icons;
 import com.ibm.streams.operator.model.InputPortSet;
 import com.ibm.streams.operator.model.InputPorts;
 import com.ibm.streams.operator.model.Libraries;
 import com.ibm.streams.operator.model.OutputPortSet;
+import com.ibm.streams.operator.model.OutputPortSet.WindowPunctuationOutputMode;
 import com.ibm.streams.operator.model.OutputPorts;
 import com.ibm.streams.operator.model.Parameter;
 import com.ibm.streams.operator.model.PrimitiveOperator;
-import com.ibm.streams.operator.model.OutputPortSet.WindowPunctuationOutputMode;
 import com.ibm.streamsx.kafka.operators.AbstractKafkaProducerOperator;
 import com.ibm.streamsx.kafka.operators.KafkaSplDoc;
 import com.ibm.streamsx.messagehub.operators.utils.ServiceCredentialsUtil;
@@ -48,8 +45,10 @@ import com.ibm.streamsx.messagehub.operators.utils.ServiceCredentialsUtil;
             + "may also differ from the sequence of the input tuples. Window punctuations from the input stream are not forwarded.\\n"
             + "\\n"
             + "The schema of the output port must consist of one optional attribute of tuple type with the same schema "
-            + "as the input port and one optional attribute of type `rstring` or `ustring`, that takes a JSON formatted description "
-            + "of the occured error, or remains empty (zero length) for successfully produced tuples. "
+            + "as the input port and one optional attribute of type `rstring`, `ustring`, `optional<rstring>`, or `optional<ustring>`, "
+            + "that takes a JSON formatted description "
+            + "of the occured error, or remains *empty* for successfully produced tuples. Emptiness of the attribute means that the attribute contains a "
+            + "string with zero length when declared as `rstring` or `ustring`, and an empty optional (optional without a value) when declared as optional. "
             + "Both attributes can have any names and can be declared in any sequence in the schema.\\n"
             + "\\n"
             + "**Example for declaring the output stream as error output:**\\n"
@@ -66,13 +65,12 @@ import com.ibm.streamsx.messagehub.operators.utils.ServiceCredentialsUtil;
             + "        \\\"lastFailure\\\":\\\"Not authorized to access topics: [topic1]\\\"\\n"
             + "    }\\n"
             + ""
-            + "Please note that the generated JSON dows not contain line breaks as in the example above, where the JSON has "
+            + "Please note that the generated JSON does not contain line breaks as in the example above, where the JSON has "
             + "been broken into multiple lines to better show its structure.\\n"
             + "\\n"
             + "**Example for declaring the output stream for both successfully produced input tuples and failures:**\\n"
             + "\\n"
-            + "    // 'failure' attribute will have zero length for successfully produced input tuples\\n"
-            + "    stream <Inp inTuple, rstring failure> ProduceStatus = MessageHubProducer (Data as Inp) {\\n"
+            + "    stream <Inp inTuple, optional<rstring> failure> ProduceStatus = MessageHubProducer (Data as Inp) {\\n"
             + "        param\\n"
             + "            outputErrorsOnly: false;\\n"
             + "        ...\\n"
