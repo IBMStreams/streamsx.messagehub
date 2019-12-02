@@ -37,19 +37,47 @@ import com.ibm.streamsx.messagehub.operators.utils.ServiceCredentialsUtil;
 @Icons(location16 = "icons/MessageHubConsumer_16.png", location32 = "icons/MessageHubConsumer_32.png")
 @Libraries({"opt/downloaded/*", "impl/lib/*"})
 @InputPorts({
-    @InputPortSet(description = "This port is used to specify the topic-partition offsets that the consumer should begin reading messages from. When this "
-            + "port is specified, the operator will ignore the `topic`, `partition` and `startPosition` parameters. The operator will only begin "
-            + "consuming messages once a tuple is received on this port. Each tuple received on this port will cause the operator to "
-            + "seek to the offsets for the specified topic-partitions. This works as follows: "
+    @InputPortSet(description = ""
+            + "This port is used to specify the topics or topic partitions that the consumer should begin reading messages from. When this "
+            + "port is specified, the `topic`, `partition` and `startPosition` parameters cannot be used. The operator will only begin "
+            + "consuming messages once a tuple is received on this port, which specifies a partition assignment or a topic subscription.\\n"
             + "\\n"
-            + " * To seek to the beginning of a topic-partition, set the value of the offset to `-2.`\\n"
-            + " * To seek to the end of a topic-partition, set the value of the offset attribute to `-1.`\\n"
-            + " * To start fetching from the default position, omit the offset attribute or set the value of the offset to `-3`\\n"
-            + " * Any other value will cause the operator to seek to that offset value. If that value does not exist, then the operator will use the "
-            + "`auto.offset.reset` policy to determine where to begin reading messages from.\\n"
+            + "When the MessageHubConsumer participates in a consistent region, only partition assignment via control port is supported. **The support "
+            + "of consistent region with the control port is deprecated and may be removed in next major toolkit version.**\\n"
             + "\\n"
-            + "This input port must contain a single `rstring` attribute. In order to add or remove a topic partition, the attribute must contain "
-            + "a JSON string in the following format: \\n"
+            + "When a *topic subscription* is specified, the operator benefits from Kafka's group management (Kafka assigns the partitions to consume). "
+            + "When an *assignment* is specified in a control tuple, the operator self-assigns to the given partition(s) of the given topic(s). "
+            + "Assignments and subscriptions via control port cannot be mixed. Note, that it is not possible to use both assignment and subscription, "
+            + "it is also not possible to subscribe after a previous assignment and unassignment, and vice versa.\\n"
+            + "This input port must contain a single `rstring` attribute that takes a JSON formatted string.\\n"
+            + "\\n"
+            + "**Adding or removing a topic subscription**\\n"
+            + "\\n"
+            + "To add or remove a topic subscription, the single `rstring` attribute must contain "
+            + "a JSON string in the following format:\\n"
+            + "\\n"
+            + "    {\\n"
+            + "      \\\"action\\\" : \\\"ADD\\\" or \\\"REMOVE\\\",\\n" 
+            + "      \\\"topics\\\" : [\\n" 
+            + "        {\\n"
+            + "          \\\"topic\\\" : \\\"topic-name\\\"\\n"
+            + "        },\\n" 
+            + "        ...\\n" 
+            + "      ]\\n"  
+            + "    }\\n"
+            + "\\n"
+            + "The following types and convenience functions are available to aid in creating the JSON string: \\n"
+            + "\\n"
+            + "* `rstring createMessageAddTopic (rstring topic);`\\n"
+            + "* `rstring createMessageAddTopics (list<rstring> topics);`\\n"
+            + "* `rstring createMessageRemoveTopic (rstring topic)`\\n"
+            + "* `rstring createMessageRemoveTopics (list<rstring> topics);`\\n"
+            + "\\n"
+            + "\\n"
+            + "**Adding or removing a manual partition assignment**\\n"
+            + "\\n"
+            + "To add or remove a topic partition assignment, the single `rstring` attribute must contain "
+            + "a JSON string in the following format:\\n"
             + "\\n"
             + "    {\\n"
             + "      \\\"action\\\" : \\\"ADD\\\" or \\\"REMOVE\\\",\\n" 
@@ -63,23 +91,32 @@ import com.ibm.streamsx.messagehub.operators.utils.ServiceCredentialsUtil;
             + "      ]\\n"  
             + "    }\\n"
             + "\\n"
-            + "The following types and convenience functions are available to aid in creating the messages: \\n"
+            + "The `offset` element is optional. It specifies the offset of the first record to consume from "
+            + "the topic partition. This works as follows: "
+            + "\\n"
+            + " * To seek to the beginning of a topic-partition, set the value of the offset to `-2.`\\n"
+            + " * To seek to the end of a topic-partition, set the value of the offset attribute to `-1.`\\n"
+            + " * To start fetching from the default position, omit the offset attribute or set the value of the offset to `-3`\\n"
+            + " * Any other value will cause the operator to seek to that offset value. If that value does not exist, then the operator will use the "
+            + "`auto.offset.reset` policy to determine where to begin reading messages from.\\n"
+            + "\\n"
+            + "The following types and convenience functions are available to aid in creating the JSON string: \\n"
             + "\\n"
             + "* `type Control.TopicPartition = rstring topic, int32 partition;`\\n"
             + "* `type Control.TopicPartitionOffset = rstring topic, int32 partition, int64 offset;`\\n"
-            + "* `rstring addTopicPartitionMessage (rstring topic, int32 partition, int64 offset);`\\n" 
-            + "* `rstring addTopicPartitionMessage (rstring topic, int32 partition);`\\n" 
-            + "* `rstring addTopicPartitionMessage (list<Control.TopicPartitionOffset> topicPartitionsToAdd);`\\n" 
-            + "* `rstring addTopicPartitionMessage (list<Control.TopicPartition> topicPartitionsToAdd);`\\n" 
-            + "* `rstring removeTopicPartitionMessage (rstring topic, int32 partition);`\\n" 
-            + "* `rstring removeTopicPartitionMessage (list<Control.TopicPartition> topicPartitionsToRemove);`\\n"
+            + "* `rstring createMessageRemoveTopicPartition (rstring topic, int32 partition);`\\n" 
+            + "* `rstring createMessageAddTopicPartition (rstring topic, int32 partition, int64 offset);`\\n" 
+            + "* `rstring createMessageAddTopicPartition (list<Control.TopicPartitionOffset> topicPartitionsToAdd);`\\n" 
+            + "* `rstring createMessageAddTopicPartition (list<Control.TopicPartition> topicPartitionsToAdd);`\\n"
+            + "* `rstring createMessageRemoveTopicPartition (rstring topic, int32 partition);`\\n" 
+            + "* `rstring createMessageRemoveTopicPartition (list<Control.TopicPartition> topicPartitionsToRemove);`\\n"
             + "\\n"
             + "**Important Note:** This input port must not receive a final punctuation. Final markers are automatically "
             + "forwarded causing downstream operators close their input ports. When this input port receives a final marker, "
-            + "it will stop fetching messages from event streams and stop submitting tuples.", 
+            + "it will stop fetching Kafka messages and stop submitting tuples.", 
             cardinality = 1, optional = true, controlPort = true)})
 @OutputPorts({
-    @OutputPortSet(description = "Port that produces tuples", cardinality = 1, optional = false, windowPunctuationOutputMode = WindowPunctuationOutputMode.Generating) })
+    @OutputPortSet(description = "Port that produces tuples", cardinality = 1, optional = false, windowPunctuationOutputMode = WindowPunctuationOutputMode.Free) })
 public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
     private static final Logger logger = Logger.getLogger(MessageHubConsumerOperator.class);
 
@@ -87,30 +124,23 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
     private String credentials = null;
     private ServiceCredentialsUtil credentialsUtil = null;
 
+    /**
+     * This method hides the parameter 'staticGroupMember' from the base class 
+     * as static group membership is not (yet) supported in event streams.
+     * @see com.ibm.streamsx.kafka.operators.AbstractKafkaConsumerOperator#setStaticGroupMember(boolean)
+     */
+    @Override
+    public void setStaticGroupMember (boolean staticGrpMember) {
+    }
+
     @Parameter (optional = true, name = "credentials", description = SplDoc.PARAM_CREDENTIALS)
     public void setCredentials (String credentials) {
         this.credentials = credentials;
     }
 
-    @Parameter(optional = true, name = "messageHubCredentialsFile", description = SplDoc.PARAM_MESSAGE_HUB_CREDS_FILE_DEPRECATED)
-    public void setMessageHubCredsFile (String filename) {
-        this.credentialsFilename = filename;
-    }
-
     @Parameter(optional = true, name="credentialsFile", description = SplDoc.PARAM_CREDS_FILE)
     public void setCredsFile (String filename) {
         this.credentialsFilename = filename;
-    }
-
-
-    @ContextCheck (compile = true, runtime = false)
-    public static void checkCredentialsFileParamDeprecation (OperatorContextChecker checker) {
-        Set<String> paramNames = checker.getOperatorContext().getParameterNames();
-        if (paramNames.contains ("messageHubCredentialsFile")) {
-            System.err.println ("The parameter 'messageHubCredentialsFile' has been deprecated and may be removed in future versions. "
-                    + "Please use 'credentialsFile' instead.");
-            checker.checkExcludedParameters ("messageHubCredentialsFile", "credentialsFile");
-        }
     }
 
 
@@ -170,7 +200,7 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
             + "\\n"
             + "The priority of the above options is\\n"
             + "1. **credentials** operator parameter (both file and application config are ignored)\\n"
-            + "1. credentials stored in a file, also when the default filename `etc/eventstreams.json` or the deprecated default `etc/messagehub.json` is used (application config is ignored)\\n"
+            + "1. credentials stored in a file, also when the default filename `etc/eventstreams.json` is used (application config is ignored)\\n"
             + "1. application configuration\\n"
             + "\\n"
             + SplDoc.CREDENTIALS_PARAM
@@ -211,9 +241,9 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
             + "\\n"
             + KafkaSplDoc.CONSUMER_EXPOSED_KAFKA_METRICS
             + "\\n"
-            + KafkaSplDoc.CONSUMER_KAFKA_GROUP_MANAGEMENT
-            + "\\n"
             + KafkaSplDoc.CONSUMER_COMMITTING_OFFSETS
+            + "\\n"
+            + KafkaSplDoc.CONSUMER_KAFKA_GROUP_MANAGEMENT
             + "\\n"
             + KafkaSplDoc.CONSUMER_CHECKPOINTING_CONFIG
             + "\\n"

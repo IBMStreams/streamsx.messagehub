@@ -97,17 +97,6 @@
  * In addition to the properties above, some more properties are setup or adjusted specific for the operators.
  * For reference, review the operator's documentation.
  *
- * + Deprecation note
- * 
- * The toolkit version 2.x deprecates following items:
- * 
- * * The **messageHubCredentialsFile** parameter. Please use the **credentialsFile** parameter instead
- * * The default filename `etc/messagehub.json` for service credentials. Please use `etc/eventstreams.json` when you want to use a default filename.
- * * The default name `messagehub` for an application configuration. Please use `eventstreams` as name for the application configuration when you want to use a default.
- * * The property name `messagehub.creds` within an application configuration. Please name the property for the Event Streams credentials `eventstreams.creds`.
- * 
- * The deprecated items are still supported by this toolkit version, but may be removed in next major toolkit version 3.0.
- * 
  * + Tracing Kafka properties
  * 
  * For testing it might desirable to see all effective Kafka Consumer or Producer properties, also those 

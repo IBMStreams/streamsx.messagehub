@@ -51,7 +51,7 @@ public class MessageHubCredentialsParamTest  extends AbstractMessageHubTest {
     @Before
     public void setup() throws Exception {
         // read the file content into the String 'rawCredentials'
-        rawCredentials = new String (Files.readAllBytes (Paths.get ("etc/messagehub.json")));
+        rawCredentials = new String (Files.readAllBytes (Paths.get ("etc/credentials.json")));
     }
 
     @After

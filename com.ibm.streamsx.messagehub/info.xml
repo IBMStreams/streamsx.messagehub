@@ -16,6 +16,42 @@ which simplifies the setup for connecting to the cloud service.
 
 This is an overview of changes for major and minor version upgrades. For details see the [https://github.com/IBMStreams/streamsx.messagehub/releases|Releases in public Github].
 
+++ What's new in version 3.0
+
+This toolkit version is based on the streamsx.kafka toolkit release 3.0.0, which introduces new features.
+
+# New features
+
+* The included Kafka client has been upgraded from version 2.2.1 to 2.3.1.
+* The schema of the output port of the `KafkaProducer` operator supports optional types for the error description.
+* The optional input port of the `MessageHubConsumer` operator can be used to change the *topic subscription*, not only the *partition assignment*.
+* The **guaranteeOrdering** parameter now enables the idempotent producer when set to `true`, which allows a higher throughput by allowing more
+  in-flight requests per connection.
+* The `MessageHubConsumer` operator now enables and benefits from group management when the user does not specify a group identifier.
+* Checkpoint reset of the `MessageHubConsumer` is optimized in consistent region when the operator is the only group member.
+* The `MessageHubConsumer` operator now uses `read_committed` as the `isolation.level` configuration unless the user has specified a different value. 
+  In `read_committed` mode, the consumer will read only those transactional messages which have been successfully committed. 
+  Messages of aborted transactions are now skipped. The consumer will continue to read non-transactional messages as before.
+
+# Deprecated features
+
+The use of the input control port has been deprecated when the `MessageHubConsumer` is used in a consistent region.
+
+# Incompatible changes
+
+* Removal of items that have been deprecated in toolkit version 2.x
+  * The **messageHubCredentialsFile** parameter has been removed. Please use the **credentialsFile** parameter instead
+  * The default filename `etc/messagehub.json` for service credentials is not read any more. 
+    Please use `etc/eventstreams.json` when you want to use a default filename.
+  * The default name `messagehub` for an application configuration is not read any more. 
+    Please use `eventstreams` as name for the application configuration when you want to use a default.
+  * The property name `messagehub.creds` within an application configuration is not read any more. 
+    Please name the property for the Event Streams credentials `eventstreams.creds`.
+* The toolkit requires at minimum Streams version 4.3.
+* When the `MessageHubConsumer` operator is configured with input port, the **topic**, **pattern**, **partition**, and **startPosition** 
+  parameters used to be ignored in previous versions. Now an SPL compiler failure is raised when one of these parameters is used 
+  together with the input port.
+
 ++ What's new in version 2.2.1
 
 This toolkit version is based on the streamsx.kafka bugfix release 2.2.1, which fixes loss of output tuples on the optional status port of the Producer operator when the input port receives a FinalMarker.
@@ -165,8 +201,8 @@ continues fetching at the last committed offset.
 * The MessageHubConsumer operator exposes some performance metrics of the consumer client as operator metrics, like the lag for each topic partition.
 
    </info:description>
-   <info:version>2.2.1</info:version>
-   <info:requiredProductVersion>4.2.0.0</info:requiredProductVersion>
+   <info:version>3.0.0</info:version>
+   <info:requiredProductVersion>4.3.0.0</info:requiredProductVersion>
  </info:identity>
  <info:dependencies/>
 </info:toolkitInfoModel>
