@@ -11,12 +11,17 @@ sidebar:
 {% include toc %}
 {%include editme %}
 
-### v2.2.x (latest)
+
+### v3.0.x (latest)
 
 [Toolkit Documentation (SPLDoc)](/streamsx.messagehub/doc/spldoc/html/)
 
 
 ### Toolkit documentation for previous versions
+
+#### v2.2.x
+
+[Toolkit Documentation (SPLDoc)](/streamsx.messagehub/doc/v2.2.1/spldoc/html/)
 
 #### v2.1.0
 
