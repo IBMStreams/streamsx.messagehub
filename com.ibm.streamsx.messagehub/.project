@@ -2,22 +2,23 @@
 <projectDescription>
 	<name>com.ibm.streamsx.messagehub</name>
 	<comment></comment>
-	<projects>
-	</projects>
+	<projects/>
+	<natures>
+		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
+		<nature>com.ibm.streams.studio.splproject.SPLProjectNature</nature>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
 	<buildSpec>
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
-			<arguments>
-			</arguments>
+			<arguments/>
 		</buildCommand>
 		<buildCommand>
 			<name>org.eclipse.xtext.ui.shared.xtextBuilder</name>
-			<arguments>
-			</arguments>
+			<arguments/>
 		</buildCommand>
 		<buildCommand>
 			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
-			<triggers>full,incremental,</triggers>
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
@@ -26,9 +27,6 @@
 			</arguments>
 		</buildCommand>
 	</buildSpec>
-	<natures>
-		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
-		<nature>com.ibm.streams.studio.splproject.SPLProjectNature</nature>
-		<nature>org.eclipse.jdt.core.javanature</nature>
-	</natures>
+	<linkedResources/>
+	<filteredResources/>
 </projectDescription>
