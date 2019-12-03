@@ -2,7 +2,7 @@
 title: "Toolkit Usage Overview"
 permalink: /docs/user/overview/
 excerpt: "How to use this toolkit."
-last_modified_at: 2018-02-22T12:37:48+01:00
+last_modified_at: 2019-12-03T12:37:48+01:00
 redirect_from:
    - /theme-setup/
 sidebar:
@@ -42,8 +42,8 @@ There are three standard patterns for Streams reading messages from Event Stream
 * [**Kafka consumer group**](https://ibmstreams.github.io/streamsx.messagehub/docs/user/UsecaseConsumerGroup/) - the partitions of a topic are automatically assigned to multiple `MessageHubConsumer` invocations for consumption
 * [**Assigned partitions**](https://ibmstreams.github.io/streamsx.messagehub/docs/user/UsecaseAssignedPartitions/) - Multiple `MessageHubConsumer` invocations with each invocation assigned specific partitions.
 
-The MessageHubConsumer operator can be configured with additional 
-[Kafka consumer properties](https://kafka.apache.org/10/documentation.html#newconsumerconfigs). These can be specified in a property file or in the application configuration that contains also the credentials. The examples in the standard patterns use an application configuration. Some operator parameters, like **groupId**, and **clientId** map directly to properties. Other properties are adjusted by the operator. Which one, can be reviewed in the [SPL documentation](https://ibmstreams.github.io/streamsx.messagehub/docs/user/SPLDoc/) of the operators.
+The MessageHubConsumer operator can be configured with additional
+[Kafka consumer properties](https://kafka.apache.org/documentation.html#consumerconfigs). These can be specified in a property file or in the application configuration that contains also the credentials. The examples in the standard patterns use an application configuration. Some operator parameters, like **groupId**, and **clientId** map directly to properties. Other properties are adjusted by the operator. Which one, can be reviewed in the [SPL documentation](https://ibmstreams.github.io/streamsx.messagehub/docs/user/SPLDoc/) of the operators.
 
 **Property example of the application configuration**
 
@@ -51,17 +51,18 @@ The MessageHubConsumer operator can be configured with additional
 | --- | --- |
 | messagehub.creds | { "api_key": "Tv39...eT", ..., ..., "user": "token" } |
 | max.poll.records | 2000 |
-| isolation.level | read_committed |
 | auto.offset.reset | earliest |
 
 Each such a collection of properties has a name, the name of the application configuration, which must be configured as the **appConfigName** parameter.
 
 # Samples
 
-* [MessageHubAppConfigSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/MessageHubAppConfigSample)
-* [MessageHubFileSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/MessageHubFileSample)
-* [MessageHubConsumerInputPortSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/MessageHubConsumerInputPortSample)
-* [MessageHubConsumerGroupWithConsistentRegion](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/MessageHubConsumerGroupWithConsistentRegion)
+* [AppConfigSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/AppConfigSample) - use an application configuration to configure the service credentials
+* [CredentialsFileSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/CredentialsFileSample) - use a JSON file to configure the service credentials
+* [CredentialsParamSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/CredentialsParamSample) - use an operator parameter to specify the JSON credentials
+* [ConsumerInputPortSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/ConsumerInputPortSample) - control the topic partitions to consume via control input port
+* [ConsumerGroupInputPortSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/ConsumerGroupInputPortSample) - control the topics to subscribe for a consumer group via control port
+* [ConsumerGroupWithConsistentRegion](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/ConsumerGroupWithConsistentRegion) - create a consumer group with at-least-once processing in a consistent region
 
 
 It is also worth looking at the samples of the Kafka toolkit, which can be found [here](https://ibmstreams.github.io/streamsx.kafka/docs/user/overview/).

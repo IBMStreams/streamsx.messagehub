@@ -2,7 +2,7 @@
 title: "Usecase: Kafka Consumer Group"
 permalink: /docs/user/UsecaseConsumerGroup/
 excerpt: "How to use this toolkit."
-last_modified_at: 2018-10-18T12:37:48+01:00
+last_modified_at: 2019-12-03T12:37:48+01:00
 redirect_from:
    - /theme-setup/
 sidebar:
@@ -21,12 +21,12 @@ Multiple `MessageHubConsumer` operators consume from the same topic(s) where the
 
 # Details
 
-`N` Consumer operators within a single streams graph (using UDP or manually added to graph) have the same consumer group id (Kafka consumer property `group.id`) accessing `M` partitions where (typically) N <= M.
+`N` Consumer operators within a single streams graph (using UDP or manually added to graph) have the same consumer group identifier (Kafka consumer property `group.id`) accessing `M` partitions where (typically) N <= M.
 
 Event Streams will:
 
-* automatically assign operators to partitions
-* reassign partitions during a failure
+* automatically assign partitions to operators
+* re-assign partitions during a failure
 
 If an operator or resource `Cx` fails then while the operator is restarting messages in the partition previously assigned to `Cx` will continue to be consumed by reassigning the partition to an existing operator `Cy`. When `Cx` recovers, it will re-join the group, and the partitions will be re-balanced.
 
@@ -51,7 +51,7 @@ Partition de-assignment and re-assignment can happen when
 * The broker node being the group coordinator goes down
 * Meta data of the subscribed topic changes, for example the number of partitions
 
-Partition re-assignment makes the consumer replay Kafka messages beginning with last committed offsets. 
+Partition re-assignment makes the consumer replay Kafka messages beginning with last committed offsets.
 
 # Pros and Contras
 
@@ -63,7 +63,7 @@ Partition re-assignment makes the consumer replay Kafka messages beginning with 
 # Guaranteed processing
 
 * Consistent region: Supported (periodic only)
-* Checkpointing via `config checkpoint`: Not supported
+* Checkpointing via `config checkpoint`: Supported, but ignored. The operator does not save any data.
 
 When the `MessageHubConsumer` operator is used in a consistent region, at least once processing through the Streams application is guaranteed.
 Without a consistent region, tuples can get lost within the Streams application when a PE restarts.
@@ -74,7 +74,7 @@ Without a consistent region, tuples can get lost within the Streams application 
 
 * No assignment of partitions is configured through the **partition** operator parameter.
 * A group identifier must be specified either by the consumer property `group.id`, or by using the **groupId** parameter, which would have precedence over a bare property.
-* When not in a consistent region, the **startPosition** parameter must not be specified or must have the value `Default`.
+* When not in a consistent region, the **startPosition** parameter must not be specified or must have the value `Default` (for toolkit versions < 2.0). Toolkit versions >= 2.0 also support `Beginning`, `End`, and `Time`.
 * When in a consistent region, the **startPosition** parameter must not be `Offset`.
 
 
@@ -114,7 +114,7 @@ graph
             commitCount: 1000;      // commit every 1000 messages
         config placement: partitionExlocation ("A");
     }
-    
+
     // do partitioned processing in Streams
     // messages with same key go always into the same parallel channel
     @parallel (width = 4, partitionBy = [{port = Messages, attributes = [messageKey]}])
@@ -135,20 +135,20 @@ param
     expression <int32> $N: (int32) getSubmissionTimeValue ("consumerGroupSize", "3");
 graph
     () as JCP = JobControlPlane() {}
-    
+
     @consistent (trigger = periodic, period = 60.0, drainTimeout = 300.0, maxConsecutiveResetAttempts = 10)
     @parallel (width = $N)
     stream <rstring json, rstring messageKey> Messages = MessageHubConsumer() {
         param
             // always specify the app config name when it contains Kafka properties like 'group.id',
-            // also when the default name 'messagehub' is used.
+            // also when the default name 'eventstreams' is used.
             appConfigName: "ConsumeEventStreams";
             topic: "myTopic";
             outputMessageAttributeName: "json";
             outputKeyAttributeName: "messageKey";
         config placement: partitionExlocation ("A");
     }
-    
+
     // do partitioned processing in Streams
     // messages with same key go always into the same parallel channel
     @parallel (width = 4, partitionBy = [{port = Messages, attributes = [messageKey]}])
@@ -163,10 +163,11 @@ graph
 
 ```
 
-The application option **ConsumeEventStreams** must contain a property with name `group.id` and the group identifier as the value in addition to `messagehub.creds`, for example
+The application option **ConsumeEventStreams** must contain a property with name `group.id` and the group identifier as the value in addition to `eventstreams.creds`, for example
 
 | property name | property value |
 | --- | --- |
-| messagehub.creds | { "api_key": "Tv39...eT", ..., ..., "user": "token" } |
+| eventstreams.creds | { "api_key": "Tv39...eT", ..., ..., "user": "token" } |
 | group.id | myConsumerGroup |
 
+**Note:** For toolkit versions < 2.0, add the property `messagehub.creds` to the application configuration to specify the Event Streams service credentials.

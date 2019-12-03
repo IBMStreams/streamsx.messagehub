@@ -2,7 +2,7 @@
 title: "Usecase: Assigned Partitions"
 permalink: /docs/user/UsecaseAssignedPartitions/
 excerpt: "How to use this toolkit."
-last_modified_at: 2018-10-18T12:37:48+01:00
+last_modified_at: 2019-12-03T12:37:48+01:00
 redirect_from:
    - /theme-setup/
 sidebar:
@@ -33,7 +33,7 @@ Each `MessageHubConsumer` operator is uniquely assigned a subset of the topic's 
 # Guaranteed processing
 
 * Consistent region: Supported (periodic and operator driven under certain conditions)
-* Checkpointing via `config checkpoint`: Not supported
+* Checkpointing via `config checkpoint`: Supported, but ignored. The operator does not save any data.
 
 When the operator is used in a consistent region, at least once processing through the Streams application is guaranteed.
 Without a consistent region, tuples can get lost within the Streams application when a PE restarts.
@@ -56,7 +56,7 @@ With manual invocation (e.g. explicitly invoke six operators with their own uniq
 
 ## Parameters / consumer properties
 
-* **partition** - set to specific partition to consume
+* **partition** - set to specific partition to consume, be aware that partition numbers begin with zero.
     * With manual invocation of multiple `MessageHubConsumer` operators partitions are explicitly defined, e.g. `partition: 0, 1;`
     * With UDP `getChannel()` can be used, e.g. simple case of 1-1 channel to partition: `partition: getChannel();`
 * No assignment of group identifier via **groupId** parameter or Kafka properties - more precisely, when the **partition** parameter is used, a group identifier has no effect for the operator configuration.
@@ -88,7 +88,7 @@ param
     expression <int32> $nPartitions: (int32) getSubmissionTimeValue ("nPartitions", "3");
 graph
     () as JCP = JobControlPlane() {}
-    
+
     @parallel (width = $nPartitions)
     @consistent (trigger = operatorDriven)
     () as PartitionChannel = SinglePartitionConsumer() {
@@ -121,7 +121,7 @@ graph
 
 ## Consume six partitions with 2-to-1 relation
 
-The below example assigns a number of partitions, here 6, to a number of consumers, each one in a parallel channel, where each consumer takes two partitions. 
+The below example assigns a number of partitions, here 6, to a number of consumers, each one in a parallel channel, where each consumer takes two partitions.
 ```
 public composite Assigned6Partitions {
 param
