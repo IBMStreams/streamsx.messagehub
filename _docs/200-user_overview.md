@@ -15,11 +15,10 @@ sidebar:
 
 The Message Hub toolkit contains two operators, the *MessageHubConsumer*, and the *MessageHubProducer*.
 The *MessageHubConsumer* operator consumes messages from an Event Streams topic and creates Tuples which are processed by
-other downstream operators of the Streams application. It is a source operator within your Streams application.
+other downstream operators of the Streams application. It is a source operator within a Streams application.
 
 The *MessageHubProducer* operator creates Kafka messages in the Event Streams service from tuples and acts therefore
-as a sink operator within your Streams application. For both, the MessageHubConsumer and the MessageHubProducer there is a one-to-one relationship between tuples and Event Streams messages.
-
+as a sink operator within your Streams application. The MessageHubConsumer has a one-to-one relationship between Kafka messages and produced tuples. for the MessageHubProducer there is a one-to-N relationship between tuples and Event Streams messages, where *N* is the number of topics for which a tuple is produced.
 The Event Streams cloud service is based on Kafka, so that this toolkit and most descriptions are strongly related to those of the [Kafka toolkit](https://github.com/IBMStreams/streamsx.kafka). Read more about how to use these operators in the [SPL documentaion](https://ibmstreams.github.io/streamsx.messagehub/doc/spldoc/html/).
 
 # Common consumer patterns and use cases
