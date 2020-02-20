@@ -2,7 +2,7 @@ namespace com.ibm.streamsx.messagehub.sample ;
 
 use com.ibm.streamsx.messagehub::* ;
 
-composite ConsumerGroupInputPortSample {
+public composite ConsumerGroupInputPortSample {
 
     graph
         // ================ producers that continuously populate the topics t1 and t2
