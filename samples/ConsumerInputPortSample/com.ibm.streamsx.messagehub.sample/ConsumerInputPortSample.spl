@@ -2,7 +2,7 @@ namespace com.ibm.streamsx.messagehub.sample ;
 
 use com.ibm.streamsx.messagehub::* ;
 
-composite ConsumerInputPortSample
+public composite ConsumerInputPortSample
 {
     graph
         (stream<rstring jsonString> TopicPartitionUpdateStream) as TopicPartitionUpdater = Custom() {
