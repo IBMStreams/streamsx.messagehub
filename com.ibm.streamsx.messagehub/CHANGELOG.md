@@ -1,5 +1,8 @@
 # Changes
 ==========
+## v3.1.0:
+* [IBMStreams/streamsx.messagehub/#109](https://github.com/IBMStreams/streamsx.messagehub/issues/109) no support for static consumer group membership
+
 ## v3.0.4:
 * [IBMStreams/streamsx.kafka/#203](https://github.com/IBMStreams/streamsx.kafka/issues/203) KafkaConsumer: assign output attributes via index rather than attribute name
 * [#105](https://github.com/IBMStreams/streamsx.messagehub/issues/105) Make main composites of samples public.
