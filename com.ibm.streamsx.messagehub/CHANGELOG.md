@@ -1,5 +1,8 @@
 # Changes
 ==========
+## latest (develop)
+* [IBMStreams/streamsx.messagehub/#113](https://github.com/IBMStreams/streamsx.messagehub/issues/113) MessageHubConsumer: add startPositionStr parameter to enable start position at submission time
+
 ## v3.1.0:
 * [IBMStreams/streamsx.messagehub/#109](https://github.com/IBMStreams/streamsx.messagehub/issues/109) no support for static consumer group membership
 
