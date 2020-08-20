@@ -311,10 +311,10 @@ public class ServiceCredentialsUtil {
         properties.put("ssl.enabled.protocols", "TLSv1.2"); //$NON-NLS-1$ //$NON-NLS-2$
         properties.put("ssl.endpoint.identification.algorithm", "HTTPS"); //$NON-NLS-1$ //$NON-NLS-2$
 
-        // for logging, we create a temporary set of properties, in which we replace SASL_JAAS_PROPERTIES by stars
+        // for logging, we create a temporary set of properties, in which we replace SASL_JAAS_PROPERTY username and password by stars
         KafkaOperatorProperties logProps = new KafkaOperatorProperties();
         logProps.putAll(properties);
-        if (logProps.containsKey(JaasUtil.SASL_JAAS_PROPERTY)) logProps.put (JaasUtil.SASL_JAAS_PROPERTY, "**********");
+        if (logProps.containsKey(JaasUtil.SASL_JAAS_PROPERTY)) logProps.put (JaasUtil.SASL_JAAS_PROPERTY, JaasUtil.getSaslJaasPropertyValue("***", "***"));
         TRACE.info ("Properties from Event Streams credentials: " + logProps); //$NON-NLS-1$
         return properties;
     }
