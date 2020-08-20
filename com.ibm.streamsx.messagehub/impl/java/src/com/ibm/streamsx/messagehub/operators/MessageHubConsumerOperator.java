@@ -14,12 +14,9 @@
 package com.ibm.streamsx.messagehub.operators;
 
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.ibm.streams.operator.OperatorContext.ContextCheck;
-import com.ibm.streams.operator.compile.OperatorContextChecker;
 import com.ibm.streams.operator.model.Icons;
 import com.ibm.streams.operator.model.InputPortSet;
 import com.ibm.streams.operator.model.InputPorts;
