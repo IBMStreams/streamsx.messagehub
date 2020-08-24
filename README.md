@@ -27,7 +27,7 @@ cd com.ibm.streamsx.messagehub
 
 ## Test
 
-- Create an Event Streams service instance in the [IBM Cloud](https://console.bluemix.net)
+- Create an Event Streams service instance in the [IBM Cloud](https://cloud.ibm.com)
 - In the IBM Event Streams service, create a topic "test".
 - Add the Message Hub JSON credentials to the `tests/MessageHubTests/etc/credentials.json` file.
 - Run the following commands to launch the tests:
