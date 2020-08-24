@@ -61,6 +61,7 @@ Each such a collection of properties has a name, the name of the application con
 * [CredentialsParamSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/CredentialsParamSample) - use an operator parameter to specify the JSON credentials
 * [ConsumerInputPortSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/ConsumerInputPortSample) - control the topic partitions to consume via control input port
 * [ConsumerGroupInputPortSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/ConsumerGroupInputPortSample) - control the topics to subscribe for a consumer group via control port
+* [ConsumerVariableStartPositionSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/ConsumerVariableStartPositionSample) - use submission time value for the MessageHubConsumer's start position
 * [ConsumerGroupWithConsistentRegion](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/ConsumerGroupWithConsistentRegion) - create a consumer group with at-least-once processing in a consistent region
 
 
