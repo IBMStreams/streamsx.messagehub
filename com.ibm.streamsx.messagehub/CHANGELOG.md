@@ -1,6 +1,9 @@
 # Changes
 ==========
-## latest (develop)
+## v3.2.1:
+* [IBMStreams/streamsx.messagehub/#114](https://github.com/IBMStreams/streamsx.messagehub/issues/114) toolkit includes a vulnerable log4j.jar
+
+## v3.2.0:
 * [IBMStreams/streamsx.messagehub/#113](https://github.com/IBMStreams/streamsx.messagehub/issues/113) MessageHubConsumer: add startPositionStr parameter to enable start position at submission time
 
 ## v3.1.0:
