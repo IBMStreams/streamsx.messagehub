@@ -95,7 +95,7 @@ task kafka {
 task getDeps(type: Copy) {
     into "opt/downloaded"
     from configurations.runtime
-    exclude '*streams*'
+    exclude '*streams*', 'log4j-*.jar'
 }
 
 task copyLibToImpl(type: Copy) {
