@@ -75,7 +75,7 @@ Without a consistent region, tuples can get lost within the Streams application 
 * No assignment of partitions is configured through the **partition** operator parameter.
 * A group identifier must be specified either by the consumer property `group.id`, or by using the **groupId** parameter, which would have precedence over a bare property.
 * When not in a consistent region, the **startPosition** parameter must not be specified or must have the value `Default` (for toolkit versions < 2.0). Toolkit versions >= 2.0 also support `Beginning`, `End`, and `Time`.
-* When in a consistent region, the **startPosition** parameter must not be `Offset`.
+* The **startPosition** parameter must not be `Offset`.
 
 
 ## Operator placement
