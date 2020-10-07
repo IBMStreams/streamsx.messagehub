@@ -27,7 +27,7 @@ Partition re-assignment makes the consumer replay Kafka messages beginning with 
 
 **Note:** MessageHub toolkits with version **below 3.0** behave different when *no group identifier* is specified:
 
-With toolkit version below 3.0, the consumer operator self-assignes all partitions of the topic, which are seen at startup. 
+With toolkit version below 3.0, the consumer operator self-assignes all partitions of the topic, which are seen at startup.
 When new partitions are added to the topic, the PE that contains the operator must be restarted to read also added partitions.
 
 # Pros and Contras
@@ -50,7 +50,7 @@ No assignment of partitions is configured through the **partition** operator par
 # Examples
 ## Consume messages without a key
 ```
-composite ConsumeAllPartitions {
+public composite ConsumeAllPartitions {
 graph
     stream <rstring json> Messages = MessageHubConsumer() {
         param
@@ -67,7 +67,7 @@ graph
 
 ## Consume keyed messages within an operator driven consistent region
 ```
-composite ConsumeAllPartitionsCrOperatorDriven {
+public composite ConsumeAllPartitionsCrOperatorDriven {
 graph
     () as JCP = JobControlPlane() {}
 
@@ -87,7 +87,7 @@ graph
 
 ## Consume keyed messages within a periodic consistent region
 ```
-composite ConsumeAllPartitionsCrPeriodic {
+public composite ConsumeAllPartitionsCrPeriodic {
 graph
     () as JCP = JobControlPlane() {}
 

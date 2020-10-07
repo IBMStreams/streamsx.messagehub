@@ -99,7 +99,7 @@ or
 ## Without consistent region
 
 ```
-composite ConsumerGroup {
+public composite ConsumerGroup {
 param
     expression <int32> $N: (int32) getSubmissionTimeValue ("consumerGroupSize", "3");
 graph
@@ -130,7 +130,7 @@ graph
 
 ## Consumer group in a consistent region, group-ID specified in the application configuration
 ```
-composite ConsumerGroupCR {
+public composite ConsumerGroupCR {
 param
     expression <int32> $N: (int32) getSubmissionTimeValue ("consumerGroupSize", "3");
 graph
@@ -163,7 +163,7 @@ graph
 
 ```
 
-In this example, the **groupId** parameter is not used. Then the application configuration **ConsumeEventStreams** must 
+In this example, the **groupId** parameter is not used. Then the application configuration **ConsumeEventStreams** must
 contain a property with name `group.id` and the group identifier as the value in addition to `eventstreams.creds`, for example
 
 | property name | property value |

@@ -83,7 +83,7 @@ or
 This example has a dedicated `MessageHubConsumer` operator for each partition. The number of partitions can be set at job submission time via a submission time parameter. In this example, every parallel channel is a separate consisitent region with a single trigger operator, so that an operator driven consistent region can be configured.
 
 ```
-composite Assigned3Partitions {
+public composite Assigned3Partitions {
 param
     expression <int32> $nPartitions: (int32) getSubmissionTimeValue ("nPartitions", "3");
 graph
