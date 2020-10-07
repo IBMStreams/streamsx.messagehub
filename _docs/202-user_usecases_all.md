@@ -2,7 +2,7 @@
 title: "Usecase: Consume All Partitions"
 permalink: /docs/user/UsecaseAllPartitions/
 excerpt: "How to use this toolkit."
-last_modified_at: 2019-12-03T12:37:48+01:00
+last_modified_at: 2020-10-07T08:37:48+01:00
 redirect_from:
    - /theme-setup/
 sidebar:
@@ -27,7 +27,8 @@ Partition re-assignment makes the consumer replay Kafka messages beginning with 
 
 **Note:** MessageHub toolkits with version **below 3.0** behave different when *no group identifier* is specified:
 
-The operator self-assignes to all partitions of the topic. When new partitions are added to the topic, the PE that contains the operator must be restarted to read also added partitions.
+With toolkit version below 3.0, the consumer operator self-assignes all partitions of the topic, which are seen at startup. 
+When new partitions are added to the topic, the PE that contains the operator must be restarted to read also added partitions.
 
 # Pros and Contras
 
