@@ -2,7 +2,7 @@
 title: "Usecase: Kafka Consumer Group"
 permalink: /docs/user/UsecaseConsumerGroup/
 excerpt: "How to use this toolkit."
-last_modified_at: 2019-12-03T12:37:48+01:00
+last_modified_at: 2020-10-07T08:37:48+01:00
 redirect_from:
    - /theme-setup/
 sidebar:
@@ -111,7 +111,7 @@ graph
             groupId: "myConsumerGroup";
             outputMessageAttributeName: "json";
             outputKeyAttributeName: "messageKey";
-            commitCount: 1000;      // commit every 1000 messages
+            commitPeriod: 10.0;      // commit offsets every 10 seconds
         config placement: partitionExlocation ("A");
     }
 
@@ -163,7 +163,8 @@ graph
 
 ```
 
-The application option **ConsumeEventStreams** must contain a property with name `group.id` and the group identifier as the value in addition to `eventstreams.creds`, for example
+In this example, the **groupId** parameter is not used. Then the application configuration **ConsumeEventStreams** must 
+contain a property with name `group.id` and the group identifier as the value in addition to `eventstreams.creds`, for example
 
 | property name | property value |
 | --- | --- |
