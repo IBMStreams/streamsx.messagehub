@@ -1,7 +1,7 @@
 # Changes
 ==========
 ## v3.2.2
-* [IBMStreams/streamsx.messagehub/#115](https://github.com/IBMStreams/streamsx.messagehub/issues/115) toolkit includes a vulnerable log4j.jar
+* [IBMStreams/streamsx.messagehub/#115](https://github.com/IBMStreams/streamsx.messagehub/issues/115) I18n: update message translations
 * [IBMStreams/streamsx.kafka/#224](https://github.com/IBMStreams/streamsx.kafka/issues/224) Application directory cannot be used as file location for files specified via system property and vmArg. This correction in the underlying Kafka toolkit is most likely irrelevant for this toolkit.
 * [IBMStreams/streamsx.kafka/#222](https://github.com/IBMStreams/streamsx.kafka/issues/222) KafkaConsumer: Reset of CR may fail when partitions are revoked before the reset actually happens
 
