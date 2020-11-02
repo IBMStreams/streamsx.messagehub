@@ -7,7 +7,12 @@ OUTPUT_DIR = output/$(SPL_NAMESPACE).$(COMPOSITE_NAME)
 
 SPLC_FLAGS = -a
 SPLC = $(STREAMS_INSTALL)/bin/sc
-SPL_PATH = ../..:$(STREAMS_INSTALL)/toolkits/com.ibm.streamsx.messagehub
+ifdef STREAMS_BUILDSERVICE
+  SPL_PATH = ../toolkits:$(STREAMS_INSTALL)/toolkits
+else
+  SPL_PATH = ../..:$(STREAMS_INSTALL)/toolkits/com.ibm.streamsx.messagehub
+endif
+
 
 all:
 	if [ -x ../../gradlew ]; then \

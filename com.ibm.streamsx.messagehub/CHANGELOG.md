@@ -1,5 +1,9 @@
 # Changes
 ==========
+
+## latest/develop
+* [#116](https://github.com/IBMStreams/streamsx.messagehub/issues/116) Makefiles of sample application prepared for CP4D Streams build service, supports build with [VS Code](https://marketplace.visualstudio.com/items?itemName=IBM.ibm-streams)
+
 ## v3.2.2
 * [IBMStreams/streamsx.messagehub/#115](https://github.com/IBMStreams/streamsx.messagehub/issues/115) I18n: update message translations
 * [IBMStreams/streamsx.kafka/#224](https://github.com/IBMStreams/streamsx.kafka/issues/224) Application directory cannot be used as file location for files specified via system property and vmArg. This correction in the underlying Kafka toolkit is most likely irrelevant for this toolkit.
