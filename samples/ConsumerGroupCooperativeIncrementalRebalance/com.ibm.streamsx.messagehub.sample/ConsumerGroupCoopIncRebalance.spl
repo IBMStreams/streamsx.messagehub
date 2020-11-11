@@ -1,0 +1,76 @@
+namespace com.ibm.streamsx.messagehub.sample ;
+
+use com.ibm.streamsx.messagehub::MessageHubConsumer ;
+use com.ibm.streamsx.messagehub::MessageHubProducer ;
+
+/*
+ * This sample is a consumer group example that enables the cooperative incremental rebalance protocol.
+ * This protocol shows its advantages when consumer groups and number of partitions get large.
+ * 
+ * In the SPL code we do not see anything of the rebalance feature. It is enabled by settings in 
+ * the etc/consumer.properties file.
+ * 
+ * When you kill or stop and restart a consumer's PE, you will see that not all other consumers are affected by the following rebalance that may happen. 
+ * When a rebalance happens, only one of those remaining consumers are affected, which take over the partitions of the killed consumer.
+ */
+public composite ConsumerGroupCooperativeIncremental {
+    param
+        // settings for the consumer group
+        expression <int32> $nConsumers: 10;   // this is _not_a_really_ large number, but it may be large for small Streams test and demo deployments.
+        expression <rstring> $topic: "testtopic";
+        // settings for the producer
+        expression <uint32> $numTuples: 100000u; // number of tuples for the producer before it stops
+
+    graph
+
+        @parallel (width = $nConsumers)
+        stream <rstring message, int32 partition, rstring key> ConsumedMsgs = MessageHubConsumer() {
+            param
+                credentialsFile: "etc/eventstreams.json";
+                propertiesFile: "etc/consumer.properties";
+                topic: $topic;
+                groupId: "myMH_sampleGroupId";   // group ID can also be specified in consumer.properties as group.id property
+        }
+    
+        // some analytics; if we scale up the analytics using parallel channels, it may be important
+        // that the parallel channels are partitioned by something within the message.
+        @parallel (width = $nConsumers, partitionBy = [{port = I, attributes = [key]}])
+        stream <I> Analytics = Filter (ConsumedMsgs as I) {
+            param
+                filter: key != "";
+        }
+        
+        () as Stdout = Custom (Analytics as I) {
+            logic onTuple I: printStringLn ((rstring)I);
+        }
+
+        () as Outfile = FileSink (Analytics) {
+            param
+                file: "/tmp/ConsumerGroupCooperativeIncremental.out.csv";
+        }
+
+
+
+        // ================= producer ====================================
+        stream <int32 cnt, rstring message> GeneratedData = Beacon() {
+            param
+                iterations : $numTuples;
+                period : 0.002;
+                initDelay : 10.0;
+            output
+                GeneratedData: cnt = (int32) IterationCount(), message = "this is Kafka message number " +(rstring) IterationCount();
+        }
+
+        
+        stream <rstring message, rstring key> ProducerData = Functor (GeneratedData as I) {
+            output ProducerData: key = (rstring) hashCode (message);
+        }
+
+        () as ProducedMsgs = MessageHubProducer (ProducerData) {
+            param
+                topic: $topic;
+//                keyAttribute: key;            // 'key' is default value
+//                messageAttribute: message;    // 'message' is default value
+                credentialsFile: "etc/eventstreams.json";
+        }
+}
