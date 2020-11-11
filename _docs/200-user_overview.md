@@ -2,7 +2,7 @@
 title: "Toolkit Usage Overview"
 permalink: /docs/user/overview/
 excerpt: "How to use this toolkit."
-last_modified_at: 2019-12-03T12:37:48+01:00
+last_modified_at: 2020-12-11T08:37:48+01:00
 redirect_from:
    - /theme-setup/
 sidebar:
@@ -20,6 +20,36 @@ other downstream operators of the Streams application. It is a source operator w
 The *MessageHubProducer* operator creates Kafka messages in the Event Streams service from tuples and acts therefore
 as a sink operator within your Streams application. The MessageHubConsumer has a one-to-one relationship between Kafka messages and produced tuples. for the MessageHubProducer there is a one-to-N relationship between tuples and Event Streams messages, where *N* is the number of topics for which a tuple is produced.
 The Event Streams cloud service is based on Kafka, so that this toolkit and most descriptions are strongly related to those of the [Kafka toolkit](https://github.com/IBMStreams/streamsx.kafka). Read more about how to use these operators in the [SPL documentation](https://ibmstreams.github.io/streamsx.messagehub/doc/spldoc/html/).
+
+# Kafka client versions
+
+The Message Hub toolkit contains the Java Kafka clients package. Which toolkit version ships with which kafka-clients version, can be found in the following table.
+
+| toolkit version | streamsx.kafka base version | kafka-clients version |
+| --- | --- | --- |
+| 3.3.x | 3.2.x | 2.5.1 |
+| 3.2.2 | 3.1.3 | 2.3.1 |
+| 3.2.0  - 3.2.1 | 3.1.0 | 2.3.1 |
+| 3.1.0 | 3.0.4 | 2.3.1 |
+| 3.0.x | 3.0.x | 2.3.1 |
+| 2.1.x - 2.2.x | 2.1.x - 2.2.x | 2.2.1 |
+| 2.0.2 | 2.0.1 | 2.2.1 |
+| 2.0.1 | 2.0.0 | 2.2.1 |
+| 2.0.0 | 2.0.0 | 2.2.1 |
+| 1.9.4 | 1.9.5 | 2.1.1 |
+| 1.9.3 | 1.9.4 | 2.1.1 |
+| 1.9.2 | 1.9.3 | 2.1.1 |
+| 1.9.0 - 1.9.1 | 1.9.0 - 1.9.1 | 2.1.1 |
+| 1.8.0 | 1.8.0 | 1.0.0 |
+| 1.7.4 | 1.7.3 | 1.0.0
+| 1.7.0 - 1.7.3 | 1.7.0 - 1.7.3 | 1.0.0 |
+| 1.6.x | 1.6.x | 1.0.0 |
+| 1.5.x | 1.5.x | 1.0.0 |
+| 1.4.x | 1.4.x | 1.0.0 |
+| 1.3.x | 1.3.x | 1.0.0 |
+| 1.1.0 - 1.2.x | 1.1.0 - 1.2.x | 0.10.2.1 |
+| 1.0.x | 1.0.0 | 0.10.2 |
+
 
 # Common consumer patterns and use cases
 
