@@ -12,12 +12,10 @@ which simplifies the setup for connecting to the cloud service.
 
 # Additional information
 
-+ What's new and what has changed
-
-For changes in this toolkit release, see [https://github.com/IBMStreams/streamsx.messagehub/blob/develop/com.ibm.streamsx.messagehub/CHANGELOG.md|the change log in public Github]
+For changes in this toolkit release, see [https://github.com/IBMStreams/streamsx.messagehub/blob/v3.3.0/com.ibm.streamsx.messagehub/CHANGELOG.md|the change log in public Github]
 
    </info:description>
-   <info:version>3.2.2</info:version>
+   <info:version>3.3.0</info:version>
    <info:requiredProductVersion>4.3.0.0</info:requiredProductVersion>
  </info:identity>
  <info:dependencies/>
