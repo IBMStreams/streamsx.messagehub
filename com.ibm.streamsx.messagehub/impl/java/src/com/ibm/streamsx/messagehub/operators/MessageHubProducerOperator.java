@@ -166,7 +166,7 @@ public class MessageHubProducerOperator extends AbstractKafkaProducerOperator {
             + "\\n"
             + "The operator implements Kafka's Producer API. As a result, it supports all "
             + "Kafka properties that are supported by the underlying API. The producer properties "
-            + "can be found in the [https://kafka.apache.org/documentation/#producerconfigs|Apache Kafka documentation]. "
+            + "can be found in the [https://kafka.apache.org/25/documentation.html#producerconfigs|Apache Kafka documentation]. "
             + "Properties can be "
             + "specified in a file or in an application configuration. If specifying properties "
             + "via a file, the **propertiesFile** parameter can be used. If specifying properties "

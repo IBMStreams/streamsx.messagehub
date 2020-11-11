@@ -207,7 +207,7 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
             + "\\n"
             + "The operator implements Kafka's Consumer API. As a result, it supports all "
             + "Kafka properties that are supported by the underlying API. The consumer properties "
-            + "can be found in the [https://kafka.apache.org/documentation/#consumerconfigs|Apache Kafka documentation]. "
+            + "can be found in the [https://kafka.apache.org/25/documentation.html#consumerconfigs|Apache Kafka documentation]. "
             + "Properties can be "
             + "specified in a file or in an application configuration. If specifying properties "
             + "via a file, the **propertiesFile** parameter can be used. If specifying properties "
@@ -235,6 +235,8 @@ public class MessageHubConsumerOperator extends AbstractKafkaConsumerOperator {
             + KafkaSplDoc.CONSUMER_KAFKA_GROUP_MANAGEMENT
             + "\\n"
             + KafkaSplDoc.CONSUMER_STATIC_GROUP_MEMBERSHIP
+            + "\\n"
+            + KafkaSplDoc.CONSUMER_INCREMENTAL_COOPERATIVE_REBALANCING
             + "\\n"
             + KafkaSplDoc.CONSUMER_CHECKPOINTING_CONFIG
             + "\\n"
