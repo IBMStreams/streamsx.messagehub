@@ -1,8 +1,10 @@
 # Changes
 ==========
 
-## latest/develop
+## v3.3.0
 * [#116](https://github.com/IBMStreams/streamsx.messagehub/issues/116) Makefiles of sample application prepared for CP4D Streams build service, supports build with [VS Code](https://marketplace.visualstudio.com/items?itemName=IBM.ibm-streams)
+* [IBMStreams/streamsx.kafka/#218](https://github.com/IBMStreams/streamsx.kafka/issues/218) support incremental cooperative rebalancing
+* [IBMStreams/streamsx.kafka/#217](https://github.com/IBMStreams/streamsx.kafka/issues/217) upgrade kafka-clients from 2.3.1 to 2.5.1
 
 ## v3.2.2
 * [IBMStreams/streamsx.messagehub/#115](https://github.com/IBMStreams/streamsx.messagehub/issues/115) I18n: update message translations
