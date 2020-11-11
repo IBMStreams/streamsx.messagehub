@@ -2,7 +2,7 @@
 title: "Toolkit Usage Overview"
 permalink: /docs/user/overview/
 excerpt: "How to use this toolkit."
-last_modified_at: 2020-12-11T08:37:48+01:00
+last_modified_at: 2020-12-11T12:37:48+01:00
 redirect_from:
    - /theme-setup/
 sidebar:
@@ -74,13 +74,13 @@ There are three standard patterns for Streams reading messages from Event Stream
 The MessageHubConsumer operator can be configured with additional
 [Kafka consumer properties](https://kafka.apache.org/documentation.html#consumerconfigs). These can be specified in a property file or in the application configuration that contains also the credentials. The examples in the standard patterns use an application configuration. Some operator parameters, like **groupId**, and **clientId** map directly to properties. Other properties are adjusted by the operator. Which one, can be reviewed in the [SPL documentation](https://ibmstreams.github.io/streamsx.messagehub/docs/user/SPLDoc/) of the operators.
 
-**Property example of the application configuration**
+**Property example of the application configuration for a consumer**
 
 | property name | property value |
 | --- | --- |
 | messagehub.creds | { "api_key": "Tv39...eT", ..., ..., "user": "token" } |
 | max.poll.records | 2000 |
-| auto.offset.reset | earliest |
+| partition.assignment.strategy | org.apache.kafka.clients.consumer.CooperativeStickyAssignor |
 
 Each such a collection of properties has a name, the name of the application configuration, which must be configured as the **appConfigName** parameter.
 
@@ -93,6 +93,6 @@ Each such a collection of properties has a name, the name of the application con
 * [ConsumerGroupInputPortSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/ConsumerGroupInputPortSample) - control the topics to subscribe for a consumer group via control port
 * [ConsumerVariableStartPositionSample](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/ConsumerVariableStartPositionSample) - use submission time value for the MessageHubConsumer's start position
 * [ConsumerGroupWithConsistentRegion](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/ConsumerGroupWithConsistentRegion) - create a consumer group with at-least-once processing in a consistent region
-
+* [ConsumerGroupCooperativeIncrementalRebalance](https://github.com/IBMStreams/streamsx.messagehub/tree/develop/samples/ConsumerGroupCooperativeIncrementalRebalance) - configure the consumer operator for cooperative incremental rebalance
 
 It is also worth looking at the samples of the Kafka toolkit, which can be found [here](https://ibmstreams.github.io/streamsx.kafka/docs/user/overview/).
