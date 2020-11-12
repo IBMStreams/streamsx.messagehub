@@ -22,7 +22,7 @@
 <div class="body refbody">
 <div class="section">
 <p class="p">
-<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 3.3.0</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; MessageHubConsumer</p>
+<a class="xref" href="../toolkits/toolkits.html">Message Hub Toolkit</a> &gt; <a class="xref" href="tk$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub 3.2.2</a> &gt; <a class="xref" href="ns$com.ibm.streamsx.messagehub.html">com.ibm.streamsx.messagehub</a> &gt; MessageHubConsumer</p>
 
 </div>
 
@@ -220,7 +220,7 @@
 <div class="section"><h2 class="title sectiontitle">Kafka Properties
 </h2>
 
-<p class="p">The operator implements Kafka's Consumer API. As a result, it supports all Kafka properties that are supported by the underlying API. The consumer properties can be found in the <a class="xref" href="https://kafka.apache.org/25/documentation.html#consumerconfigs">Apache Kafka documentation</a>. Properties can be specified in a file or in an application configuration. If specifying properties via a file, the <strong class="ph b">propertiesFile</strong> parameter can be used. If specifying properties in an application configuration, the name of the application configuration must be specified using the <strong class="ph b">appConfigName</strong> parameter. 
+<p class="p">The operator implements Kafka's Consumer API. As a result, it supports all Kafka properties that are supported by the underlying API. The consumer properties can be found in the <a class="xref" href="https://kafka.apache.org/documentation/#consumerconfigs">Apache Kafka documentation</a>. Properties can be specified in a file or in an application configuration. If specifying properties via a file, the <strong class="ph b">propertiesFile</strong> parameter can be used. If specifying properties in an application configuration, the name of the application configuration must be specified using the <strong class="ph b">appConfigName</strong> parameter. 
 </p>
 
 </div>
@@ -524,7 +524,7 @@
 </td>
 
 <td class="entry" colspan="1" valign="top" headers="d5259e594 ">
-<p class="p"><strong class="ph b">When in consistent region</strong>, the partition assignment strategy is adjusted to strategies that support the EAGER protocol only. When not set or no EAGER only assignor remains, and in consistent region, <tt class="ph tt">org.apache.kafka.clients.consumer.RangeAssignor</tt> or <tt class="ph tt">org.apache.kafka.clients.consumer.RoundRobinAssignor</tt> is chosen dependent on number of subscribed topics. <strong class="ph b">When not in a consistent region and no strategy is given:</strong> <tt class="ph tt">org.apache.kafka.clients.consumer.RoundRobinAssignor</tt> when multiple topics or a pattern is subscribed. Otherwise Kafka's built-in default applies.
+<p class="p"><strong class="ph b">Only when multiple topics are specified:</strong> <tt class="ph tt">org.apache.kafka.clients.consumer.RoundRobinAssignor</tt>
 </p>
 
 </td>
@@ -706,13 +706,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d5259e963">
+<th class="entry" colspan="1" valign="top" id="d5259e954">
 <p class="p">Deserializer
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d5259e969">
+<th class="entry" colspan="1" valign="top" id="d5259e960">
 <p class="p">SPL Types
 </p>
 
@@ -724,13 +724,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e963 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e954 ">
 <p class="p">org.apache.kafka.common.serialization.StringDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e969 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e960 ">
 <p class="p">rstring
 </p>
 
@@ -739,13 +739,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e963 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e954 ">
 <p class="p">org.apache.kafka.common.serialization.IntegerDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e969 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e960 ">
 <p class="p">int32, uint32
 </p>
 
@@ -754,13 +754,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e963 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e954 ">
 <p class="p">org.apache.kafka.common.serialization.LongDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e969 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e960 ">
 <p class="p">int64, uint64
 </p>
 
@@ -769,13 +769,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e963 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e954 ">
 <p class="p">org.apache.kafka.common.serialization.FloatDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e969 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e960 ">
 <p class="p">float32
 </p>
 
@@ -784,13 +784,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e963 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e954 ">
 <p class="p">org.apache.kafka.common.serialization.DoubleDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e969 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e960 ">
 <p class="p">float64
 </p>
 
@@ -799,13 +799,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e963 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e954 ">
 <p class="p">org.apache.kafka.common.serialization.ByteArrayDeserializer
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e969 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e960 ">
 <p class="p">blob
 </p>
 
@@ -838,13 +838,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d5259e1109">
+<th class="entry" colspan="1" valign="top" id="d5259e1100">
 <p class="p">Custom Metric
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d5259e1115">
+<th class="entry" colspan="1" valign="top" id="d5259e1106">
 <p class="p">Description
 </p>
 
@@ -856,13 +856,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e1109 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1100 ">
 <p class="p">connection-count
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e1115 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1106 ">
 <p class="p">The current number of active connections.
 </p>
 
@@ -871,13 +871,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e1109 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1100 ">
 <p class="p">incoming-byte-rate
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e1115 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1106 ">
 <p class="p">The number of bytes read off all sockets per second
 </p>
 
@@ -886,13 +886,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e1109 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1100 ">
 <p class="p"><em class="ph i">topic</em>-<em class="ph i">partition</em>:records-lag
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e1115 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1106 ">
 <p class="p">The latest lag of the specific partition. A value of <tt class="ph tt">-1</tt> indicates that the metric is not applicable to the operator.
 </p>
 
@@ -901,13 +901,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e1109 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1100 ">
 <p class="p">records-lag-max
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e1115 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1106 ">
 <p class="p">The maximum lag in terms of number of records for any partition in this window
 </p>
 
@@ -916,13 +916,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e1109 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1100 ">
 <p class="p">fetch-size-avg
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e1115 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1106 ">
 <p class="p">The average number of bytes fetched per request
 </p>
 
@@ -931,13 +931,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e1109 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1100 ">
 <p class="p"><em class="ph i">topic</em>:fetch-size-avg
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e1115 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1106 ">
 <p class="p">The average number of bytes fetched per request for a topic
 </p>
 
@@ -946,13 +946,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e1109 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1100 ">
 <p class="p">commit-rate
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e1115 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1106 ">
 <p class="p">The number of commit calls per second
 </p>
 
@@ -961,13 +961,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e1109 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1100 ">
 <p class="p">commit-latency-avg
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e1115 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1106 ">
 <p class="p">The average time taken for a commit request
 </p>
 
@@ -1063,13 +1063,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d5259e1445">
+<th class="entry" colspan="1" valign="top" id="d5259e1436">
 <p class="p">metric name
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d5259e1451">
+<th class="entry" colspan="1" valign="top" id="d5259e1442">
 <p class="p">description
 </p>
 
@@ -1081,13 +1081,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e1445 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1436 ">
 <p class="p">isGroupManagementActive
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e1451 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1442 ">
 <p class="p"><tt class="ph tt">1</tt> indicates that group management is active, <tt class="ph tt">0</tt> indicates that group management is inactive.
 </p>
 
@@ -1096,13 +1096,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e1445 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1436 ">
 <p class="p">nPartitionRebalances
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e1451 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1442 ">
 <p class="p">Number of partition assignment rebalances for each consumer operator. <strong class="ph b">The metric is only visible when group management is active.</strong>
 </p>
 
@@ -1125,7 +1125,7 @@
 <p class="p"><strong class="ph b">To benefit from this feature, the Kafka server must be at minimum version 2.3.</strong>
 </p>
 
-<p class="p">Since version 2.3, Kafka supports <a class="xref" href="https://kafka.apache.org/25/documentation/#static_membership">static group membership</a>, more detailed in this <a class="xref" href="https://www.confluent.io/blog/kafka-rebalance-protocol-static-membership">confluent blog post</a>.
+<p class="p">Since version 2.3, Kafka supports <a class="xref" href="https://kafka.apache.org/23/documentation/#static_membership">static group membership</a>, more detailed in this <a class="xref" href="https://www.confluent.io/blog/kafka-rebalance-protocol-static-membership">confluent blog post</a>.
 </p>
 
 <p class="p">Streams applications can benefit from this feature as it avoids unnecessary consumer group rebalances when PEs are re-launched. With dynamic group members (the traditional behavior), a consumer actively leaves the group when its PE is re-launched, leading to an immediate partition rebalance among the remaining consumers.
@@ -1135,38 +1135,6 @@
 </p>
 
 <p class="p">You can enable this feature by setting either the consumer config <tt class="ph tt">group.instance.id</tt> to a unique value within the consumer group, or by setting the <strong class="ph b">staticGroupMember</strong> parameter to <tt class="ph tt">true</tt>, which creates a uniqe <tt class="ph tt">group.instance.id</tt>. When a <tt class="ph tt">group.instance.id</tt> is detected, the operator automatically increases the default session timeout when no user-provided session timeout is given.
-</p>
-
-</div>
-
-<div class="section"><h2 class="title sectiontitle">Incremental Cooperative Rebalancing of Consumer Groups
-</h2>
-
-<p class="p">Kafka 2.4 implemented incremental cooperative rebalancing of consumers, <a class="xref" href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-429: Kafka Consumer Incremental Rebalance Protocol">KIP-429</a>. The rebalancing protocol is an <em class="ph i">embedded protocol</em> between the consumer that is chosen as the <em class="ph i">group leader</em>, and the other group members to negotiate <em class="ph i">who owns which partitions</em>. The Kafka server, especially the <em class="ph i">group coordinator</em> is not aware of this embedded protocol, so that the new rebalancing protocol is available for all Kafka server versions, which are supported by this toolkit.
-</p>
-
-<p class="p">The new rebalancing strategy is beneficial for large consumer groups and happens in multiple rounds, in which only some topic partitions are moved (revoked/assigned) between consumers. Partitions that need not be revoked, stay assigned and continue being consumed. A more elaborated description of this new feature can be found in <a class="xref" href="https://www.confluent.io/blog/cooperative-rebalancing-in-kafka-streams-consumer-ksqldb/">this confluent blog post</a>.
-</p>
-
-<p class="p"><strong class="ph b">Activation</strong>
-</p>
-
-<p class="p">Use following consumer property for all consumers within the consumer group: <tt class="ph tt">partition.assignment.strategy=org.apache.kafka.clients.consumer.CooperativeStickyAssignor</tt>
-</p>
-
-<div class="p">All other assignors use the EAGER rebalance protocol, which always revokes all partitions from all consumers followed by a re-assignment (stop-the-world effect). These are the built-in eager assignors, which can be configured:
-<ul class="ul">
-<li class="li"> org.apache.kafka.clients.consumer.RangeAssignor</li>
-
-<li class="li"> org.apache.kafka.clients.consumer.RoundRobinAssignor</li>
-
-<li class="li"> org.apache.kafka.clients.consumer.StickyAssignor</li>
-
-</ul>
-
-</div>
-
-<p class="p"><strong class="ph b">Note:</strong> When the consumer operator is used in a consistent region, automatically an assignor for the EAGER protocol is configured as every rebalance iteration would trigger a reset of the consistent region. The reset of a consistent region is a <em class="ph i">stop-the-world</em> event for the application so that consumers in a consistent region would not benefit from incremental rebalancing. On the contrary, incremental rebalancing could have a negative impact in consistent region.
 </p>
 
 </div>
@@ -1254,13 +1222,13 @@
 
 <thead class="thead" align="left">
 <tr class="row">
-<th class="entry" colspan="1" valign="top" id="d5259e1799">
+<th class="entry" colspan="1" valign="top" id="d5259e1723">
 <p class="p">metric name
 </p>
 
 </th>
 
-<th class="entry" colspan="1" valign="top" id="d5259e1805">
+<th class="entry" colspan="1" valign="top" id="d5259e1729">
 <p class="p">description
 </p>
 
@@ -1272,13 +1240,13 @@
 
 <tbody class="tbody">
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e1799 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1723 ">
 <p class="p">drainTimeMillis
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e1805 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1729 ">
 <p class="p">drain duration of the last drain in milliseconds
 </p>
 
@@ -1287,13 +1255,13 @@
 </tr>
 
 <tr class="row">
-<td class="entry" colspan="1" valign="top" headers="d5259e1799 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1723 ">
 <p class="p">drainTimeMillisMax
 </p>
 
 </td>
 
-<td class="entry" colspan="1" valign="top" headers="d5259e1805 ">
+<td class="entry" colspan="1" valign="top" headers="d5259e1729 ">
 <p class="p">maximum drain duration in milliseconds
 </p>
 
@@ -2417,7 +2385,7 @@ This operator supports 25 parameters.
 <dt class="dt dlterm"><a name="spldoc_operator__parameter__userLib"><!-- --></a><tt class="ph tt">userLib</tt></dt>
 
 <dd class="dd">
-<p class="p">Allows the user to specify paths to JAR files that should be loaded into the operators classpath. This is useful if the user wants to be able to specify their own partitioners or assignors. The value of this parameter can either point to a specific JAR file, or to a directory. In the case of a directory, the operator will load all files ending in <tt class="ph tt">.jar</tt> onto the classpath. By default, this parameter will load all jar files found in <tt class="ph tt">&lt;application_dir&gt;/etc/libs</tt>.
+<p class="p">Allows the user to specify paths to JAR files that should be loaded into the operators classpath. This is useful if the user wants to be able to specify their own partitioners. The value of this parameter can either point to a specific JAR file, or to a directory. In the case of a directory, the operator will load all files ending in <tt class="ph tt">.jar</tt> onto the classpath. By default, this parameter will load all jar files found in <tt class="ph tt">&lt;application_dir&gt;/etc/libs</tt>.
 </p>
 <dl class="dl">
 
