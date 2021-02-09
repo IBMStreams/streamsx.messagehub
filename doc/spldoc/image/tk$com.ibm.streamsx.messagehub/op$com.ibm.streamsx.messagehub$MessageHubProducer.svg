@@ -109,7 +109,7 @@ JsuSdJJR/c19tTt90cr9D+TIRMSPjQ29AAAAAElFTkSuQmCC"
       ><text x="48.65" y="58.0"
       >credentials, credentialsFile, flush, guaranteeOrdering, </text
       ><text x="48.65" y="73.0"
-      >keyAttribute, messageAttribute, outputErrorsOnly, </text
+      >keyAttribute, krb5Debug, messageAttribute, outputErrorsOnly, </text
       ><text x="48.65" y="88.0"
       >partitionAttribute, propertiesFile, sslDebug, timestampAttribute, </text
       ><text x="48.65" y="103.0"
