@@ -80,7 +80,7 @@ task release {
 
 task spldoc(dependsOn: ":com.ibm.streamsx.messagehub:build") {
     doLast {
-        spldoc('com.ibm.streamsx.messagehub', 'Message Hub Toolkit')
+        spldoc('com.ibm.streamsx.messagehub', 'Message Hub (Event Streams) Toolkit')
     }
 }
 
