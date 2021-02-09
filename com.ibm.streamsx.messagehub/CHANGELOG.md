@@ -1,8 +1,9 @@
 # Changes
 ==========
+## develop/latest
 
 ## v3.3.1
-* [IBMStreams/streamsx.kafka/#228](https://github.com/IBMStreams/streamsx.kafka/issues/228)KafkaConsumer: support submission time parameter for multiple topics
+* [IBMStreams/streamsx.kafka/#228](https://github.com/IBMStreams/streamsx.kafka/issues/228) KafkaConsumer: support submission time parameter for multiple topics
 
 ## v3.3.0
 * [#116](https://github.com/IBMStreams/streamsx.messagehub/issues/116) Makefiles of sample application prepared for CP4D Streams build service, supports build with [VS Code](https://marketplace.visualstudio.com/items?itemName=IBM.ibm-streams)
